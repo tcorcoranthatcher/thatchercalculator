@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Braced Wall</title>
+</head>
+<body>
+<h1>One Level Braced Wall Calculator</h1>
+
+<form action="{% url 'output' %}">
+    <h2>Input Footings and/or trains(up to 4 each)</h2>
+    Footing 1
+    <br>
+    <input type="text" name="footing_1_type">Enter 0 if continuous, 1 if spread<br>
+    <input type="text" name="footing_1_width">Footing width<br>
+    <input type="text" name="footing_1_distance">Distance from center line of footing to wall<br>
+    <input type="text" name="footing_1_elevation">Elevation of bottom of footing<br>
+    <input type="text" name="footing_1_load">Load on footing in plf for continuous, pounds for spread<br>
+    <input type="text" name="footing_1_spacing_1">Spread footing spacing to closest footing in plane (enter 0 if continuous)<br>
+    <input type="text" name="footing_1_spacing_2">Spread footing spacing to next closest footing (enter 0 if continuous)<br>
+    <br>
+    Footing 2
+    <br>
+    <input type="text" name="footing_2_type">Enter 0 if continuous, 1 if spread<br>
+    <input type="text" name="footing_2_width">Footing width<br>
+    <input type="text" name="footing_2_distance">Distance from center line of footing to wall<br>
+    <input type="text" name="footing_2_elevation">Elevation of bottom of footing<br>
+    <input type="text" name="footing_2_load">Load on footing in plf for continuous, pounds for spread<br>
+    <input type="text" name="footing_2_spacing_1">Spread footing spacing to closest footing in plane (enter 0 if continuous)<br>
+    <input type="text" name="footing_2_spacing_2">Spread footing spacing to next closest footing (enter 0 if continuous)<br>
+    <br>
+    Footing 3
+    <br>
+    <input type="text" name="footing_3_type">Enter 0 if continuous, 1 if spread<br>
+    <input type="text" name="footing_3_width">Footing width<br>
+    <input type="text" name="footing_3_distance">Distance from center line of footing to wall<br>
+    <input type="text" name="footing_3_elevation">Elevation of bottom of footing<br>
+    <input type="text" name="footing_3_load">Load on footing in plf for continuous, pounds for spread<br>
+    <input type="text" name="footing_3_spacing_1">Spread footing spacing to closest footing in plane (enter 0 if continuous)<br>
+    <input type="text" name="footing_3_spacing_2">Spread footing spacing to next closest footing (enter 0 if continuous)<br>
+    <br>
+    Footing 4
+    <br>
+    <input type="text" name="footing_4_type">Enter 0 if continuous, 1 if spread<br>
+    <input type="text" name="footing_4_width">Footing width<br>
+    <input type="text" name="footing_4_distance">Distance from center line of footing to wall<br>
+    <input type="text" name="footing_4_elevation">Elevation of bottom of footing<br>
+    <input type="text" name="footing_4_load">Load on footing in plf for continuous, pounds for spread<br>
+    <input type="text" name="footing_4_spacing_1">Spread footing spacing to closest footing in plane (enter 0 if continuous)<br>
+    <input type="text" name="footing_4_spacing_2">Spread footing spacing to next closest footing (enter 0 if continuous)<br>
+    <br>
+    <br>
+    Train 1
+    <br>
+    <input type="text" name="train_1_distance">Distance from edge of tie to sheeting<br>
+    <input type="text" name="train_1_load">Q, Strip Load Surcharge<br>
+    <input type="text" name="train_1_tie_size">Tie Size<br>
+    <input type="text" name="train_1_elevation">Elevation of train track<br>
+    <br>
+    Train 2
+    <br>
+    <input type="text" name="train_2_distance">Distance from edge of tie to sheeting<br>
+    <input type="text" name="train_2_load">Q, Strip Load Surcharge<br>
+    <input type="text" name="train_2_tie_size">Tie Size<br>
+    <input type="text" name="train_2_elevation">Elevation of train track<br>
+    Train 3
+    <br>
+    <input type="text" name="train_3_distance">Distance from edge of tie to sheeting<br>
+    <input type="text" name="train_3_load">Q, Strip Load Surcharge<br>
+    <input type="text" name="train_3_tie_size">Tie Size<br>
+    <input type="text" name="train_3_elevation">Elevation of train track<br>
+    Train 4
+    <br>
+    <input type="text" name="train_4_distance">Distance from edge of tie to sheeting<br>
+    <input type="text" name="train_4_load">Q, Strip Load Surcharge<br>
+    <input type="text" name="train_4_tie_size">Tie Size<br>
+    <input type="text" name="train_4_elevation">Elevation of train track<br>
+    <br>
+    <h2>Describe the surface of the section</h2>
+    <h3>What side is the surface on?</h3>
+    <input type="radio" name="surface_side" value="-1" checked>Left of ERS<br>
+    <input type="radio" name="surface_side" value="1">Right of ERS<br>
+    <br>
+    <h3>Input surface points</h3>
+    Input coordinates starting from the ERS point and going sequentially along the surface.<br>
+    The final point's x-coordinate should go out to pretty far (50 units or more past the last point)<br>
+    <br>
+    <input type="text" name="point0x">Point(0)-x<br>
+    <input type="text" name="point0y">Point(0)-y<br>
+    <br>
+    <input type="text" name="point1x">Point(1)-x<br>
+    <input type="text" name="point1y">Point(1)-y<br>
+    <br>
+    <input type="text" name="point2x">Point(2)-x<br>
+    <input type="text" name="point2y">Point(2)-y<br>
+    <br>
+    <input type="text" name="point3x">Point(3)-x<br>
+    <input type="text" name="point3y">Point(3)-y<br>
+    <br>
+    <input type="text" name="point4x">Point(4)-x<br>
+    <input type="text" name="point4y">Point(4)-y<br>
+    <br>
+    <input type="text" name="point5x">Point(5)-x<br>
+    <input type="text" name="point5y">Point(5)-y<br>
+    <br>
+    <input type="text" name="point6x">Point(6)-x<br>
+    <input type="text" name="point6y">Point(6)-y<br>
+    <br>
+    <input type="text" name="point7x">Point(7)-x<br>
+    <input type="text" name="point7y">Point(7)-y<br>
+    <br>
+    <input type="text" name="point8x">Point(8)-x<br>
+    <input type="text" name="point8y">Point(8)-y<br>
+    <br>
+    <input type="text" name="point9x">Point(9)-x<br>
+    <input type="text" name="point9y">Point(9)-y<br>
+    <br>
+    <input type="text" name="point10x">Point(10)-x<br>
+    <input type="text" name="point10y">Point(10)-y<br>
+    <br>
+    <input type="text" name="point11x">Point(11)-x<br>
+    <input type="text" name="point11y">Point(11)-y<br>
+    <br>
+    <input type="text" name="point12x">Point(12)-x<br>
+    <input type="text" name="point12y">Point(12)-y<br>
+    <br>
+    <input type="text" name="point13x">Point(13)-x<br>
+    <input type="text" name="point13y">Point(13)-y<br>
+    <h3>Surcharge Parameters</h3>
+    Enter unit weight of surcharge soil to be considered in pcf.<br>
+    <input type="text" name="surcharge_unit_weight"><br>
+    Enter minimum surcharge height for all layers (leave blank if does not apply)<br>
+    <input type="text" name="min_surcharge_height"><br>
+    <h3>Failure Angle</h3>
+    <input type="radio" name="angle" value="45" checked>45 deg<br>
+    <input type="radio" name="angle" value="55">55 deg<br>
+    <h3>At what elevation does the angle change? (leave blank if does not apply)</h3>
+    <input type="text" name="angle_change_elev">
+    <br>
+    <h3>Which situation applies to the angle change?</h3>
+    <input type="radio" name="angle_change_type" value="0" checked>Does not apply<br>
+    <input type="radio" name="angle_change_type" value="1">Sand-over-clay (use 55 degree angle)<br>
+    <input type="radio" name="angle_change_type" value="2">Clay-over-sand (use 45 degree angle)<br>
+    <br>
+    <br>
+    <h2>Work Points and Soil Layers</h2>
+    <h3>Input Soil Layers</h3>
+    Input the soil layers to be used in pressure calculations.
+    <br>
+    <br>
+    Layer 1:
+    <input type="radio" name="1.type" value="0" checked>Granular
+    <input type="radio" name="1.type" value="1">Cohesive<br>
+    Name <input type="text" name="1.name">
+    Unit Weight (pcf) <input type="text" name="1.gamma"> <br>
+    qu (tsf) <input type="text" name="1.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="1.ka">
+    Kp <input type="text" name="1.kp"> Enter 1 for both if cohesive.
+    <br>
+    <br>
+    Layer 2:
+    <input type="radio" name="2.type" value="0" checked>Granular
+    <input type="radio" name="2.type" value="1">Cohesive<br>
+    Name <input type="text" name="2.name">
+    Unit Weight (pcf) <input type="text" name="2.gamma"> <br>
+    qu (tsf) <input type="text" name="2.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="2.ka">
+    Kp <input type="text" name="2.kp"> Enter 1 for both if cohesive.
+    <br>
+    <br>
+    Layer 3:
+    <input type="radio" name="3.type" value="0" checked>Granular
+    <input type="radio" name="3.type" value="1">Cohesive<br>
+    Name <input type="text" name="3.name">
+    Unit Weight (pcf) <input type="text" name="3.gamma"> <br>
+    qu (tsf) <input type="text" name="3.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="3.ka">
+    Kp <input type="text" name="3.kp"> Enter 1 for both if cohesive.
+    <br>
+    <br>
+    Layer 4:
+    <input type="radio" name="4.type" value="0" checked>Granular
+    <input type="radio" name="4.type" value="1">Cohesive<br>
+    Name <input type="text" name="4.name">
+    Unit Weight (pcf) <input type="text" name="4.gamma"> <br>
+    qu (tsf) <input type="text" name="4.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="4.ka">
+    Kp <input type="text" name="4.kp"> Enter 1 for both if cohesive.
+    <br>
+    <br>
+    Layer 5:
+    <input type="radio" name="5.type" value="0" checked>Granular
+    <input type="radio" name="5.type" value="1">Cohesive<br>
+    Name <input type="text" name="5.name">
+    Unit Weight (pcf) <input type="text" name="5.gamma"> <br>
+    qu (tsf) <input type="text" name="5.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="5.ka">
+    Kp <input type="text" name="5.kp"> Enter 1 for both if cohesive.
+    <br>
+    <br>
+    Layer 6:
+    <input type="radio" name="6.type" value="0" checked>Granular
+    <input type="radio" name="6.type" value="1">Cohesive<br>
+    Name <input type="text" name="6.name">
+    Unit Weight (pcf) <input type="text" name="6.gamma"> <br>
+    qu (tsf) <input type="text" name="6.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="6.ka">
+    Kp <input type="text" name="6.kp"> Enter 1 for both if cohesive.
+    <br>
+    <br>
+    Layer 7:
+    <input type="radio" name="7.type" value="0" checked>Granular
+    <input type="radio" name="7.type" value="1">Cohesive<br>
+    Name <input type="text" name="7.name">
+    Unit Weight (pcf) <input type="text" name="7.gamma"> <br>
+    qu (tsf) <input type="text" name="7.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="7.ka">
+    Kp <input type="text" name="7.kp"> Enter 1 for both if cohesive.
+    <br>
+    <br>
+    Layer 8:
+    <input type="radio" name="8.type" value="0" checked>Granular
+    <input type="radio" name="8.type" value="1">Cohesive<br>
+    Name <input type="text" name="8.name">
+    Unit Weight (pcf) <input type="text" name="8.gamma"> <br>
+    qu (tsf) <input type="text" name="8.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="8.ka">
+    Kp <input type="text" name="8.kp"> Enter 1 for both if cohesive.
+    <br>
+    <br>
+    <h3>Input work points</h3>
+    -Put in work points in descending order.  First work point must be the surface.
+    -Changes in layer must be put in as two separate work points.<br>
+    -If you need to switch to total weights at any point, check the box for the work point at which to
+      begin calculating by total weights. <br>
+    -For water around toe:  check the box next to the work points to calculate new unit weights.  Also enter assumed length of ERS <br>
+    <br>
+    <input type="hidden" name="wp1_wat" value="0">
+    <input type="hidden" name="wp2_wat" value="0">
+    <input type="hidden" name="wp3_wat" value="0">
+    <input type="hidden" name="wp4_wat" value="0">
+    <input type="hidden" name="wp5_wat" value="0">
+    <input type="hidden" name="wp6_wat" value="0">
+    <input type="hidden" name="wp7_wat" value="0">
+    <input type="hidden" name="wp8_wat" value="0">
+    <input type="hidden" name="wp9_wat" value="0">
+    <input type="hidden" name="wp10_wat" value="0">
+    <input type="hidden" name="wp11_wat" value="0">
+    <input type="hidden" name="wp12_wat" value="0">
+    <input type="hidden" name="wp13_wat" value="0">
+    <input type="hidden" name="wp14_wat" value="0">
+    <input type="hidden" name="wp15_wat" value="0">
+    <input type="hidden" name="wp16_wat" value="0">
+    <input type="hidden" name="wp17_wat" value="0">
+    <input type="hidden" name="wp18_wat" value="0">
+    <input type="hidden" name="wp19_wat" value="0">
+    <input type="hidden" name="wp20_wat" value="0">
+
+    Work Point 1: Elevation <input type="text" name="wp1"> Layer <input type='text' name="wp1_layer">
+    Total Weights <input type="radio" name="total_weights" value="-1" checked><br>
+    Work Point 2: Elevation <input type="text" name="wp2"> Layer <input type='text' name="wp2_layer">
+    Total Weights <input type="radio" name="total_weights" value="0" checked><br>
+    Work Point 3: Elevation <input type="text" name="wp3"> Layer <input type='text' name="wp3_layer">
+    Total Weights <input type="radio" name="total_weights" value="1" checked><br>
+    Work Point 4: Elevation <input type="text" name="wp4"> Layer <input type='text' name="wp4_layer">
+    Total Weights <input type="radio" name="total_weights" value="2" checked><br>
+    Work Point 5: Elevation <input type="text" name="wp5"> Layer <input type='text' name="wp5_layer">
+    Total Weights <input type="radio" name="total_weights" value="3" checked><br>
+    Work Point 6: Elevation <input type="text" name="wp6"> Layer <input type='text' name="wp6_layer">
+    Total Weights <input type="radio" name="total_weights" value="4" checked><br>
+    Work Point 7: Elevation <input type="text" name="wp7"> Layer <input type='text' name="wp7_layer">
+    Total Weights <input type="radio" name="total_weights" value="5" checked><br>
+    Work Point 8: Elevation <input type="text" name="wp8"> Layer <input type='text' name="wp8_layer">
+    Total Weights <input type="radio" name="total_weights" value="6" checked><br>
+    Work Point 9: Elevation <input type="text" name="wp9"> Layer <input type='text' name="wp9_layer">
+    Total Weights <input type="radio" name="total_weights" value="7" checked><br>
+    Work Point 10: Elevation <input type="text" name="wp10"> Layer <input type='text' name="wp10_layer">
+    Total Weights <input type="radio" name="total_weights" value="8" checked><br>
+    Work Point 11: Elevation <input type="text" name="wp11"> Layer <input type='text' name="wp11_layer">
+    Total Weights <input type="radio" name="total_weights" value="9" checked><br>
+    Work Point 12: Elevation <input type="text" name="wp12"> Layer <input type='text' name="wp12_layer">
+    Total Weights <input type="radio" name="total_weights" value="10" checked><br>
+    Work Point 13: Elevation <input type="text" name="wp13"> Layer <input type='text' name="wp13_layer">
+    Total Weights <input type="radio" name="total_weights" value="11" checked><br>
+    Work Point 14: Elevation <input type="text" name="wp14"> Layer <input type='text' name="wp14_layer">
+    Total Weights <input type="radio" name="total_weights" value="12" checked><br>
+    Work Point 15: Elevation <input type="text" name="wp15"> Layer <input type='text' name="wp15_layer">
+    Total Weights <input type="radio" name="total_weights" value="13" checked><br>
+    Work Point 16: Elevation <input type="text" name="wp16"> Layer <input type='text' name="wp16_layer">
+    Total Weights <input type="radio" name="total_weights" value="14" checked><br>
+    Work Point 17: Elevation <input type="text" name="wp17"> Layer <input type='text' name="wp17_layer">
+    Total Weights <input type="radio" name="total_weights" value="15" checked><br>
+    Work Point 18: Elevation <input type="text" name="wp18"> Layer <input type='text' name="wp18_layer">
+    Total Weights <input type="radio" name="total_weights" value="16" checked><br>
+    Work Point 19: Elevation <input type="text" name="wp19"> Layer <input type='text' name="wp19_layer">
+    Total Weights <input type="radio" name="total_weights" value="17" checked><br>
+    Work Point 20: Elevation <input type="text" name="wp20"> Layer <input type='text' name="wp20_layer">
+    Total Weights <input type="radio" name="total_weights" value="18" checked><br>
+    Do not switch to total weights at any point <input type="radio" name="total_weights" value="200" checked><br>
+    <input type="hidden" name="wat_check" value="0">
+    Check for water around toe? <input type="checkbox" name="wat_check" value = '1'><br>
+    <br>
+    <h3>Water Elevation (Leave blank if does not apply)</h3>
+    <input type="text" name="water_elev">
+    <br>
+    <h3>Excavation Elevation</h3>
+    Enter the elevation of the cut.<br>
+    <br>
+    <input type="text" name="cut_elev">
+    <br>
+    <h3>Brace Elevation</h3>
+    <input type="text" name="brace_elev">
+    <br>
+    <h3>Top of sheet/soldier pile (Optional)</h3>
+    Enter in the top of sheet if it does not coincide with the top of surface<br>
+    <br>
+    <input type="text" name="top_sheet">
+    <br>
+    <h2>Other Options</h2>
+     <input type="text" name="supplied_length"> Supplied Length (ft) REQUIRED <br>
+    <br>
+    Deflected Shape Scale Factor
+    <br>
+    </b><input type="text" name="scale_factor"><br>
+    Larger the number, more pronounced deflected shape (try ~2000)<br>
+    <br>
+    Type of ERS:<br>
+    <input type="radio" name="ers_type" value="0" checked>Sheet Piles<br>
+    <input type="radio" name="ers_type" value="1">Soldier Piles<br>
+    <br>
+    If sheet pile analysis:<br>
+    Choose sheeting type: <select name="sheet_type">
+    <option value="1">MSZ13-312</option>
+    <option value="2">MSZ13-340</option>
+    <option value="3">MSZ13-350</option>
+    <option value="4">MSZ13-375</option>
+    <option value="5">MSZ13-406</option>
+    <option value="6">MSZ14-312</option>
+    <option value="7">MSZ14-340</option>
+    <option value="8">MSZ14-350</option>
+    <option value="9">MSZ14-375</option>
+    <option value="10">MSZ14-406</option>
+    <option value="11">MSZ15-312</option>
+    <option value="12">MSZ15-340</option>
+    <option value="13">MSZ15-350</option>
+    <option value="14">MSZ15-375</option>
+    <option value="15">MSZ15-406</option>
+    <option value="16">MSZ16-312</option>
+    <option value="17">MSZ16-340</option>
+    <option value="18">MSZ16-350</option>
+    <option value="19">MSZ16-375</option>
+    <option value="20">MSZ16-406</option>
+    <option value="21">MSZ17-312</option>
+    <option value="22">MSZ17-340</option>
+    <option value="23">MSZ17-350</option>
+    <option value="24">MSZ17-375</option>
+    <option value="25">MSZ17-406</option>
+    <option value="26">MSZ18-312</option>
+    <option value="27">MSZ18-340</option>
+    <option value="28">MSZ18-350</option>
+    <option value="29">MSZ18-375</option>
+    <option value="30">MSZ18-406</option>
+    <option value="31">MSZ19-340</option>
+    <option value="32">MSZ19-350</option>
+    <option value="33">MSZ19-375</option>
+    <option value="34">MSZ19-406</option>
+    <option value="35">SZ-14.5</option>
+    <option value="36">SZ-14.5RU</option>
+    <option value="37">SZ-18</option>
+    <option value="38">SZ-20</option>
+    <option value="39">SZ-21</option>
+    <option value="40">SZ-22</option>
+    <option value="41">SZ-250</option>
+    <option value="42">SZ-313</option>
+    <option value="43">SZ-340</option>
+    <option value="44">SZ-350</option>
+    <option value="45">SZ-375</option>
+    <option value="46">PZ 22</option>
+    <option value="47">PZ 27</option>
+    <option value="48">PZ 35</option>
+    <option value="49">PZ 40</option>
+    <option value="50">SCZ 14</option>
+    <option value="51">SCZ 16</option>
+    <option value="52">SCZ 17N</option>
+    <option value="53">SCZ 18N</option>
+    <option value="54">SCZ 21N</option>
+    <option value="55">SKZ 20</option>
+    <option value="56">SKZ 22</option>
+    <option value="57">SKZ 23</option>
+    <option value="58">SKZ 24</option>
+    <option value="59">SKZ 25</option>
+    <option value="60">SKZ 31</option>
+    <option value="61">SKZ 33</option>
+    <option value="62">SKZ 34</option>
+    <option value="63">SKZ 36</option>
+    <option value="64">SKZ 38</option>
+    </select>
+    <br>
+    <br>
+    If soldier pile analysis:
+    <br>
+    Soldier pile spacing:<br>
+    <input type="text" name="beam_spacing"><br>
+    Choose soldier pile:<select name="beam_type"><br>
+    <option value="1">HP8x36</option>
+    <option value="2">HP10x42</option>
+    <option value="3">HP10x57</option>
+    <option value="4">HP12x53</option>
+    <option value="5">HP12x63</option>
+    <option value="6">HP12x74</option>
+    <option value="7">HP12x84</option>
+    <option value="8">HP12x89</option>
+    <option value="9">HP14x73</option>
+    <option value="10">HP14x89</option>
+    <option value="11">HP14x102</option>
+    <option value="12">HP14x117</option>
+    <option value="13">HP16x88</option>
+    <option value="14">HP16x101</option>
+    <option value="15">HP16x121</option>
+    <option value="16">HP16x141</option>
+    <option value="17">HP16x162</option>
+    <option value="18">HP16x183</option>
+    <option value="19">HP18x135</option>
+    <option value="20">HP18x157</option>
+    <option value="21">HP18x181</option>
+    <option value="22">HP18x204</option>
+    </select><br>
+    <input type="text" name="beam_size_override"> (Optional) Beam/hole size <br>
+    <input type="text" name="beam_override"> (Optional) Beam <br>
+    <input type="text" name="beam_modulus_override"> (Optional) Beam section modulus <br>
+    <input type="text" name="beam_inertia_override"> (Optional) Beam moment of inertia <br>
+    <br>
+    <input type="submit" value="Calculate" />
+    <br><br><br>
+
+</form>
+</body>
+</html>

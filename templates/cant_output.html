@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cantilever Wall Design</title>
+</head>
+<body>
+<h3>Determine Footing/Rail Surcharges</h3>
+<td>{{ footing_output|join:"<br/>" }}</td>
+<h4>Summary of Total Footing Surcharges</h4>
+<td>{{ total_footing_surcharge|join:"<br/>" }}</td>
+<h4>Summary of Total Lateral Rail Surcharges</h4>
+<td>{{ train_output|join:"<br/>" }}</td>
+<h3>Determine Design Soil Surcharge Heights</h3>
+<td>{{ surcharge|join:"<br/>" }}</td>
+<h3>Determine Lateral Pressures</h3>
+<td>{{ wat_output|join:"<br/>" }}</td>
+<br>
+<br>
+<td>{{ active_pressures|join:"<br/>" }}</td>
+<br>
+<br>
+<td>{{ passive_pressures|join:"<br/>" }}</td>
+<br>
+<br>
+<td>{{ water_pressures|join:"<br/>" }}</td>
+<br>
+<br>
+<td>{{ active_pressure_front|join:"<br/>" }}</td>
+<br>
+<br>
+<td>{{ passive_pressure_back|join:"<br/>" }}</td>
+<br>
+<br>
+<td>{{ beam_output|join:"<br/>" }}</td>
+<br>
+<h3>Cantilever Wall Design</h3>
+Find point on diagram where both the sum of moments and sum of forces are 0 around that point.<br>
+<td>{{ design_text|join:"<br/>" }}</td>
+<br>
+<br>Minimum Length: {{ min_length }}
+<br>Tip Elevation: {{ min_length_elev }}
+<br>
+<br>
+<td>{{ multiplier|join:"<br/>" }}</td>
+<br>
+<br> Max Moment = {{ moment }} #'/'
+<br>
+<br> Max Deflection = {{ deflection }}" @ Elev. {{ deflection_elev }}' with {{ sheet_type }}
+<br>
+<br> Bending Stress = {{ bending_stress}} ksi with {{ sheet_type }}
+<br><br>
+<br><br><br><br><br>
+<form action="{% url 'pressure_plot' %}">
+    <input type="submit" value="Pressure Plot and Deflected Shape" />
+</form>
+<form action="{% url 'surface' %}">
+    <input type="submit" value="Surface Plot" />
+</form>
+<br><br><br><br><br>
+</body>
+</html>
