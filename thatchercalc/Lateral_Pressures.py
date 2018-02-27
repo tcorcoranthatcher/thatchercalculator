@@ -460,7 +460,7 @@ def water_around_toe(layers, water_elev, cut_elev, supplied_elev):
         delta = 20*h/d
         for i in range(len(layers)):
             if cut_elev >= layers[i][0] >= supplied_elev:
-                layers[i][5] = delta
+                layers[i][-1] = delta
 
 
     return layers, text_output
