@@ -160,34 +160,34 @@ def output(request):
                         float(request.GET['8.ka']), float(request.GET['8.kp']))
 
     # elevation, layer, soil surcharge placeholder, footing placeholder, train placeholder
-    layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0],
-              [request.GET['wp2'], request.GET['wp2_layer'], 0, 0, 0],
-              [request.GET['wp3'], request.GET['wp3_layer'], 0, 0, 0],
-              [request.GET['wp4'], request.GET['wp4_layer'], 0, 0, 0],
-              [request.GET['wp5'], request.GET['wp5_layer'], 0, 0, 0],
-              [request.GET['wp6'], request.GET['wp6_layer'], 0, 0, 0],
-              [request.GET['wp7'], request.GET['wp7_layer'], 0, 0, 0],
-              [request.GET['wp8'], request.GET['wp8_layer'], 0, 0, 0],
-              [request.GET['wp9'], request.GET['wp9_layer'], 0, 0, 0],
-              [request.GET['wp10'], request.GET['wp10_layer'], 0, 0, 0],
-              [request.GET['wp11'], request.GET['wp11_layer'], 0, 0, 0],
-              [request.GET['wp12'], request.GET['wp12_layer'], 0, 0, 0],
-              [request.GET['wp13'], request.GET['wp13_layer'], 0, 0, 0],
-              [request.GET['wp14'], request.GET['wp14_layer'], 0, 0, 0],
-              [request.GET['wp15'], request.GET['wp15_layer'], 0, 0, 0],
-              [request.GET['wp16'], request.GET['wp16_layer'], 0, 0, 0],
-              [request.GET['wp17'], request.GET['wp17_layer'], 0, 0, 0],
-              [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0],
-              [request.GET['wp19'], request.GET['wp19_layer'], 0, 0, 0],
-              [request.GET['wp20'], request.GET['wp20_layer'], 0, 0, 0]]
+    layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 0],
+              [request.GET['wp2'], request.GET['wp2_layer'], 0, 0, 0, 0],
+              [request.GET['wp3'], request.GET['wp3_layer'], 0, 0, 0, 0],
+              [request.GET['wp4'], request.GET['wp4_layer'], 0, 0, 0, 0],
+              [request.GET['wp5'], request.GET['wp5_layer'], 0, 0, 0, 0],
+              [request.GET['wp6'], request.GET['wp6_layer'], 0, 0, 0, 0],
+              [request.GET['wp7'], request.GET['wp7_layer'], 0, 0, 0, 0],
+              [request.GET['wp8'], request.GET['wp8_layer'], 0, 0, 0, 0],
+              [request.GET['wp9'], request.GET['wp9_layer'], 0, 0, 0, 0],
+              [request.GET['wp10'], request.GET['wp10_layer'], 0, 0, 0, 0],
+              [request.GET['wp11'], request.GET['wp11_layer'], 0, 0, 0, 0],
+              [request.GET['wp12'], request.GET['wp12_layer'], 0, 0, 0, 0],
+              [request.GET['wp13'], request.GET['wp13_layer'], 0, 0, 0, 0],
+              [request.GET['wp14'], request.GET['wp14_layer'], 0, 0, 0, 0],
+              [request.GET['wp15'], request.GET['wp15_layer'], 0, 0, 0, 0],
+              [request.GET['wp16'], request.GET['wp16_layer'], 0, 0, 0, 0],
+              [request.GET['wp17'], request.GET['wp17_layer'], 0, 0, 0, 0],
+              [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0, 0],
+              [request.GET['wp19'], request.GET['wp19_layer'], 0, 0, 0, 0],
+              [request.GET['wp20'], request.GET['wp20_layer'], 0, 0, 0, 0]]
     new_layers = []  # Remove all layers with no entries
     for i in range(len(layers)):
-        if layers[i] != ['', '', 0, 0, 0]:
+        if layers[i] != ['', '', 0, 0, 0, 0]:
             new_layers.append(layers[i])
     layers = []
     for i in range(len(new_layers)):
         layers.append([float(new_layers[i][0]), float(new_layers[i][1]), float(new_layers[i][2]),
-                       float(new_layers[i][3]), float(new_layers[i][4])])
+                       float(new_layers[i][3]), float(new_layers[i][4]), float(new_layers[i][5])])
 
     work_points = [[0, request.GET['wp1']],
                    [0, request.GET['wp2']],
