@@ -301,7 +301,9 @@
     Check for water around toe? <input type="checkbox" name="wat_check" value = '1'><br>
     <br>
     <h3>Water Elevation (Leave blank if does not apply)</h3>
-    <input type="text" name="water_elev">
+    <input type="text" name="water_elev"> Water elev
+    <br>
+    <input type="text" name="water_cut_elev"> If water elev on the passive side is not at the cut, enter it here<br>
     <br>
     <h3>Excavation Elevation</h3>
     Enter the elevation of the cut.<br>
@@ -402,6 +404,7 @@
     Soldier pile spacing:<br>
     <input type="text" name="beam_spacing"><br>
     Choose soldier pile:<select name="beam_type"><br>
+    <option value="0">Custom</option>
     <option value="1">HP8x36</option>
     <option value="2">HP10x42</option>
     <option value="3">HP10x57</option>
@@ -425,10 +428,10 @@
     <option value="21">HP18x181</option>
     <option value="22">HP18x204</option>
     </select><br>
-    <input type="text" name="beam_size_override"> (Optional) Beam/hole size <br>
-    <input type="text" name="beam_override"> (Optional) Beam <br>
-    <input type="text" name="beam_modulus_override"> (Optional) Beam section modulus <br>
-    <input type="text" name="beam_inertia_override"> (Optional) Beam moment of inertia <br>
+    <input type="text" name="beam_size_override"> (Optional) Beam/hole size (in) <br>
+    <input type="text" name="beam_override"> (Optional) Beam name <br>
+    <input type="text" name="beam_modulus_override"> (Optional) Beam section modulus (in^3) <br>
+    <input type="text" name="beam_inertia_override"> (Optional) Beam moment of inertia (in^4)<br>
     <br>
     <input type="submit" value="Calculate" />
     <br><br><br>

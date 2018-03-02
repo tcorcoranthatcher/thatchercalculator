@@ -240,6 +240,7 @@ def output(request):
     else:
         water_elev = float(-10000)
 
+
     cut_elev = float(request.GET['cut_elev'])
     total_weights = float(request.GET['total_weights'])
     brace_elev = float(request.GET['brace_elev'])
@@ -248,9 +249,13 @@ def output(request):
     beam_type = float(request.GET['beam_type'])
     beam_spacing = []
 
+    water_cut_elev = cut_elev
+    if request.GET['water_cut_elev'] != '':
+        water_cut_elev = float(request.GET['water_cut_elev'])
+
     top_sheet = [layers[0][0]]
     if request.GET['top_sheet'] != '':
-        top_sheet = float(request.GET['top_sheet'])
+        top_sheet = [float(request.GET['top_sheet'])]
 
     for i in range(len(sheet_database)):
         if sheet_type == sheet_database[i][0]:
@@ -262,7 +267,7 @@ def output(request):
     if request.GET['beam_spacing'] != '':
         beam_spacing = float(request.GET['beam_spacing'])
     if request.GET['beam_size_override'] != '':
-        beam_type[4] = float(request.GET['beam_size_override'])
+        beam_type[4] = float(request.GET['beam_size_override'])/12
     if request.GET['beam_override'] != '':
         beam_type[1] = request.GET['beam_override']
     if request.GET['beam_modulus_override'] != '':
@@ -369,7 +374,7 @@ def output(request):
 
     active = active_pressures(layers, water_elev, total_weights)
     passive = passive_pressures(layers, water_elev, cut_elev, total_weights)
-    water = water_pressures(layers, water_elev, cut_elev, total_weights, supplied_elev)
+    water = water_pressures(layers, water_elev, water_cut_elev, total_weights, supplied_elev)
     active_pressure = active_pressures_output(layers, water_elev, total_weights)
     passive_pressure = passive_pressures_output(layers, water_elev, cut_elev, total_weights)
     water_pressure = water_pressures_output(water)
@@ -386,7 +391,7 @@ def output(request):
                        ("From elevation " + str(net[1][0]) + "' to elevation " + str(cut_elev)+"': W = " +
                         str(beam_spacing) + "'"),
                        ("From elevation " + str(cut_elev) + "' to elevation " + str(round(cut_elev-zero_length, 2)) +
-                        "': W = 0 (net active W = 1)"),
+                        "': W = 0 (net active W ="+ str(beam_type[4])+ "')"),
                        ("At elevation " + str(round(cut_elev-zero_length, 2)) + "' and below: W = 3*" +
                         str(beam_type[4]) + "' = " + str(round(3*beam_type[4], 2)) + "'")
                        ]
@@ -566,32 +571,32 @@ def cant_output(request):
                         float(request.GET['8.qu']),
                         float(request.GET['8.ka']), float(request.GET['8.kp']))
 
-    layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0],
-              [request.GET['wp2'], request.GET['wp2_layer'], 0, 0, 0],
-              [request.GET['wp3'], request.GET['wp3_layer'], 0, 0, 0],
-              [request.GET['wp4'], request.GET['wp4_layer'], 0, 0, 0],
-              [request.GET['wp5'], request.GET['wp5_layer'], 0, 0, 0],
-              [request.GET['wp6'], request.GET['wp6_layer'], 0, 0, 0],
-              [request.GET['wp7'], request.GET['wp7_layer'], 0, 0, 0],
-              [request.GET['wp8'], request.GET['wp8_layer'], 0, 0, 0],
-              [request.GET['wp9'], request.GET['wp9_layer'], 0, 0, 0],
-              [request.GET['wp10'], request.GET['wp10_layer'], 0, 0, 0],
-              [request.GET['wp11'], request.GET['wp11_layer'], 0, 0, 0],
-              [request.GET['wp12'], request.GET['wp12_layer'], 0, 0, 0],
-              [request.GET['wp13'], request.GET['wp13_layer'], 0, 0, 0],
-              [request.GET['wp14'], request.GET['wp14_layer'], 0, 0, 0],
-              [request.GET['wp15'], request.GET['wp15_layer'], 0, 0, 0],
-              [request.GET['wp16'], request.GET['wp16_layer'], 0, 0, 0],
-              [request.GET['wp17'], request.GET['wp17_layer'], 0, 0, 0],
-              [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0]]
+    layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 0],
+              [request.GET['wp2'], request.GET['wp2_layer'], 0, 0, 0, 0],
+              [request.GET['wp3'], request.GET['wp3_layer'], 0, 0, 0, 0],
+              [request.GET['wp4'], request.GET['wp4_layer'], 0, 0, 0, 0],
+              [request.GET['wp5'], request.GET['wp5_layer'], 0, 0, 0, 0],
+              [request.GET['wp6'], request.GET['wp6_layer'], 0, 0, 0, 0],
+              [request.GET['wp7'], request.GET['wp7_layer'], 0, 0, 0, 0],
+              [request.GET['wp8'], request.GET['wp8_layer'], 0, 0, 0, 0],
+              [request.GET['wp9'], request.GET['wp9_layer'], 0, 0, 0, 0],
+              [request.GET['wp10'], request.GET['wp10_layer'], 0, 0, 0, 0],
+              [request.GET['wp11'], request.GET['wp11_layer'], 0, 0, 0, 0],
+              [request.GET['wp12'], request.GET['wp12_layer'], 0, 0, 0, 0],
+              [request.GET['wp13'], request.GET['wp13_layer'], 0, 0, 0, 0],
+              [request.GET['wp14'], request.GET['wp14_layer'], 0, 0, 0, 0],
+              [request.GET['wp15'], request.GET['wp15_layer'], 0, 0, 0, 0],
+              [request.GET['wp16'], request.GET['wp16_layer'], 0, 0, 0, 0],
+              [request.GET['wp17'], request.GET['wp17_layer'], 0, 0, 0, 0],
+              [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0, 0]]
     new_layers = []  # Remove all layers with no entries
     for i in range(len(layers)):
-        if layers[i] != ['', '', 0, 0, 0]:
+        if layers[i] != ['', '', 0, 0, 0, 0]:
             new_layers.append(layers[i])
     layers = []
     for i in range(len(new_layers)):
         layers.append([float(new_layers[i][0]), float(new_layers[i][1]), float(new_layers[i][2]),
-                       float(new_layers[i][3]), float(new_layers[i][4])])
+                       float(new_layers[i][3]), float(new_layers[i][4]), float(new_layers[i][5])])
 
     work_points = [[0, request.GET['wp1']],
                    [0, request.GET['wp2']],
@@ -651,9 +656,14 @@ def cant_output(request):
     sheet_type = float(request.GET['sheet_type'])
     beam_type = float(request.GET['beam_type'])
     beam_spacing = []
+
+    water_cut_elev = cut_elev
+    if request.GET['water_cut_elev'] != '':
+        water_cut_elev = float(request.GET['water_cut_elev'])
+
     top_sheet = [layers[0][0]]
     if request.GET['top_sheet'] != '':
-        top_sheet = float(request.GET['top_sheet'])
+        top_sheet = [float(request.GET['top_sheet'])]
     for i in range(len(sheet_database)):
         if sheet_type == sheet_database[i][0]:
             sheet_type = sheet_database[i]
@@ -664,7 +674,7 @@ def cant_output(request):
     if request.GET['beam_spacing'] != '':
         beam_spacing = float(request.GET['beam_spacing'])
     if request.GET['beam_size_override'] != '':
-        beam_type[4] = float(request.GET['beam_size_override'])
+        beam_type[4] = float(request.GET['beam_size_override'])/12
     if request.GET['beam_override'] != '':
         beam_type[1] = request.GET['beam_override']
     if request.GET['beam_modulus_override'] != '':
@@ -771,7 +781,7 @@ def cant_output(request):
 
     active = active_pressures(layers, water_elev, total_weights)
     passive = passive_pressures(layers, water_elev, cut_elev, total_weights)
-    water = water_pressures(layers, water_elev, cut_elev, total_weights, supplied_elev)
+    water = water_pressures(layers, water_elev, water_cut_elev, total_weights, supplied_elev)
     active_pressure = active_pressures_output(layers, water_elev, total_weights)
     passive_pressure = passive_pressures_output(layers, water_elev, cut_elev, total_weights)
     water_pressure = water_pressures_output(water)
@@ -790,7 +800,7 @@ def cant_output(request):
         beam_output = [("Soldier Beam Analysis Effective Widths : " + beam_type[1] + " @ " + str(beam_spacing) + "' spacing"),
                        ("From elevation " + str(net[1][0]) + "' to elevation " + str(cut_elev)+"': W = " + str(beam_spacing) + "'"),
                        ("From elevation " + str(cut_elev) + "' to elevation " + str(round(cut_elev-zero_length, 2)) +
-                        "': W = 0 (net active W = 1)"),
+                        "': W = 0 (net active W ="+ str(beam_type[4])+ "')"),
                        ("At elevation " + str(round(cut_elev-zero_length, 2)) + "' and below: W = 3*" + str(beam_type[4]) +
                         "' = " + str(round(3*beam_type[4], 2)) + "'")
                        ]

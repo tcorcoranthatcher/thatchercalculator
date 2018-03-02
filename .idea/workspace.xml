@@ -11,11 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/thatchercalc/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="48">
+              <caret line="756" column="60" lean-forward="true" selection-start-line="756" selection-start-column="60" selection-end-line="756" selection-end-column="60" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -23,11 +23,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="sheet_database.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/thatchercalc/sheet_database.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1122">
+              <caret line="66" column="50" lean-forward="false" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="braced.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/braced.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5083">
-              <caret line="299" column="4" lean-forward="false" selection-start-line="299" selection-start-column="4" selection-end-line="300" selection-end-column="88" />
+            <state relative-caret-position="124">
+              <caret line="406" column="4" lean-forward="false" selection-start-line="406" selection-start-column="4" selection-end-line="406" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -36,8 +46,8 @@
       <file leaf-file-name="cantilever.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/cantilever.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="549">
-              <caret line="274" column="88" lean-forward="false" selection-start-line="274" selection-start-column="88" selection-end-line="274" selection-end-column="88" />
+            <state relative-caret-position="260">
+              <caret line="382" column="37" lean-forward="false" selection-start-line="382" selection-start-column="37" selection-end-line="382" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -46,14 +56,13 @@
       <file leaf-file-name="Lateral_Pressures.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1606">
-              <caret line="442" column="23" lean-forward="false" selection-start-line="442" selection-start-column="23" selection-end-line="442" selection-end-column="23" />
+            <state relative-caret-position="-2253">
+              <caret line="176" column="65" lean-forward="false" selection-start-line="176" selection-start-column="65" selection-end-line="176" selection-end-column="65" />
               <folding>
                 <element signature="e#4269#5308#0" expanded="false" />
-                <element signature="e#7695#10252#0" expanded="false" />
-                <element signature="e#13964#16066#0" expanded="false" />
-                <element signature="e#17659#20039#0" expanded="false" />
-                <element signature="e#20140#22114#0" expanded="false" />
+                <element signature="e#13990#16092#0" expanded="false" />
+                <element signature="e#17685#20065#0" expanded="false" />
+                <element signature="e#20166#22140#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -62,11 +71,9 @@
       <file leaf-file-name="Surcharge_Heights.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="549">
               <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-              <folding>
-                <element signature="e#493#5395#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -107,6 +114,8 @@
       <find>water_ar</find>
       <find>wat</find>
       <find>top_sheet</find>
+      <find>top</find>
+      <find>beam</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -126,18 +135,18 @@
         <option value="$PROJECT_DIR$/thatchercalc/Footings.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py" />
         <option value="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" />
-        <option value="$PROJECT_DIR$/thatchercalc/sheet_database.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Braced.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Cantilever.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Pressure_Plot.py" />
         <option value="$PROJECT_DIR$/thatchercalc/surcharge_test.py" />
         <option value="$PROJECT_DIR$/templates/output.html" />
-        <option value="$PROJECT_DIR$/templates/braced.html" />
-        <option value="$PROJECT_DIR$/templates/cantilever.html" />
         <option value="$PROJECT_DIR$/templates/cant_output.html" />
         <option value="$PROJECT_DIR$/thatchercalc/Train_Loading.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" />
         <option value="$PROJECT_DIR$/thatchercalc/views.py" />
+        <option value="$PROJECT_DIR$/templates/braced.html" />
+        <option value="$PROJECT_DIR$/templates/cantilever.html" />
+        <option value="$PROJECT_DIR$/thatchercalc/sheet_database.py" />
       </list>
     </option>
   </component>
@@ -163,7 +172,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -186,6 +194,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -558,13 +567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/sheet_database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="70" column="42" lean-forward="false" selection-start-line="70" selection-start-column="42" selection-end-line="70" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/thatchercalc/surcharge_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -593,14 +595,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/braced.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5083">
-          <caret line="299" column="4" lean-forward="false" selection-start-line="299" selection-start-column="4" selection-end-line="300" selection-end-column="88" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/thatchercalc/Footings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1054">
@@ -615,31 +609,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-          <folding>
-            <element signature="e#493#5395#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/cantilever.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="549">
-          <caret line="274" column="88" lean-forward="false" selection-start-line="274" selection-start-column="88" selection-end-line="274" selection-end-column="88" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/thatchercalc/Pressure_Plot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="124" column="0" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#33#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -653,27 +626,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1606">
-          <caret line="442" column="23" lean-forward="false" selection-start-line="442" selection-start-column="23" selection-end-line="442" selection-end-column="23" />
+        <state relative-caret-position="-2253">
+          <caret line="176" column="65" lean-forward="false" selection-start-line="176" selection-start-column="65" selection-end-line="176" selection-end-column="65" />
           <folding>
             <element signature="e#4269#5308#0" expanded="false" />
-            <element signature="e#7695#10252#0" expanded="false" />
-            <element signature="e#13964#16066#0" expanded="false" />
-            <element signature="e#17659#20039#0" expanded="false" />
-            <element signature="e#20140#22114#0" expanded="false" />
+            <element signature="e#13990#16092#0" expanded="false" />
+            <element signature="e#17685#20065#0" expanded="false" />
+            <element signature="e#20166#22140#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/thatchercalc/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="48">
+          <caret line="756" column="60" lean-forward="true" selection-start-line="756" selection-start-column="60" selection-end-line="756" selection-end-column="60" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/braced.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="406" column="4" lean-forward="false" selection-start-line="406" selection-start-column="4" selection-end-line="406" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/cantilever.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="382" column="37" lean-forward="false" selection-start-line="382" selection-start-column="37" selection-end-line="382" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/sheet_database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="66" column="50" lean-forward="false" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>

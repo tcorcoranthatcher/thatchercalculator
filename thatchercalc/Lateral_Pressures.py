@@ -131,7 +131,7 @@ def net_pressures(active_pressures, passive_pressures, water_pressures,
                     net_pressures[i] = 0
             if heights[i] == cut_elev and heights[i+1] != heights[i]:
                 if net_pressures[i] >= 0:
-                    net_pressures[i] = net_pressures[i]
+                    net_pressures[i] = net_pressures[i]*beam_type[4]
                 else:
                     net_pressures[i] = 0
             if cut_elev > heights[i] > cut_elev - zero_length+0.01:
@@ -174,7 +174,7 @@ def cant_pressures(active_pressures, passive_pressures, water_pressures,
                     net_pressures[i] = 0
             if heights[i] == cut_elev and heights[i + 1] != heights[i]:
                 if net_pressures[i] >= 0:
-                    net_pressures[i] = net_pressures[i]
+                    net_pressures[i] = net_pressures[i]*beam_type[4]
                 else:
                     net_pressures[i] = 0
             if cut_elev > heights[i] > cut_elev - zero_length + 0.01:
