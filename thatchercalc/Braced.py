@@ -247,7 +247,7 @@ def multiplier(net_pressures, brace_elev, minimum_length_data, supplied_length):
                 break
 
     for i in range(len(multiplier_list)):
-        if multiplier_list[i][2] <= 10:
+        if multiplier_list[i][2] <= 50:
             output_string = "With " + str(multiplier_list[i][0]) + "' long ERS tipped @ Elev. " + str(multiplier_list[i][1])\
                             + "': Mult = " + str(round(multiplier_list[i][2], 2))
             output.append(output_string)

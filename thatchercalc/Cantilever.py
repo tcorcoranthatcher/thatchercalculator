@@ -118,7 +118,8 @@ def minimum_length_cantilever(net_pressures, cant_pressures, cut_elev):
                 force_x_constant = net_pressures[0][i]
                 force_x2_constant = net_slopes[i]/2
                 force_xz_constant = (-1*net_slopes[i]+cant_slopes[k])/2
-                force_z_constant = (-1*net_pressures[0][i]+cant_pressures[0][k])/2
+                force_z_constant = (-1 * net_pressures[0][i] + (
+                cant_pressures[0][k] - (cant_pressures[1][i] - cant_pressures[1][k]) * cant_slopes[k])) / 2
                 moment_x_constant = force_constant
                 moment_x2_constant = net_pressures[0][i]/2
                 moment_x3_constant = net_slopes[i]/6
@@ -138,17 +139,21 @@ def minimum_length_cantilever(net_pressures, cant_pressures, cut_elev):
                     min_length = x + (net_pressures[1][0] - net_pressures[1][i])
                     reference_point = net_pressures[1][i]
                     net_pairs = []
+                    cant_pairs = []
                     for h in range(len(net_pressures[1])):
                         net_pairs.append((net_pressures[0][h], net_pressures[1][h]))
+                        cant_pairs.append((cant_pressures[0][h], cant_pressures[1][h]))
                     net_linestring = LineString(net_pairs)
+                    cant_linestring = LineString(cant_pairs)
                     cross_linestring = LineString([(minimum_length_cant_pressure-5, minimum_length_elev),
                                                    (minimum_length_net_pressure+5, z_elev)])
                     if cross_linestring.crosses(net_linestring) != True:
-                        solutions.append([x, z, min_length, minimum_length_elev, minimum_length_net_pressure,
-                                          minimum_length_cant_pressure, reference_point, force_constant, force_z_constant,
-                                          force_xz_constant, force_x_constant, force_x2_constant, moment_constant,
-                                          moment_x_constant, moment_z2_constant, moment_xz2_constant, moment_x2_constant,
-                                          moment_x3_constant])
+                        if cross_linestring.crosses(net_linestring) != True:
+                            solutions.append([x, z, min_length, minimum_length_elev, minimum_length_net_pressure,
+                                              minimum_length_cant_pressure, reference_point, force_constant, force_z_constant,
+                                              force_xz_constant, force_x_constant, force_x2_constant, moment_constant,
+                                              moment_x_constant, moment_z2_constant, moment_xz2_constant, moment_x2_constant,
+                                              moment_x3_constant])
     solutions.sort(key=lambda y: y[0])
     minimum_length = solutions[0][2]
     minimum_length_elev = solutions[0][3]
@@ -284,7 +289,7 @@ def multiplier_cantilever(net_pressures, cant_pressures, minimum_length_data, cu
                 force_x_constant = net_pressures[0][i]
                 force_x2_constant = net_slopes[i] / 2
                 force_xz_constant = (-1 * net_slopes[i] + cant_slopes[j]) / 2
-                force_z_constant = (-1 * net_pressures[0][i] + cant_pressures[0][j]) / 2
+                force_z_constant = (-1 * net_pressures[0][i] + (cant_pressures[0][j]-(cant_pressures[1][i]-cant_pressures[1][j])*cant_slopes[j])) / 2
 
                 for k in range(len(multiplier_length_list)):
                     x = net_pressures[1][i]-multiplier_elev_list[k]
@@ -362,7 +367,7 @@ def multiplier_cantilever(net_pressures, cant_pressures, minimum_length_data, cu
                                         negative_moments += moment
                                 multiplier = -1 * negative_moments / positive_moments
                                 multiplier_list.append((multiplier_length_list[k], multiplier_elev_list[k], multiplier,
-                                                        x, z, iter_net_pressure, iter_cant_pressure))
+                                                        x, z, iter_net_pressure, iter_cant_pressure, positive_moments, negative_moments, force_constant, force_z_constant, force_xz_constant, force_x_constant, force_x2_constant, net_pressures[0][i], cant_pressures[0][j]))
 
     print(multiplier_list)
     multiplier_list = sorted(multiplier_list, key=operator.itemgetter(0, 2))
@@ -384,7 +389,7 @@ def multiplier_cantilever(net_pressures, cant_pressures, minimum_length_data, cu
                 multi = multiplier_list[i][2]
                 break
     for i in range(len(multiplier_list)):
-        if multiplier_list[i][2] <= 10:
+        if multiplier_list[i][2] <= 50:
             output_string = "With " + str(multiplier_list[i][0]) + "' long ERS tipped @ Elev. " + str(multiplier_list[i][1])\
                             + "': Mult = " + str(round(multiplier_list[i][2], 2))
             output.append(output_string)

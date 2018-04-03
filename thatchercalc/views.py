@@ -159,7 +159,7 @@ def output(request):
                         float(request.GET['8.qu']),
                         float(request.GET['8.ka']), float(request.GET['8.kp']))
 
-    # elevation, layer, soil surcharge placeholder, footing placeholder, train placeholder
+    # elevation, layer, soil surcharge placeholder, footing placeholder, train placeholder, passive surcharge placeholder
     layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 0],
               [request.GET['wp2'], request.GET['wp2_layer'], 0, 0, 0, 0],
               [request.GET['wp3'], request.GET['wp3_layer'], 0, 0, 0, 0],
@@ -240,7 +240,6 @@ def output(request):
     else:
         water_elev = float(-10000)
 
-
     cut_elev = float(request.GET['cut_elev'])
     total_weights = float(request.GET['total_weights'])
     brace_elev = float(request.GET['brace_elev'])
@@ -303,7 +302,7 @@ def output(request):
 
     for i in range(len(layers)-1):
         if layers[i][0] >= supplied_elev >= layers[i+1][0]:
-            layers.insert(i + 1, [round(supplied_elev, 2), layers[i][1], 0.0, 0.0, 0.0])
+            layers.insert(i + 1, [round(supplied_elev, 2), layers[i][1], 0.0, 0.0, 0.0, 0.0])
             work_points.insert(i + 1, [0, round(supplied_elev, 2)])
             break
 
@@ -312,16 +311,16 @@ def output(request):
         for i in range(len(layers)-1):
             if layers[i][0] >= cut_elev >= layers[i+1][0]:
                 if layers[i][1].type == 0:
-                    layers.insert(i+2, [round(cut_elev-beam_type[4], 2), layers[i][1], 0, 0, 0])
+                    layers.insert(i+2, [round(cut_elev-beam_type[4], 2), layers[i][1], 0, 0, 0, 0])
                     work_points.insert(i + 2, [0, round(cut_elev - beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0])
+                    layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 0])
                     work_points.insert(i + 3, [0, round(cut_elev - beam_type[4], 2)])
                     zero_length = beam_type[4]
                     break
                 if layers[i][1].type == 1:
-                    layers.insert(i+2, [round(cut_elev - 1.5*beam_type[4], 2), layers[i][1], 0, 0, 0])
+                    layers.insert(i+2, [round(cut_elev - 1.5*beam_type[4], 2), layers[i][1], 0, 0, 0, 0])
                     work_points.insert(i+2, [0, round(cut_elev - 1.5*beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0])
+                    layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 0])
                     work_points.insert(i + 3, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
                     zero_length = 1.5*beam_type[4]
                     break
