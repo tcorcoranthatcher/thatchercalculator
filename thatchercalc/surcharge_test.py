@@ -47,25 +47,6 @@ def prime_factors(number):
     return sorted(prime_factor_list)
 
 
-prime_total = 1
-total = 1
-for i in range(1, 100000):
-    se = (2*i+1)**2
-    ne = se - 6*i
-    nw = se - 4*i
-    sw = se - 2*i
-    numbers = [se, ne, nw, sw]
-
-    for number in numbers:
-        if isprime(number):
-            prime_total += 1
-
-    total += 4
-
-    if prime_total/total < 0.1:
-        print(2*(i-1)+1)
-        break
-
 
 
 

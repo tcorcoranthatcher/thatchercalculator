@@ -118,12 +118,15 @@ def minimum_length_cantilever(net_pressures, cant_pressures, cut_elev):
                 force_x_constant = net_pressures[0][i]
                 force_x2_constant = net_slopes[i]/2
                 force_xz_constant = (-1*net_slopes[i]+cant_slopes[k])/2
-                force_z_constant = (-1 * net_pressures[0][i] + (
-                cant_pressures[0][k] - (cant_pressures[1][i] - cant_pressures[1][k]) * cant_slopes[k])) / 2
+                force_z_constant = (-1 * net_pressures[0][i] +
+                                    (cant_pressures[0][k] -
+                                     (cant_pressures[1][i] - cant_pressures[1][k]) * cant_slopes[k])) / 2
                 moment_x_constant = force_constant
                 moment_x2_constant = net_pressures[0][i]/2
                 moment_x3_constant = net_slopes[i]/6
-                moment_z2_constant = (-1*net_pressures[0][i]+cant_pressures[0][k])/6
+                moment_z2_constant = (-1*net_pressures[0][i]+(cant_pressures[0][k] -
+                                                              (cant_pressures[1][i] - cant_pressures[1][k]) *
+                                                              cant_slopes[k]))/6
                 moment_xz2_constant = (-1*net_slopes[i]+cant_slopes[k])/6
 
                 x, z = cantilever_solver(force_constant, force_z_constant, force_xz_constant, force_x_constant,
