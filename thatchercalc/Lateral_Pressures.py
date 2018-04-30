@@ -138,17 +138,19 @@ def net_pressures(active_pressures, passive_pressures, water_pressures,
                 if net_pressures[i] <= 0:
                     net_pressures[i] = 0
             if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i+1] == heights[i]:
-                temp = net_pressures[i]
+                print('bingo')
                 if net_pressures[i] >= 0:
-                    net_pressures[i] = temp
+                    pass
                 else:
                     net_pressures[i] = 0
             if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i + 1] != \
                     heights[i]:
-                net_pressures[i] = round(3 * beam_type[4] * temp, 0)
-            if heights[i] < (cut_elev - zero_length):
+                net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
+
+            if heights[i] < (cut_elev - zero_length-0.01):
                 net_pressures[i] = round(3*beam_type[4]*net_pressures[i], 0)
 
+    print(heights)
     return net_pressures, heights
 
 
@@ -189,8 +191,8 @@ def cant_pressures(active_pressures, passive_pressures, water_pressures,
                     net_pressures[i] = 0
             if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i + 1] != \
                     heights[i]:
-                net_pressures[i] = 3 * beam_type[4] * temp
-            if heights[i] < (cut_elev - zero_length):
+                net_pressures[i] = 3 * beam_type[4] * net_pressures[i]
+            if heights[i] < (cut_elev - zero_length-0.01):
                 net_pressures[i] = 3 * beam_type[4] * net_pressures[i]
         for i in range(len(heights)):
             if heights[i] == cut_elev - zero_length:

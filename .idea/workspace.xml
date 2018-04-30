@@ -23,11 +23,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/thatchercalc/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/thatchercalc/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="755" column="33" lean-forward="false" selection-start-line="755" selection-start-column="33" selection-end-line="755" selection-end-column="33" />
+            <state relative-caret-position="5134">
+              <caret line="330" column="50" lean-forward="true" selection-start-line="330" selection-start-column="50" selection-end-line="330" selection-end-column="50" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -35,11 +45,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Lateral_Pressures.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Footings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/thatchercalc/Footings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="104" column="36" lean-forward="true" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Lateral_Pressures.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="270" column="70" lean-forward="false" selection-start-line="270" selection-start-column="70" selection-end-line="270" selection-end-column="70" />
+            <state relative-caret-position="204">
+              <caret line="78" column="33" lean-forward="false" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
+              <folding>
+                <element signature="e#31#659#0" expanded="false" />
+                <element signature="e#723#1833#0" expanded="false" />
+                <element signature="e#1908#2913#0" expanded="false" />
+                <element signature="e#2993#4178#0" expanded="false" />
+                <element signature="e#4272#5311#0" expanded="false" />
+                <element signature="e#5485#7561#0" expanded="false" />
+                <element signature="e#7720#10307#0" expanded="false" />
+                <element signature="e#10395#11608#0" expanded="false" />
+                <element signature="e#11679#13943#0" expanded="false" />
+                <element signature="e#14025#16134#0" expanded="false" />
+                <element signature="e#16186#17640#0" expanded="false" />
+                <element signature="e#17727#20113#0" expanded="false" />
+                <element signature="e#20214#22197#0" expanded="false" />
+                <element signature="e#22271#23664#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dfasdf.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/thatchercalc/dfasdf.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1853">
+              <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sheet_database.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/thatchercalc/sheet_database.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -57,8 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>minimum_length</find>
-      <find>work_points</find>
       <find>layer</find>
       <find>math.ceil</find>
       <find>text_output</find>
@@ -87,6 +140,8 @@
       <find>surcharge</find>
       <find>print</find>
       <find>surface</find>
+      <find>water</find>
+      <find>water_cut</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -103,7 +158,6 @@
         <option value="$PROJECT_DIR$/thatchercalc/settings.py" />
         <option value="$PROJECT_DIR$/templates/home.html" />
         <option value="$PROJECT_DIR$/thatchercalc/urls.py" />
-        <option value="$PROJECT_DIR$/thatchercalc/Footings.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py" />
         <option value="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Pressure_Plot.py" />
@@ -113,18 +167,20 @@
         <option value="$PROJECT_DIR$/templates/braced.html" />
         <option value="$PROJECT_DIR$/templates/cantilever.html" />
         <option value="$PROJECT_DIR$/thatchercalc/test.py" />
-        <option value="$PROJECT_DIR$/thatchercalc/sheet_database.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Braced.py" />
         <option value="$USER_HOME$/Documents/Brackets/Bracket.py" />
         <option value="$PROJECT_DIR$/thatchercalc/surcharge_test.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Cantilever.py" />
-        <option value="$PROJECT_DIR$/thatchercalc/views.py" />
+        <option value="$PROJECT_DIR$/thatchercalc/sheet_database.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" />
+        <option value="$PROJECT_DIR$/thatchercalc/dfasdf.py" />
+        <option value="$PROJECT_DIR$/thatchercalc/views.py" />
+        <option value="$PROJECT_DIR$/thatchercalc/Footings.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-8" />
+    <option name="x" value="18" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
     <option name="height" value="744" />
@@ -145,6 +201,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -162,20 +219,10 @@
               <item name="thatchercalc" type="462c0819:PsiDirectoryNode" />
               <item name="thatchercalc" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="thatchercalc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="thatchercalc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.6.1 (C:\Users\tcorcoran\AppData\Local\Programs\Python\Python36-32\python.exe) &gt;" type="70bed36:NamedLibraryElementNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -186,8 +233,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="P:\thatchercalc\templates" />
       <recent name="P:\thatchercalc\thatchercalc" />
+      <recent name="P:\thatchercalc\templates" />
       <recent name="C:\Users\tcorcoran\thatchercalc\thatchercalc" />
     </key>
   </component>
@@ -203,7 +250,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.surcharge_test">
+  <component name="RunManager" selected="Python.dfasdf">
     <configuration name="Bracket" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -238,7 +285,7 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="cantilever_solver" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="dfasdf" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -250,7 +297,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="thatchercalc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/thatchercalc/dfasdf.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -292,17 +339,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.Cantilever" />
       <item index="1" class="java.lang.String" itemvalue="Python.surcharge_test" />
-      <item index="2" class="java.lang.String" itemvalue="Python.cantilever_solver" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Bracket" />
-      <item index="4" class="java.lang.String" itemvalue="Python.test" />
+      <item index="2" class="java.lang.String" itemvalue="Python.Bracket" />
+      <item index="3" class="java.lang.String" itemvalue="Python.test" />
+      <item index="4" class="java.lang.String" itemvalue="Python.dfasdf" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.surcharge_test" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Cantilever" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Bracket" />
-        <item index="3" class="java.lang.String" itemvalue="Python.test" />
-        <item index="4" class="java.lang.String" itemvalue="Python.cantilever_solver" />
+        <item index="0" class="java.lang.String" itemvalue="Python.dfasdf" />
+        <item index="1" class="java.lang.String" itemvalue="Python.surcharge_test" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Cantilever" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Bracket" />
+        <item index="4" class="java.lang.String" itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -325,14 +372,14 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22767204" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32171157" sideWeight="0.5351391" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2630745" sideWeight="0.5351391" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32171157" sideWeight="0.46486092" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39936608" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -347,19 +394,19 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32171157" sideWeight="0.5351391" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2630745" sideWeight="0.5351391" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32171157" sideWeight="0.46486092" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22767204" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39936608" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39936608" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -378,11 +425,6 @@
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$USER_HOME$/Desktop/Surcharge_Heights/Surcharge_Heights/urls.py</url>
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/thatchercalc/surcharge_test.py</url>
-          <line>4</line>
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -394,18 +436,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="62" />
+      <option name="time" value="63" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/thatchercalc/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2256">
-          <caret line="144" column="49" lean-forward="false" selection-start-line="144" selection-start-column="49" selection-end-line="144" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/thatchercalc/Braced.py" />
     <entry file="file://$PROJECT_DIR$/templates/output.html" />
     <entry file="file://$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" />
@@ -483,13 +518,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/Garbage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="107" column="33" lean-forward="true" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Roaming/Python/Python36/site-packages/bokeh/io/saving.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/ctypes/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -502,13 +530,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="121" column="29" lean-forward="true" selection-start-line="121" selection-start-column="29" selection-end-line="121" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -534,13 +555,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/output.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="18" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/cant_output.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -555,31 +569,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/braced.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="259" column="82" lean-forward="true" selection-start-line="259" selection-start-column="82" selection-end-line="259" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/391893354/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="549">
           <caret line="3140" column="8" lean-forward="false" selection-start-line="3140" selection-start-column="8" selection-end-line="3140" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="3" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/sheet_database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="76" column="49" lean-forward="true" selection-start-line="76" selection-start-column="49" selection-end-line="76" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -604,42 +597,73 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/Braced.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="549">
-          <caret line="249" column="39" lean-forward="false" selection-start-line="249" selection-start-column="39" selection-end-line="249" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/Footings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/cantilever.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2210">
-          <caret line="165" column="65" lean-forward="false" selection-start-line="165" selection-start-column="65" selection-end-line="165" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/surcharge_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding>
-            <element signature="e#65#590#0" expanded="false" />
-            <element signature="e#624#1092#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/surcharge_test.py" />
     <entry file="file://$PROJECT_DIR$/thatchercalc/Cantilever.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="671">
           <caret line="481" column="29" lean-forward="false" selection-start-line="481" selection-start-column="29" selection-end-line="481" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/Garbage.py" />
+    <entry file="file://$PROJECT_DIR$/thatchercalc/test.py" />
+    <entry file="file://$PROJECT_DIR$/templates/cantilever.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="165" column="65" lean-forward="false" selection-start-line="165" selection-start-column="65" selection-end-line="165" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/output.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="18" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/Braced.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-544">
+          <caret line="145" column="43" lean-forward="true" selection-start-line="145" selection-start-column="43" selection-end-line="145" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="78" column="33" lean-forward="false" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
+          <folding>
+            <element signature="e#31#659#0" expanded="false" />
+            <element signature="e#723#1833#0" expanded="false" />
+            <element signature="e#1908#2913#0" expanded="false" />
+            <element signature="e#2993#4178#0" expanded="false" />
+            <element signature="e#4272#5311#0" expanded="false" />
+            <element signature="e#5485#7561#0" expanded="false" />
+            <element signature="e#7720#10307#0" expanded="false" />
+            <element signature="e#10395#11608#0" expanded="false" />
+            <element signature="e#11679#13943#0" expanded="false" />
+            <element signature="e#14025#16134#0" expanded="false" />
+            <element signature="e#16186#17640#0" expanded="false" />
+            <element signature="e#17727#20113#0" expanded="false" />
+            <element signature="e#20214#22197#0" expanded="false" />
+            <element signature="e#22271#23664#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/dfasdf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1853">
+          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/sheet_database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -653,20 +677,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/braced.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="428" column="40" lean-forward="true" selection-start-line="428" selection-start-column="40" selection-end-line="428" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/thatchercalc/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="755" column="33" lean-forward="false" selection-start-line="755" selection-start-column="33" selection-end-line="755" selection-end-column="33" />
+        <state relative-caret-position="5134">
+          <caret line="330" column="50" lean-forward="true" selection-start-line="330" selection-start-column="50" selection-end-line="330" selection-end-column="50" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py">
+    <entry file="file://$PROJECT_DIR$/thatchercalc/Footings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="270" column="70" lean-forward="false" selection-start-line="270" selection-start-column="70" selection-end-line="270" selection-end-column="70" />
+        <state relative-caret-position="408">
+          <caret line="104" column="36" lean-forward="true" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="36" />
           <folding />
         </state>
       </provider>

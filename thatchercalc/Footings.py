@@ -78,9 +78,9 @@ def footing_surcharge(type, width, distance, elevation, load, spacing_1, spacing
             else:
                 if distance+delta/2 <= spacing_1/2:
                     footing_surcharges.append([elev, math.ceil(load/((2*distance+delta/2)*(2*distance+delta)))])
-                if spacing_1/2 < distance+delta/2 <= spacing_2/2:
+                if spacing_1/2 <= distance+delta/2 <= spacing_2/2:
                     footing_surcharges.append([elev, math.ceil(load/((2*distance+delta/2)*(distance+delta/2+spacing_1/2)))])
-                if spacing_1/2 < spacing_2/2 <= distance+delta/2:
+                if spacing_1/2 <= spacing_2/2 <= distance+delta/2:
                     footing_surcharges.append([elev, math.ceil(load/((2*distance+delta/2)*(spacing_1/2+spacing_2/2)))])
 
     return elev_1, elev_2, elev_3, footing_surcharges, load, distance, type, qeq_max, elevation, spacing_1, spacing_2

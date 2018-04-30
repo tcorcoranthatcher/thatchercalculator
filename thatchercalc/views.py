@@ -249,6 +249,8 @@ def output(request):
     beam_spacing = []
 
     water_cut_elev = cut_elev
+    if water_elev == float(-10000):
+        water_cut_elev = float(-10000)
     if request.GET['water_cut_elev'] != '':
         water_cut_elev = float(request.GET['water_cut_elev'])
 
@@ -372,10 +374,10 @@ def output(request):
         surcharge_output.append(surcharge_string)
 
     active = active_pressures(layers, water_elev, total_weights)
-    passive = passive_pressures(layers, water_elev, cut_elev, total_weights)
+    passive = passive_pressures(layers, water_cut_elev, cut_elev, total_weights)
     water = water_pressures(layers, water_elev, water_cut_elev, total_weights, supplied_elev)
     active_pressure = active_pressures_output(layers, water_elev, total_weights)
-    passive_pressure = passive_pressures_output(layers, water_elev, cut_elev, total_weights)
+    passive_pressure = passive_pressures_output(layers, water_cut_elev, cut_elev, total_weights)
     water_pressure = water_pressures_output(water)
     net = net_pressures(active, passive, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type)
     if top_sheet[0] != layers[0][0]:
@@ -657,6 +659,8 @@ def cant_output(request):
     beam_spacing = []
 
     water_cut_elev = cut_elev
+    if water_elev == float(-10000):
+        water_cut_elev = float(-10000)
     if request.GET['water_cut_elev'] != '':
         water_cut_elev = float(request.GET['water_cut_elev'])
 
@@ -779,14 +783,14 @@ def cant_output(request):
         surcharge_output.append(surcharge_string)
 
     active = active_pressures(layers, water_elev, total_weights)
-    passive = passive_pressures(layers, water_elev, cut_elev, total_weights)
+    passive = passive_pressures(layers, water_cut_elev, cut_elev, total_weights)
     water = water_pressures(layers, water_elev, water_cut_elev, total_weights, supplied_elev)
     active_pressure = active_pressures_output(layers, water_elev, total_weights)
-    passive_pressure = passive_pressures_output(layers, water_elev, cut_elev, total_weights)
+    passive_pressure = passive_pressures_output(layers, water_cut_elev, cut_elev, total_weights)
     water_pressure = water_pressures_output(water)
-    active_cant = active_pressures_front(layers, water_elev, cut_elev, total_weights)
+    active_cant = active_pressures_front(layers, water_cut_elev, cut_elev, total_weights)
     passive_cant = passive_pressures_back(layers, water_elev, cut_elev, surface_elev, total_weights)
-    active_pressure_front = active_pressures_front_output(layers, water_elev, cut_elev, total_weights)
+    active_pressure_front = active_pressures_front_output(layers, water_cut_elev, cut_elev, total_weights)
     passive_pressure_back = passive_pressures_back_output(layers, water_elev, cut_elev, surface_elev, total_weights)
     net = net_pressures(active, passive, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type)
     if top_sheet[0] != layers[0][0]:
