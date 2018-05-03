@@ -416,7 +416,7 @@ def deflection_calc_cantilever(net_pressures, minimum_length_data, sheet_type):
     z_pressure = minimum_length_data[3]
 
     new_net_pressures = []
-    new_net_elevations= []
+    new_net_elevations = []
     for i in range(len(net_pressures[0])):
         if net_pressures[1][i] >= z_elev:
             new_net_pressures.append(net_pressures[0][i])
