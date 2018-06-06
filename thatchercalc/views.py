@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .Surcharge_Heights import surcharge_heights
+from .Surcharge_Heights import surcharge_heights, passive_heights
 from .Lateral_Pressures import Layer, active_pressures_output, passive_pressures_output, water_pressures_output, \
     active_pressures, passive_pressures, water_pressures, net_pressures, active_pressures_front,\
     passive_pressures_back, cant_pressures, active_pressures_front_output, passive_pressures_back_output, \
@@ -13,6 +13,7 @@ from .sheet_database import sheet_database, beam_database
 from .Train_Loading import train_loading, combine_trains
 from .Cantilever import minimum_length_cantilever, maximum_moment_cantilever, multiplier_cantilever, \
     deflection_calc_cantilever
+from .Berms import berm_workpoints, berm_reduction
 import math
 import itertools
 
@@ -126,63 +127,97 @@ def output(request):
     for i in range(len(new_surface_array)):
         surface_array.append(((float(new_surface_array[i][0])), float(new_surface_array[i][1])))
 
+    berm_array = []
+    if request.GET['berm0x'] != '':
+        berm_array = [(request.GET['berm0x'], request.GET['berm0y']),
+                         (request.GET['berm1x'], request.GET['berm1y']),
+                         (request.GET['berm2x'], request.GET['berm2y']),
+                         (request.GET['berm3x'], request.GET['berm3y']),
+                         (request.GET['berm4x'], request.GET['berm4y']),
+                         (request.GET['berm5x'], request.GET['berm5y']),
+                         (request.GET['berm6x'], request.GET['berm6y']),
+                         (request.GET['berm7x'], request.GET['berm7y']),
+                         (request.GET['berm8x'], request.GET['berm8y']),
+                         (request.GET['berm9x'], request.GET['berm9y']),
+                         (request.GET['berm10x'], request.GET['berm10y']),
+                         (request.GET['berm11x'], request.GET['berm11y']),
+                         (request.GET['berm12x'], request.GET['berm12y']),
+                         (request.GET['berm13x'], request.GET['berm13y'])]
+        new_berm_array = []  # Remove all points with no entries
+
+        # Pare down surface array points to just the ones that were entered
+        for i in range(len(berm_array)):
+            if berm_array[i] != ('', ''):
+                new_berm_array.append(berm_array[i])
+        berm_array = []
+        for i in range(len(new_berm_array)):
+            berm_array.append(((float(new_berm_array[i][0])), float(new_berm_array[i][1])))
+
     if request.GET['1.name'] != '':  # If layer doesn't have a name, assume it does not exist and do not input it.
         layer_1 = Layer(request.GET['1.name'], float(request.GET['1.type']), float(request.GET['1.gamma']),
                         float(request.GET['1.qu']),
-                        float(request.GET['1.ka']), float(request.GET['1.kp']))
+                        float(request.GET['1.ka']), float(request.GET['1.kp']),
+                        float(request.GET['1.phi']))
     if request.GET['2.name'] != '':
         layer_2 = Layer(request.GET['2.name'], float(request.GET['2.type']), float(request.GET['2.gamma']),
                         float(request.GET['2.qu']),
-                        float(request.GET['2.ka']), float(request.GET['2.kp']))
+                        float(request.GET['2.ka']), float(request.GET['2.kp']),
+                        float(request.GET['2.phi']))
     if request.GET['3.name'] != '':
         layer_3 = Layer(request.GET['3.name'], float(request.GET['3.type']), float(request.GET['3.gamma']),
                         float(request.GET['3.qu']),
-                        float(request.GET['3.ka']), float(request.GET['3.kp']))
+                        float(request.GET['3.ka']), float(request.GET['3.kp']),
+                        float(request.GET['3.phi']))
     if request.GET['4.name'] != '':
         layer_4 = Layer(request.GET['4.name'], float(request.GET['4.type']), float(request.GET['4.gamma']),
                         float(request.GET['4.qu']),
-                        float(request.GET['4.ka']), float(request.GET['4.kp']))
+                        float(request.GET['4.ka']), float(request.GET['4.kp']),
+                        float(request.GET['4.phi']))
     if request.GET['5.name'] != '':
         layer_5 = Layer(request.GET['5.name'], float(request.GET['5.type']), float(request.GET['5.gamma']),
                         float(request.GET['5.qu']),
-                        float(request.GET['5.ka']), float(request.GET['5.kp']))
+                        float(request.GET['5.ka']), float(request.GET['5.kp']),
+                        float(request.GET['5.phi']))
     if request.GET['6.name'] != '':
         layer_6 = Layer(request.GET['6.name'], float(request.GET['6.type']), float(request.GET['6.gamma']),
                         float(request.GET['6.qu']),
-                        float(request.GET['6.ka']), float(request.GET['6.kp']))
+                        float(request.GET['6.ka']), float(request.GET['6.kp']),
+                        float(request.GET['6.phi']))
     if request.GET['7.name'] != '':
         layer_7 = Layer(request.GET['7.name'], float(request.GET['7.type']), float(request.GET['7.gamma']),
                         float(request.GET['7.qu']),
-                        float(request.GET['7.ka']), float(request.GET['7.kp']))
+                        float(request.GET['7.ka']), float(request.GET['7.kp']),
+                        float(request.GET['7.phi']))
     if request.GET['8.name'] != '':
         layer_8 = Layer(request.GET['8.name'], float(request.GET['8.type']), float(request.GET['8.gamma']),
                         float(request.GET['8.qu']),
-                        float(request.GET['8.ka']), float(request.GET['8.kp']))
+                        float(request.GET['8.ka']), float(request.GET['8.kp']),
+                        float(request.GET['8.phi']))
 
-    # elevation, layer, soil surcharge placeholder, footing placeholder, train placeholder, passive surcharge placeholder
-    layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 0],
-              [request.GET['wp2'], request.GET['wp2_layer'], 0, 0, 0, 0],
-              [request.GET['wp3'], request.GET['wp3_layer'], 0, 0, 0, 0],
-              [request.GET['wp4'], request.GET['wp4_layer'], 0, 0, 0, 0],
-              [request.GET['wp5'], request.GET['wp5_layer'], 0, 0, 0, 0],
-              [request.GET['wp6'], request.GET['wp6_layer'], 0, 0, 0, 0],
-              [request.GET['wp7'], request.GET['wp7_layer'], 0, 0, 0, 0],
-              [request.GET['wp8'], request.GET['wp8_layer'], 0, 0, 0, 0],
-              [request.GET['wp9'], request.GET['wp9_layer'], 0, 0, 0, 0],
-              [request.GET['wp10'], request.GET['wp10_layer'], 0, 0, 0, 0],
-              [request.GET['wp11'], request.GET['wp11_layer'], 0, 0, 0, 0],
-              [request.GET['wp12'], request.GET['wp12_layer'], 0, 0, 0, 0],
-              [request.GET['wp13'], request.GET['wp13_layer'], 0, 0, 0, 0],
-              [request.GET['wp14'], request.GET['wp14_layer'], 0, 0, 0, 0],
-              [request.GET['wp15'], request.GET['wp15_layer'], 0, 0, 0, 0],
-              [request.GET['wp16'], request.GET['wp16_layer'], 0, 0, 0, 0],
-              [request.GET['wp17'], request.GET['wp17_layer'], 0, 0, 0, 0],
-              [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0, 0],
-              [request.GET['wp19'], request.GET['wp19_layer'], 0, 0, 0, 0],
-              [request.GET['wp20'], request.GET['wp20_layer'], 0, 0, 0, 0]]
+    # elevation, layer, soil surcharge placeholder, footing placeholder, train placeholder, passive height placeholder
+    layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 10000],
+              [request.GET['wp2'], request.GET['wp2_layer'], 0, 0, 0, 10000],
+              [request.GET['wp3'], request.GET['wp3_layer'], 0, 0, 0, 10000],
+              [request.GET['wp4'], request.GET['wp4_layer'], 0, 0, 0, 10000],
+              [request.GET['wp5'], request.GET['wp5_layer'], 0, 0, 0, 10000],
+              [request.GET['wp6'], request.GET['wp6_layer'], 0, 0, 0, 10000],
+              [request.GET['wp7'], request.GET['wp7_layer'], 0, 0, 0, 10000],
+              [request.GET['wp8'], request.GET['wp8_layer'], 0, 0, 0, 10000],
+              [request.GET['wp9'], request.GET['wp9_layer'], 0, 0, 0, 10000],
+              [request.GET['wp10'], request.GET['wp10_layer'], 0, 0, 0, 10000],
+              [request.GET['wp11'], request.GET['wp11_layer'], 0, 0, 0, 10000],
+              [request.GET['wp12'], request.GET['wp12_layer'], 0, 0, 0, 10000],
+              [request.GET['wp13'], request.GET['wp13_layer'], 0, 0, 0, 10000],
+              [request.GET['wp14'], request.GET['wp14_layer'], 0, 0, 0, 10000],
+              [request.GET['wp15'], request.GET['wp15_layer'], 0, 0, 0, 10000],
+              [request.GET['wp16'], request.GET['wp16_layer'], 0, 0, 0, 10000],
+              [request.GET['wp17'], request.GET['wp17_layer'], 0, 0, 0, 10000],
+              [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0, 10000],
+              [request.GET['wp19'], request.GET['wp19_layer'], 0, 0, 0, 10000],
+              [request.GET['wp20'], request.GET['wp20_layer'], 0, 0, 0, 10000]]
     new_layers = []  # Remove all layers with no entries
     for i in range(len(layers)):
-        if layers[i] != ['', '', 0, 0, 0, 0]:
+        if layers[i] != ['', '', 0, 0, 0, 10000]:
             new_layers.append(layers[i])
     layers = []
     for i in range(len(new_layers)):
@@ -304,7 +339,7 @@ def output(request):
 
     for i in range(len(layers)-1):
         if layers[i][0] >= supplied_elev >= layers[i+1][0]:
-            layers.insert(i + 1, [round(supplied_elev, 2), layers[i][1], 0.0, 0.0, 0.0, 0.0])
+            layers.insert(i + 1, [round(supplied_elev, 2), layers[i][1], 0.0, 0.0, 0.0, 10000])
             work_points.insert(i + 1, [0, round(supplied_elev, 2)])
             break
 
@@ -313,19 +348,23 @@ def output(request):
         for i in range(len(layers)-1):
             if layers[i][0] >= cut_elev >= layers[i+1][0]:
                 if layers[i][1].type == 0:
-                    layers.insert(i+2, [round(cut_elev-beam_type[4], 2), layers[i][1], 0, 0, 0, 0])
+                    layers.insert(i+2, [round(cut_elev-beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
                     work_points.insert(i + 2, [0, round(cut_elev - beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 0])
+                    layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
                     work_points.insert(i + 3, [0, round(cut_elev - beam_type[4], 2)])
                     zero_length = beam_type[4]
                     break
                 if layers[i][1].type == 1:
-                    layers.insert(i+2, [round(cut_elev - 1.5*beam_type[4], 2), layers[i][1], 0, 0, 0, 0])
+                    layers.insert(i+2, [round(cut_elev - 1.5*beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
                     work_points.insert(i+2, [0, round(cut_elev - 1.5*beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 0])
+                    layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
                     work_points.insert(i + 3, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
                     zero_length = 1.5*beam_type[4]
                     break
+
+    if berm_array != []:
+        layers, work_points = berm_workpoints(layers, work_points, berm_array, cut_elev)
+        layers = passive_heights(surface_side, berm_array, layers, cut_elev)
 
     if request.GET['footing_1_type'] != '':
         combined_footing_load = combine_footings(footings)
@@ -373,8 +412,19 @@ def output(request):
                            str(surcharge[i][1]) + "'."
         surcharge_output.append(surcharge_string)
 
+    berm_output = []
+    if berm_array != []:
+        for i in range(len(layers)):
+            berm_string = "At elevation " + str(layers[i][0]) + "', assume passive soil height at elevation " + \
+                          str(layers[i][5]) + "'."
+            berm_output.append(berm_string)
+    berm_reduction_output = []
+
     active = active_pressures(layers, water_elev, total_weights)
     passive = passive_pressures(layers, water_cut_elev, cut_elev, total_weights)
+    if berm_array != []:
+        passive, berm_reduction_output = berm_reduction(layers, berm_array, cut_elev, passive, water_cut_elev,
+                                                        total_weights)
     water = water_pressures(layers, water_elev, water_cut_elev, total_weights, supplied_elev)
     active_pressure = active_pressures_output(layers, water_elev, total_weights)
     passive_pressure = passive_pressures_output(layers, water_cut_elev, cut_elev, total_weights)
@@ -432,7 +482,9 @@ def output(request):
                                            "bending_stress": bending_stress,
                                            "train_output": train_output,
                                            "beam_output": beam_output,
-                                           "wat_output": wat_output
+                                           "wat_output": wat_output,
+                                           "berm_output": berm_output,
+                                           "berm_reduction_output": berm_reduction_output
                                            })
 
 
@@ -539,60 +591,94 @@ def cant_output(request):
     for i in range(len(new_surface_array)):
         surface_array.append(((float(new_surface_array[i][0])), float(new_surface_array[i][1])))
 
+    berm_array = []
+    if request.GET['berm0x'] != '':
+        berm_array = [(request.GET['berm0x'], request.GET['berm0y']),
+                      (request.GET['berm1x'], request.GET['berm1y']),
+                      (request.GET['berm2x'], request.GET['berm2y']),
+                      (request.GET['berm3x'], request.GET['berm3y']),
+                      (request.GET['berm4x'], request.GET['berm4y']),
+                      (request.GET['berm5x'], request.GET['berm5y']),
+                      (request.GET['berm6x'], request.GET['berm6y']),
+                      (request.GET['berm7x'], request.GET['berm7y']),
+                      (request.GET['berm8x'], request.GET['berm8y']),
+                      (request.GET['berm9x'], request.GET['berm9y']),
+                      (request.GET['berm10x'], request.GET['berm10y']),
+                      (request.GET['berm11x'], request.GET['berm11y']),
+                      (request.GET['berm12x'], request.GET['berm12y']),
+                      (request.GET['berm13x'], request.GET['berm13y'])]
+        new_berm_array = []  # Remove all points with no entries
+
+        # Pare down surface array points to just the ones that were entered
+        for i in range(len(berm_array)):
+            if berm_array[i] != ('', ''):
+                new_berm_array.append(berm_array[i])
+        berm_array = []
+        for i in range(len(new_berm_array)):
+            berm_array.append(((float(new_berm_array[i][0])), float(new_berm_array[i][1])))
+
     if request.GET['1.name'] != '':  # If layer doesn't have a name, assume it does not exist and do not input it.
         layer_1 = Layer(request.GET['1.name'], float(request.GET['1.type']), float(request.GET['1.gamma']),
                         float(request.GET['1.qu']),
-                        float(request.GET['1.ka']), float(request.GET['1.kp']))
+                        float(request.GET['1.ka']), float(request.GET['1.kp']),
+                        float(request.GET['1.phi']))
     if request.GET['2.name'] != '':
         layer_2 = Layer(request.GET['2.name'], float(request.GET['2.type']), float(request.GET['2.gamma']),
                         float(request.GET['2.qu']),
-                        float(request.GET['2.ka']), float(request.GET['2.kp']))
+                        float(request.GET['2.ka']), float(request.GET['2.kp']),
+                        float(request.GET['2.phi']))
     if request.GET['3.name'] != '':
         layer_3 = Layer(request.GET['3.name'], float(request.GET['3.type']), float(request.GET['3.gamma']),
                         float(request.GET['3.qu']),
-                        float(request.GET['3.ka']), float(request.GET['3.kp']))
+                        float(request.GET['3.ka']), float(request.GET['3.kp']),
+                        float(request.GET['3.phi']))
     if request.GET['4.name'] != '':
         layer_4 = Layer(request.GET['4.name'], float(request.GET['4.type']), float(request.GET['4.gamma']),
                         float(request.GET['4.qu']),
-                        float(request.GET['4.ka']), float(request.GET['4.kp']))
+                        float(request.GET['4.ka']), float(request.GET['4.kp']),
+                        float(request.GET['4.phi']))
     if request.GET['5.name'] != '':
         layer_5 = Layer(request.GET['5.name'], float(request.GET['5.type']), float(request.GET['5.gamma']),
                         float(request.GET['5.qu']),
-                        float(request.GET['5.ka']), float(request.GET['5.kp']))
+                        float(request.GET['5.ka']), float(request.GET['5.kp']),
+                        float(request.GET['5.phi']))
     if request.GET['6.name'] != '':
         layer_6 = Layer(request.GET['6.name'], float(request.GET['6.type']), float(request.GET['6.gamma']),
                         float(request.GET['6.qu']),
-                        float(request.GET['6.ka']), float(request.GET['6.kp']))
+                        float(request.GET['6.ka']), float(request.GET['6.kp']),
+                        float(request.GET['6.phi']))
     if request.GET['7.name'] != '':
         layer_7 = Layer(request.GET['7.name'], float(request.GET['7.type']), float(request.GET['7.gamma']),
                         float(request.GET['7.qu']),
-                        float(request.GET['7.ka']), float(request.GET['7.kp']))
+                        float(request.GET['7.ka']), float(request.GET['7.kp']),
+                        float(request.GET['7.phi']))
     if request.GET['8.name'] != '':
         layer_8 = Layer(request.GET['8.name'], float(request.GET['8.type']), float(request.GET['8.gamma']),
                         float(request.GET['8.qu']),
-                        float(request.GET['8.ka']), float(request.GET['8.kp']))
+                        float(request.GET['8.ka']), float(request.GET['8.kp']),
+                        float(request.GET['8.phi']))
 
-    layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 0],
-              [request.GET['wp2'], request.GET['wp2_layer'], 0, 0, 0, 0],
-              [request.GET['wp3'], request.GET['wp3_layer'], 0, 0, 0, 0],
-              [request.GET['wp4'], request.GET['wp4_layer'], 0, 0, 0, 0],
-              [request.GET['wp5'], request.GET['wp5_layer'], 0, 0, 0, 0],
-              [request.GET['wp6'], request.GET['wp6_layer'], 0, 0, 0, 0],
-              [request.GET['wp7'], request.GET['wp7_layer'], 0, 0, 0, 0],
-              [request.GET['wp8'], request.GET['wp8_layer'], 0, 0, 0, 0],
-              [request.GET['wp9'], request.GET['wp9_layer'], 0, 0, 0, 0],
-              [request.GET['wp10'], request.GET['wp10_layer'], 0, 0, 0, 0],
-              [request.GET['wp11'], request.GET['wp11_layer'], 0, 0, 0, 0],
-              [request.GET['wp12'], request.GET['wp12_layer'], 0, 0, 0, 0],
-              [request.GET['wp13'], request.GET['wp13_layer'], 0, 0, 0, 0],
-              [request.GET['wp14'], request.GET['wp14_layer'], 0, 0, 0, 0],
-              [request.GET['wp15'], request.GET['wp15_layer'], 0, 0, 0, 0],
-              [request.GET['wp16'], request.GET['wp16_layer'], 0, 0, 0, 0],
-              [request.GET['wp17'], request.GET['wp17_layer'], 0, 0, 0, 0],
-              [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0, 0]]
+    layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 10000],
+              [request.GET['wp2'], request.GET['wp2_layer'], 0, 0, 0, 10000],
+              [request.GET['wp3'], request.GET['wp3_layer'], 0, 0, 0, 10000],
+              [request.GET['wp4'], request.GET['wp4_layer'], 0, 0, 0, 10000],
+              [request.GET['wp5'], request.GET['wp5_layer'], 0, 0, 0, 10000],
+              [request.GET['wp6'], request.GET['wp6_layer'], 0, 0, 0, 10000],
+              [request.GET['wp7'], request.GET['wp7_layer'], 0, 0, 0, 10000],
+              [request.GET['wp8'], request.GET['wp8_layer'], 0, 0, 0, 10000],
+              [request.GET['wp9'], request.GET['wp9_layer'], 0, 0, 0, 10000],
+              [request.GET['wp10'], request.GET['wp10_layer'], 0, 0, 0, 10000],
+              [request.GET['wp11'], request.GET['wp11_layer'], 0, 0, 0, 10000],
+              [request.GET['wp12'], request.GET['wp12_layer'], 0, 0, 0, 10000],
+              [request.GET['wp13'], request.GET['wp13_layer'], 0, 0, 0, 10000],
+              [request.GET['wp14'], request.GET['wp14_layer'], 0, 0, 0, 10000],
+              [request.GET['wp15'], request.GET['wp15_layer'], 0, 0, 0, 10000],
+              [request.GET['wp16'], request.GET['wp16_layer'], 0, 0, 0, 10000],
+              [request.GET['wp17'], request.GET['wp17_layer'], 0, 0, 0, 10000],
+              [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0, 10000]]
     new_layers = []  # Remove all layers with no entries
     for i in range(len(layers)):
-        if layers[i] != ['', '', 0, 0, 0, 0]:
+        if layers[i] != ['', '', 0, 0, 0, 10000]:
             new_layers.append(layers[i])
     layers = []
     for i in range(len(new_layers)):
@@ -713,7 +799,7 @@ def cant_output(request):
 
     for i in range(len(layers)-1):
         if layers[i][0] >= supplied_elev >= layers[i+1][0]:
-            layers.insert(i + 1, [round(supplied_elev, 2), layers[i][1], 0.0, 0.0, 0.0])
+            layers.insert(i + 1, [round(supplied_elev, 2), layers[i][1], 0.0, 0.0, 0.0, 10000])
             work_points.insert(i + 1, [0, round(supplied_elev, 2)])
             break
 
@@ -722,19 +808,23 @@ def cant_output(request):
         for i in range(len(layers) - 1):
             if layers[i][0] >= cut_elev >= layers[i + 1][0]:
                 if layers[i][1].type == 0:
-                    layers.insert(i + 2, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0])
+                    layers.insert(i + 2, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
                     work_points.insert(i + 2, [0, round(cut_elev - beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0])
+                    layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
                     work_points.insert(i + 3, [0, round(cut_elev - beam_type[4], 2)])
                     zero_length = beam_type[4]
                     break
                 if layers[i][1].type == 1:
-                    layers.insert(i + 2, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0])
+                    layers.insert(i + 2, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
                     work_points.insert(i + 2, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0])
+                    layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
                     work_points.insert(i + 3, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
                     zero_length = 1.5 * beam_type[4]
                     break
+
+    if berm_array != []:
+        layers, work_points = berm_workpoints(layers, work_points, berm_array, cut_elev)
+        layers = passive_heights(surface_side, berm_array, layers, cut_elev)
 
     if request.GET['footing_1_type'] != '':
         combined_footing_load = combine_footings(footings)
@@ -763,6 +853,7 @@ def cant_output(request):
     for i in range(len(layers)):
         total_footing_surcharge.append("At elevation " + str(layers[i][0]) + "', total footing surcharge = " +
                                        str(layers[i][3]) + " psf.")
+
     if footings == []:
         total_footing_surcharge = []
     train_output = ["All rail surcharges calculated using the Cooper E80 method."]
@@ -782,8 +873,18 @@ def cant_output(request):
                            str(surcharge[i][1]) + "'."
         surcharge_output.append(surcharge_string)
 
+    berm_output = []
+    if berm_array != []:
+        for i in range(len(layers)):
+            berm_string = "At elevation " + str(layers[i][0]) + "', assume passive soil height at elevation " + \
+                           str(layers[i][5]) + "'."
+            berm_output.append(berm_string)
+    berm_reduction_output = []
+
     active = active_pressures(layers, water_elev, total_weights)
     passive = passive_pressures(layers, water_cut_elev, cut_elev, total_weights)
+    if berm_array != []:
+        passive, berm_reduction_output = berm_reduction(layers, berm_array, cut_elev, passive, water_cut_elev, total_weights)
     water = water_pressures(layers, water_elev, water_cut_elev, total_weights, supplied_elev)
     active_pressure = active_pressures_output(layers, water_elev, total_weights)
     passive_pressure = passive_pressures_output(layers, water_cut_elev, cut_elev, total_weights)
@@ -845,5 +946,7 @@ def cant_output(request):
                                                 "bending_stress": bending_stress,
                                                 "surface": surface,
                                                 "beam_output": beam_output,
-                                                "wat_output": wat_output
+                                                "wat_output": wat_output,
+                                                "berm_output": berm_output,
+                                                "berm_reduction_output": berm_reduction_output
                                                 })

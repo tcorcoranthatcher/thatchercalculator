@@ -133,14 +133,14 @@ def incorporate_footings(footings, combined_footing_load, layers, work_points):
     for i in range(len(footing_work_points)):
         if footing_work_points[i] not in layer_elevations:
             if footing_work_points[i] > layer_elevations[0]:
-                layers.insert(i, [footing_work_points[i], layers[0][1], 0, 0, 0])
+                layers.insert(i, [footing_work_points[i], layers[0][1], 0, 0, 0, 10000])
                 break
             elif layers[0][0] > footing_work_points[i] > layers[-1][0]:
                 for j in range(len(layers)-1):
                     if layers[j][0] > footing_work_points[i] > layers[j+1][0]:
-                        layers.insert(j+1, [footing_work_points[i], layers[j][1], 0, 0, 0])
+                        layers.insert(j+1, [footing_work_points[i], layers[j][1], 0, 0, 0, 10000])
             else:
-                layers.append([footing_work_points[i], layers[-1][1], 0, 0, 0])
+                layers.append([footing_work_points[i], layers[-1][1], 0, 0, 0, 10000])
 
     for i in range(len(layers)):
         for j in range(len(combined_footing_load)):

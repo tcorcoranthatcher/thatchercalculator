@@ -1,19 +1,45 @@
 from shapely.geometry import LineString, Polygon
 import math
 import numpy
-
-surface_side = -1
-work_points = [(0.0, 0), (0.0, -3), (0.0, -20)]
-surface_array = [(0, 0),
-                 (-5, -5),
-                 (-10, -8),
-                 (-50, -20)]
-
-angle = 55
-angle_change_type = 0
-angle_change_elev = []
-min_surcharge_height = []
-
+# from Lateral_Pressures import Layer, passive_pressures
+#
+#
+# layer_1 = Layer("sand", 0, 120, 0, 0.33, 4.0, 30)
+# layer_2 = Layer("clay", 1, 130, 2.0, 1, 1, 0)
+#
+#
+#
+# surface_side = -1
+# layers = [[10, layer_1, 0, 0, 0, 0, 0],
+#           [0, layer_1, 0, 0, 0, 0, 0],
+#           [-4, layer_1, 0, 0, 0, 0, 0],
+#           [-4, layer_2, 0, 0, 0, 0, 0],
+#           [-8, layer_2, 0, 0, 0, 0, 0],
+#           [-8, layer_1, 0, 0, 0, 0, 0],
+#           [-12, layer_1, 0, 0, 0, 0, 0],
+#           [-16, layer_1, 0, 0, 0, 0, 0],
+#           [-16, layer_2, 0, 0, 0, 0, 0]]
+#
+# surface_array = [(0, 0),
+#                  (4, 0),
+#                  (8, -4),
+#                  (12, -4),
+#                  (16, -8),
+#                  (20, -8),
+#                  (24, -12),
+#                  (28, -12),
+#                  (32, -16)]
+#
+# # surface_array = [(0,0),
+# #                  (100, 0)]
+#
+# cut_elev = 0
+#
+# angle = 55
+# angle_change_type = 0
+# angle_change_elev = []
+# min_surcharge_height = []
+#
 
 def surcharge_heights(surface_side, surface_array, work_points, angle, angle_change_elev, angle_change_type,
                       min_surcharge_height):
@@ -27,7 +53,6 @@ def surcharge_heights(surface_side, surface_array, work_points, angle, angle_cha
     search_heights = list(numpy.linspace(min(y_coords), max(y_coords), num=(max(y_coords)-min(y_coords))*100+1))
     for i in range(len(search_heights)):
         search_heights[i] = round(search_heights[i], 2)
-
 
     for work_point in work_points:
         if angle_change_type == 0 or work_point[1] >= angle_change_elev:
@@ -109,3 +134,27 @@ def surcharge_heights(surface_side, surface_array, work_points, angle, angle_cha
                         break
 
     return output
+
+
+def passive_heights(surface_side, surface_array, layers, cut_elev):
+    output = []
+    y_coords = []
+
+    for i in range(len(surface_array)):
+        y_coords.append(surface_array[i][1])
+
+    surface_linestring = LineString(surface_array)
+
+    for layer in layers:
+        if layer[0] > cut_elev:
+            layer[5] = cut_elev
+        else:
+            failure_line = LineString([(0, layer[0]), (-1*surface_side * 1000, 1000 * math.tan(math.radians(45-layer[1].phi/2)) + layer[0])])
+            intersection = failure_line.intersection(surface_linestring)
+            layer[5] = (round(intersection.bounds[1] * 4) / 4.0)
+
+    return layers
+
+#
+# print(passive_heights(surface_side, surface_array, layers, cut_elev))
+

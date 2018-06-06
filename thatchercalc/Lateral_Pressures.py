@@ -2,7 +2,7 @@ import math
 
 
 class Layer:
-    def __init__(self, name, type, gamma, qu, ka, kp):
+    def __init__(self, name, type, gamma, qu, ka, kp, phi):
         self.name = name  # String of designation of soil (fill, soft clay, dense sand, etc)
         self.type = type  # 0 for granular, 1 for cohesive
         self.gamma = gamma  # Unit weight of soil in units pounds per cubic foot.
@@ -10,6 +10,7 @@ class Layer:
         self.qu = qu  # Unconfined compressive strength in units of tons per square foot.
         self.ka = ka  # Active lateral earth pressure coefficient (determined outside of program)
         self.kp = kp  # Passive lateral earth pressure coefficient (determined outside of program)
+        self.phi = phi # Friction angle
 
 
 def active_pressures(layers, water_elev, total_weights):
@@ -46,18 +47,49 @@ def passive_pressures(layers, water_elev, cut_elev, total_weights):
         for k in range(i+1):
             if k != 0 and layers[k][0] < cut_elev:
                 if layers[k-1][0] != layers[k][0]:
-                    if layers[k][0] < water_elev:
-                        if i <= total_weights:
-                            vert_pressure = vert_pressure + (layers[k-1][0]-layers[k][0])*(layers[k][1].sub - layers[k][-1])
+                    if layers[k][0] < layers[i][5]:
+                        if layers[k][0] < water_elev:
+                            if i <= total_weights:
+                                if layers[k-1][0] > layers[i][5] > layers[k][0]:
+                                    vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (layers[k][1].sub - layers[k][-1])
+                                else:
+                                    vert_pressure = vert_pressure + (layers[k-1][0]-layers[k][0])*(layers[k][1].sub - layers[k][-1])
+                            else:
+                                if layers[k-1][0] > layers[i][5] > layers[k][0]:
+                                    vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (layers[k][1].gamma - layers[k][-1])
+                                else:
+                                    vert_pressure = vert_pressure + (layers[k-1][0]-layers[k][0])*(layers[k][1].gamma - layers[k][-1])
                         else:
-                            vert_pressure = vert_pressure + (layers[k-1][0]-layers[k][0])*(layers[k][1].gamma - layers[k][-1])
-                    else:
-                        vert_pressure = vert_pressure + (layers[k-1][0]-layers[k][0])*(layers[k][1].gamma - layers[k][-1])
+                            if layers[k - 1][0] > layers[i][5] > layers[k][0]:
+                                vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (layers[k][1].gamma - layers[k][-1])
+                            else:
+                                vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (layers[k][1].gamma - layers[k][-1])
         passive_pressure = 0
         if layers[i][0] <= cut_elev:
             passive_pressure = math.floor(vert_pressure * layers[i][1].kp + layers[i][1].qu * 2000)
         passive_pressures.insert(i, (layers[i][0], passive_pressure))
     return passive_pressures
+    # passive_pressures = []
+    # for i in range(len(layers)):
+    #     vert_pressure = 0
+    #     for k in range(i + 1):
+    #         if k != 0 and layers[k][0] < cut_elev:
+    #             if layers[k - 1][0] != layers[k][0]:
+    #                 if layers[k][0] < water_elev:
+    #                     if i <= total_weights:
+    #                         vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
+    #                         layers[k][1].sub - layers[k][-1])
+    #                     else:
+    #                         vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
+    #                         layers[k][1].gamma - layers[k][-1])
+    #                 else:
+    #                     vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
+    #                     layers[k][1].gamma - layers[k][-1])
+    #     passive_pressure = 0
+    #     if layers[i][0] <= cut_elev:
+    #         passive_pressure = math.floor(vert_pressure * layers[i][1].kp + layers[i][1].qu * 2000)
+    #     passive_pressures.insert(i, (layers[i][0], passive_pressure))
+    # return passive_pressures
 
 
 def active_pressures_front(layers, water_elev, cut_elev, total_weights):
@@ -241,7 +273,7 @@ def water_pressures(layers, water_elev, cut_elev, total_weights, supplied_elev):
 
     check = 0
     for i in range(len(layers)):
-        if layers[i][5] != 0:
+        if layers[i][-1] != 0:
             check = 1
             break
 
@@ -305,23 +337,33 @@ def passive_pressures_output(layers, water_elev, cut_elev, total_weights):
     output_string = []
     for i in range(len(layers)):
         vert_pressure = 0
-        passive_pressure_string = "Pp @ " + str(layers[i][0]) + "' = (" + str(layers[i][5]) + "psf"
+        passive_pressure_string = "Pp @ " + str(layers[i][0]) + "' = (" + str(0) + "psf"
         for k in range(i + 1):
             if k != 0 and layers[k][0] < cut_elev:
                 if layers[k - 1][0] != layers[k][0]:
-                    if layers[k][0] < water_elev:
-                        if i <= total_weights:
-                            vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (layers[k][1].sub - layers[k][-1])
-                            passive_pressure_string += " + " + str(layers[k][1].sub - layers[k][-1]) + "pcf*" + str(
-                                round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
+                    if layers[k][0] < layers[i][5]:
+                        if layers[k][0] < water_elev:
+                            if i <= total_weights:
+                                if layers[k - 1][0] > layers[i][5] > layers[k][0]:
+                                    vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (layers[k][1].sub - layers[k][-1])
+                                    passive_pressure_string += " + " + str(layers[k][1].sub - layers[k][-1]) + "pcf*" + str(round((layers[i][5] - layers[k][0]), 2)) + "'"
+                                else:
+                                    vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (layers[k][1].sub - layers[k][-1])
+                                    passive_pressure_string += " + " + str(layers[k][1].sub - layers[k][-1]) + "pcf*" + str(round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
+                            else:
+                                if layers[k-1][0] > layers[i][5] > layers[k][0]:
+                                    vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (layers[k][1].gamma - layers[k][-1])
+                                    passive_pressure_string += " + " + str(layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(round((layers[i][5] - layers[k][0]), 2)) + "'"
+                                else:
+                                    vert_pressure = vert_pressure + (layers[k-1][0]-layers[k][0])*(layers[k][1].gamma - layers[k][-1])
+                                    passive_pressure_string += " + " + str(layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
                         else:
-                            vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (layers[k][1].gamma - layers[k][-1])
-                            passive_pressure_string += " + " + str(layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(
-                                round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
-                    else:
-                        vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (layers[k][1].gamma - layers[k][-1])
-                        passive_pressure_string += " + " + str(layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(
-                            round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
+                            if layers[k - 1][0] > layers[i][5] > layers[k][0]:
+                                vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (layers[k][1].gamma - layers[k][-1])
+                                passive_pressure_string += " + " + str(layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(round((layers[i][5] - layers[k][0]), 2)) + "'"
+                            else:
+                                vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (layers[k][1].gamma - layers[k][-1])
+                                passive_pressure_string += " + " + str(layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
         passive_pressure = 0
         if layers[i][0] <= cut_elev:
             passive_pressure = math.floor(vert_pressure * layers[i][1].kp + layers[i][1].qu * 2000)
@@ -334,6 +376,42 @@ def passive_pressures_output(layers, water_elev, cut_elev, total_weights):
         if layers[i][0] <= cut_elev:
             output_string.append(passive_pressure_string)
     return output_string
+    # passive_pressures = []
+    # output_string = []
+    # for i in range(len(layers)):
+    #     vert_pressure = 0
+    #     passive_pressure_string = "Pp @ " + str(layers[i][0]) + "' = (" + str(0) + "psf"
+    #     for k in range(i + 1):
+    #         if k != 0 and layers[k][0] < cut_elev:
+    #             if layers[k - 1][0] != layers[k][0]:
+    #                 if layers[k][0] < water_elev:
+    #                     if i <= total_weights:
+    #                         vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
+    #                         layers[k][1].sub - layers[k][-1])
+    #                         passive_pressure_string += " + " + str(layers[k][1].sub - layers[k][-1]) + "pcf*" + str(
+    #                             round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
+    #                     else:
+    #                         vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
+    #                         layers[k][1].gamma - layers[k][-1])
+    #                         passive_pressure_string += " + " + str(layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(
+    #                             round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
+    #                 else:
+    #                     vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
+    #                     layers[k][1].gamma - layers[k][-1])
+    #                     passive_pressure_string += " + " + str(layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(
+    #                         round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
+    #     passive_pressure = 0
+    #     if layers[i][0] <= cut_elev:
+    #         passive_pressure = math.floor(vert_pressure * layers[i][1].kp + layers[i][1].qu * 2000)
+    #     if layers[i][1].type == 1:
+    #         passive_pressure_string += ")+2*" + str(layers[i][1].qu * 1000) + "psf"
+    #     else:
+    #         passive_pressure_string += ")*" + str(layers[i][1].kp)
+    #     passive_pressures.insert(i, (layers[i][0], passive_pressure))
+    #     passive_pressure_string += " = " + (str(passive_pressure)) + " psf"
+    #     if layers[i][0] <= cut_elev:
+    #         output_string.append(passive_pressure_string)
+    # return output_string
 
 
 def water_pressures_output(water_pressures):
@@ -486,3 +564,5 @@ def water_around_toe(layers, water_elev, cut_elev, supplied_elev):
 
 
     return layers, text_output
+
+

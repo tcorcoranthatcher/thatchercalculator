@@ -142,6 +142,52 @@
     <input type="radio" name="angle_change_type" value="1">Sand-over-clay (use 55 degree angle)<br>
     <input type="radio" name="angle_change_type" value="2">Clay-over-sand (use 45 degree angle)<br>
     <br>
+    <h3>Input berm (if applicable)</h3>
+    Input coordinates starting from the ERS point and going sequentially along the berm.<br>
+    The final point's x-coordinate should go out to pretty far (50 units or more past the last point)<br>
+    <br>
+    <input type="text" name="berm0x">Point(0)-x<br>
+    <input type="text" name="berm0y">Point(0)-y<br>
+    <br>
+    <input type="text" name="berm1x">Point(1)-x<br>
+    <input type="text" name="berm1y">Point(1)-y<br>
+    <br>
+    <input type="text" name="berm2x">Point(2)-x<br>
+    <input type="text" name="berm2y">Point(2)-y<br>
+    <br>
+    <input type="text" name="berm3x">Point(3)-x<br>
+    <input type="text" name="berm3y">Point(3)-y<br>
+    <br>
+    <input type="text" name="berm4x">Point(4)-x<br>
+    <input type="text" name="berm4y">Point(4)-y<br>
+    <br>
+    <input type="text" name="berm5x">Point(5)-x<br>
+    <input type="text" name="berm5y">Point(5)-y<br>
+    <br>
+    <input type="text" name="berm6x">Point(6)-x<br>
+    <input type="text" name="berm6y">Point(6)-y<br>
+    <br>
+    <input type="text" name="berm7x">Point(7)-x<br>
+    <input type="text" name="berm7y">Point(7)-y<br>
+    <br>
+    <input type="text" name="berm8x">Point(8)-x<br>
+    <input type="text" name="berm8y">Point(8)-y<br>
+    <br>
+    <input type="text" name="berm9x">Point(9)-x<br>
+    <input type="text" name="berm9y">Point(9)-y<br>
+    <br>
+    <input type="text" name="berm10x">Point(10)-x<br>
+    <input type="text" name="berm10y">Point(10)-y<br>
+    <br>
+    <input type="text" name="berm11x">Point(11)-x<br>
+    <input type="text" name="berm11y">Point(11)-y<br>
+    <br>
+    <input type="text" name="berm12x">Point(12)-x<br>
+    <input type="text" name="berm12y">Point(12)-y<br>
+    <br>
+    <input type="text" name="berm13x">Point(13)-x<br>
+    <input type="text" name="berm13y">Point(13)-y<br>
+    <br>
     <br>
     <h2>Work Points and Soil Layers</h2>
     <h3>Input Soil Layers</h3>
@@ -158,7 +204,8 @@
     Unit Weight (pcf) <input type="text" name="1.gamma"> <br>
     qu (tsf) <input type="text" name="1.qu"> Enter 0 if sand.<br>
     Ka <input type="text" name="1.ka">
-    Kp <input type="text" name="1.kp"> Enter 1 for both if cohesive.
+    Kp <input type="text" name="1.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="1.phi"> Enter 0 if cohesive.
     <br>
     <br>
     Layer 2:
@@ -168,7 +215,8 @@
     Unit Weight (pcf) <input type="text" name="2.gamma"> <br>
     qu (tsf) <input type="text" name="2.qu"> Enter 0 if sand.<br>
     Ka <input type="text" name="2.ka">
-    Kp <input type="text" name="2.kp"> Enter 1 for both if cohesive.
+    Kp <input type="text" name="2.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="2.phi"> Enter 0 if cohesive.
     <br>
     <br>
     Layer 3:
@@ -178,7 +226,8 @@
     Unit Weight (pcf) <input type="text" name="3.gamma"> <br>
     qu (tsf) <input type="text" name="3.qu"> Enter 0 if sand.<br>
     Ka <input type="text" name="3.ka">
-    Kp <input type="text" name="3.kp"> Enter 1 for both if cohesive.
+    Kp <input type="text" name="3.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="3.phi"> Enter 0 if cohesive.
     <br>
     <br>
     Layer 4:
@@ -188,7 +237,8 @@
     Unit Weight (pcf) <input type="text" name="4.gamma"> <br>
     qu (tsf) <input type="text" name="4.qu"> Enter 0 if sand.<br>
     Ka <input type="text" name="4.ka">
-    Kp <input type="text" name="4.kp"> Enter 1 for both if cohesive.
+    Kp <input type="text" name="4.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="4.phi"> Enter 0 if cohesive.
     <br>
     <br>
     Layer 5:
@@ -198,7 +248,8 @@
     Unit Weight (pcf) <input type="text" name="5.gamma"> <br>
     qu (tsf) <input type="text" name="5.qu"> Enter 0 if sand.<br>
     Ka <input type="text" name="5.ka">
-    Kp <input type="text" name="5.kp"> Enter 1 for both if cohesive.
+    Kp <input type="text" name="5.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="5.phi"> Enter 0 if cohesive.
     <br>
     <br>
     Layer 6:
@@ -208,7 +259,8 @@
     Unit Weight (pcf) <input type="text" name="6.gamma"> <br>
     qu (tsf) <input type="text" name="6.qu"> Enter 0 if sand.<br>
     Ka <input type="text" name="6.ka">
-    Kp <input type="text" name="6.kp"> Enter 1 for both if cohesive.
+    Kp <input type="text" name="6.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="6.phi"> Enter 0 if cohesive.
     <br>
     <br>
     Layer 7:
@@ -218,7 +270,8 @@
     Unit Weight (pcf) <input type="text" name="7.gamma"> <br>
     qu (tsf) <input type="text" name="7.qu"> Enter 0 if sand.<br>
     Ka <input type="text" name="7.ka">
-    Kp <input type="text" name="7.kp"> Enter 1 for both if cohesive.
+    Kp <input type="text" name="7.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="7.phi"> Enter 0 if cohesive.
     <br>
     <br>
     Layer 8:
@@ -228,7 +281,8 @@
     Unit Weight (pcf) <input type="text" name="8.gamma"> <br>
     qu (tsf) <input type="text" name="8.qu"> Enter 0 if sand.<br>
     Ka <input type="text" name="8.ka">
-    Kp <input type="text" name="8.kp"> Enter 1 for both if cohesive.
+    Kp <input type="text" name="8.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="8.phi"> Enter 0 if cohesive.
     <br>
     <br>
     <h3>Input work points</h3>

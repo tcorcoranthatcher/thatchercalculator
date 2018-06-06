@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 def isprime(n):
     '''check if integer n is a prime'''
 
@@ -99,15 +101,3 @@ def isprime(n):
 #         if isprime(number):
 #             count += number
 #     print(count)
-
-def euler11():
-    triangle_numbers = []
-    for number in range(1,1000):
-        triangle_number = 0
-        for sub_number in range(1, number):
-            triangle_number += sub_number
-        triangle_numbers.append(triangle_number)
-
-euler11()
-
-
