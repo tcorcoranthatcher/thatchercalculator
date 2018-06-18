@@ -41,6 +41,7 @@ import numpy
 # min_surcharge_height = []
 #
 
+
 def surcharge_heights(surface_side, surface_array, work_points, angle, angle_change_elev, angle_change_type,
                       min_surcharge_height):
     output = []

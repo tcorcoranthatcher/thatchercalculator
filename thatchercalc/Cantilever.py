@@ -489,5 +489,3 @@ def deflection_calc_cantilever(net_pressures, minimum_length_data, sheet_type):
 # min = minimum_length_cantilever(net, cant, cut_elev)
 # mult = multiplier_cantilever(net, cant, min, cut_elev)
 
-
-

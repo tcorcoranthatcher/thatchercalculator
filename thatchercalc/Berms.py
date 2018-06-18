@@ -135,7 +135,6 @@ def berm_reduction(layers, berm_array, cut_elev, passive_pressure, water_elev, t
             slope = 0
         slopes.append(slope)
 
-
     total_passives = []
     for i in range(len(layers)):
         if layers[i][0] >= cut_elev:
