@@ -364,11 +364,14 @@ def output(request):
 
     if berm_array != []:
         layers, work_points = berm_workpoints(layers, work_points, berm_array, cut_elev)
-        layers = passive_heights(surface_side, berm_array, layers, cut_elev)
+
 
     if request.GET['footing_1_type'] != '':
         combined_footing_load = combine_footings(footings)
         layers, work_points = incorporate_footings(footings, combined_footing_load, layers, work_points)
+
+    if berm_array != []:
+        layers = passive_heights(surface_side, berm_array, layers, cut_elev)
 
     if request.GET['train_1_distance'] != '':
         train_surcharge = combine_trains(trains)
@@ -824,11 +827,13 @@ def cant_output(request):
 
     if berm_array != []:
         layers, work_points = berm_workpoints(layers, work_points, berm_array, cut_elev)
-        layers = passive_heights(surface_side, berm_array, layers, cut_elev)
 
     if request.GET['footing_1_type'] != '':
         combined_footing_load = combine_footings(footings)
         layers, work_points = incorporate_footings(footings, combined_footing_load, layers, work_points)
+
+    if berm_array != []:
+        layers = passive_heights(surface_side, berm_array, layers, cut_elev)
 
     if request.GET['train_1_distance'] != '':
         train_surcharge = combine_trains(trains)

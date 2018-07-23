@@ -260,10 +260,11 @@ def multiplier_cantilever(net_pressures, cant_pressures, minimum_length_data, cu
         cant_pressures[1].insert(i, net_pressures[1][i])
 
     multiplier_length = math.ceil(minimum_length)
+    limit = max(net_pressures[1][-1], net_pressures[1][0]-supplied_length-5)
     multiplier_elev = net_pressures[1][0] - multiplier_length
     multiplier_length_list = [multiplier_length]
     multiplier_elev_list = [multiplier_elev]
-    while multiplier_elev > net_pressures[1][-1]:
+    while multiplier_elev > limit:
         multiplier_elev += -1
         multiplier_length += 1
         multiplier_length_list.append(multiplier_length)
@@ -479,6 +480,11 @@ def deflection_calc_cantilever(net_pressures, minimum_length_data, sheet_type):
     return def_list, max_deflection, max_deflection_elev
 
 
+# net = [[35, 292, 631, 539, 1106, 1096, -3366, -5077, -4886, -6314,-10006, -5791, -6141, -10175],
+#        [740, 734, 730, 730, 724.17, 723.25, 718, 716, 716, 714.33, 710, 710, 703, 703]]
+# cant = [[0, 0, 250, 250, 614, 5745, 6050, 6166, 10527, 10984, 12169, 8448, 8829, 16835],
+#         [740, 734, 730, 730, 724.17, 723.25, 718, 716, 716, 714.33, 710, 710, 703, 703]]
+# cut_elev = 723.25
 # active = active_pressures(layers, water_elev, total_weights)
 # passive = passive_pressures(layers, water_elev, cut_elev, total_weights)
 # water = water_pressures(layers, water_elev, cut_elev, total_weights)
@@ -487,5 +493,8 @@ def deflection_calc_cantilever(net_pressures, minimum_length_data, sheet_type):
 # passive_back = passive_pressures_back(layers, water_elev, cut_elev, surface_elev, total_weights)
 # cant = cant_pressures(active_front, passive_back, water)
 # min = minimum_length_cantilever(net, cant, cut_elev)
-# mult = multiplier_cantilever(net, cant, min, cut_elev)
-
+# mult = multiplier_cantilever(net, cant, min, cut_elev, 30)
+# deflect = deflection_calc_cantilever(net, min, [64, "SKZ 38", 62.32, 560.85])
+# print(min)
+# print(mult)
+# print(deflect)
