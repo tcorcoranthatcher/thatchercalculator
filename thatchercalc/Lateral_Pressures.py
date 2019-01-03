@@ -148,21 +148,21 @@ def passive_pressures_back(layers, water_elev, cut_elev, surface_elev, total_wei
 
 def net_pressures(active_pressures, passive_pressures, water_pressures,
                   cut_elev, ers_type, beam_spacing, zero_length,
-                  beam_type):
+                  beam_type, soldier_beam_method):
     net_pressures = []
     heights = []
     if len(active_pressures) != len(passive_pressures):
         return("error")
     else:
         for i in range(len(active_pressures)):
-            net_pressure = active_pressures[i][1] + water_pressures[i][1]- passive_pressures[i][1]
+            net_pressure = active_pressures[i][1] + water_pressures[i][1] - passive_pressures[i][1]
             if active_pressures[i][0] == cut_elev:
                 net_pressures.append(active_pressures[i][1]+water_pressures[i][1])
                 heights.append(active_pressures[i][0])
             net_pressures.append(net_pressure)
             heights.append(active_pressures[i][0])
 
-    if ers_type == 1:
+    if ers_type == 1 and soldier_beam_method == 0:
         for i in range(len(heights)):
             if heights[i] > cut_elev:
                 net_pressures[i] = round(net_pressures[i]*beam_spacing, 0)
@@ -191,12 +191,60 @@ def net_pressures(active_pressures, passive_pressures, water_pressures,
             if heights[i] < (cut_elev - zero_length-0.01):
                 net_pressures[i] = round(3*beam_type[4]*net_pressures[i], 0)
 
+    if ers_type == 1 and soldier_beam_method == 1:
+        for i in range(len(heights)):
+            if heights[i] > cut_elev:
+                # NO CHANGE
+                net_pressures[i] = round(net_pressures[i]*beam_spacing, 0)
+            if heights[i] == cut_elev and heights[i+1] == heights[i]:
+                # NO CHANGE
+                if net_pressures[i] >= 0:
+                    net_pressures[i] = net_pressures[i]*beam_spacing
+                else:
+                    net_pressures[i] = 0
+            if heights[i] == cut_elev and heights[i+1] != heights[i]:
+                # NO CHANGE
+                if net_pressures[i] >= 0:
+                    net_pressures[i] = net_pressures[i]*beam_type[4]
+                else:
+                    net_pressures[i] = 0
+            if cut_elev > heights[i] > cut_elev - zero_length+0.01:
+                # NO CHANGE
+                if net_pressures[i] <= 0:
+                    net_pressures[i] = 0
+            if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i+1] == heights[i]:
+                # NO CHANGE
+                if net_pressures[i] >= 0:
+                    pass
+                else:
+                    net_pressures[i] = 0
+            if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i + 1] != \
+                    heights[i]:
+                # net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
+                net_pressure = beam_type[4]*(active_pressures[i-1][1] + water_pressures[i-1][1]) - 3*beam_type[4]*passive_pressures[i-1][1]
+                passive_limit = (active_pressures[i-1][1] + water_pressures[i-1][1] - passive_pressures[i-1][1])*beam_spacing
+                if net_pressure >= passive_limit:
+                    net_pressures[i] = round(net_pressure, 0)
+                else:
+                    net_pressures[i] = round(passive_limit, 0)
+
+            if heights[i] < (cut_elev - zero_length-0.01):
+                # net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
+                net_pressure = beam_type[4] * (active_pressures[i-1][1] + water_pressures[i-1][1]) - 3 * beam_type[4] * passive_pressures[i-1][1]
+                passive_limit = (active_pressures[i-1][1] + water_pressures[i-1][1] - passive_pressures[i-1][
+                    1]) * beam_spacing
+                if net_pressure >= passive_limit:
+                    net_pressures[i] = round(net_pressure, 0)
+                else:
+                    net_pressures[i] = round(passive_limit, 0)
+
+
     print(heights)
     return net_pressures, heights
 
 
 def cant_pressures(active_pressures, passive_pressures, water_pressures,
-                   cut_elev, ers_type, beam_spacing, zero_length, beam_type ):
+                   cut_elev, ers_type, beam_spacing, zero_length, beam_type, soldier_beam_method):
     net_pressures = []
     heights = []
     if len(active_pressures) != len(passive_pressures):
@@ -206,7 +254,7 @@ def cant_pressures(active_pressures, passive_pressures, water_pressures,
             net_pressure = active_pressures[i][1] - water_pressures[i][1] - passive_pressures[i][1]
             net_pressures.append(net_pressure)
             heights.append(active_pressures[i][0])
-    if ers_type == 1:
+    if ers_type == 1 and soldier_beam_method == 0:
         for i in range(len(heights)):
             if heights[i] > cut_elev:
                 net_pressures[i] = net_pressures[i] * beam_spacing
@@ -245,6 +293,62 @@ def cant_pressures(active_pressures, passive_pressures, water_pressures,
                 heights.insert(i+1, heights[i])
                 net_pressures.insert(i+1, 3*beam_type[4]*net_pressures[i])
                 break
+    if ers_type == 1 and soldier_beam_method == 1:
+        for i in range(len(heights)):
+            if heights[i] > cut_elev:
+                net_pressures[i] = net_pressures[i] * beam_spacing
+            if heights[i] == cut_elev and heights[i + 1] == heights[i]:
+                if net_pressures[i] >= 0:
+                    net_pressures[i] = net_pressures[i] * beam_spacing
+                else:
+                    net_pressures[i] = 0
+            if heights[i] == cut_elev and heights[i + 1] != heights[i]:
+                if net_pressures[i] >= 0:
+                    net_pressures[i] = net_pressures[i]*beam_type[4]
+                else:
+                    net_pressures[i] = 0
+            if cut_elev > heights[i] > cut_elev - zero_length + 0.01:
+                if net_pressures[i] <= 0:
+                    net_pressures[i] = 0
+            if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i + 1] == \
+                    heights[i]:
+                temp = net_pressures[i]
+                if net_pressures[i] >= 0:
+                    net_pressures[i] = temp
+                else:
+                    net_pressures[i] = 0
+            if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i + 1] != \
+                    heights[i]:
+                # net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
+                net_pressure = beam_type[4] * (active_pressures[i][1] - water_pressures[i][1]) - 3 * beam_type[
+                    4] * passive_pressures[i][1]
+                passive_limit = (active_pressures[i][1] - water_pressures[i][1] - passive_pressures[i][
+                    1]) * beam_spacing
+                if net_pressure >= passive_limit:
+                    net_pressures[i] = round(net_pressure, 0)
+                else:
+                    net_pressures[i] = round(passive_limit, 0)
+            if heights[i] < (cut_elev - zero_length-0.01):
+                # net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
+                net_pressure = beam_type[4] * (active_pressures[i][1] - water_pressures[i][1]) - 3 * beam_type[
+                    4] * passive_pressures[i][1]
+                passive_limit = (active_pressures[i][1] - water_pressures[i][1] - passive_pressures[i][
+                    1]) * beam_spacing
+                if net_pressure >= passive_limit:
+                    net_pressures[i] = round(net_pressure, 0)
+                else:
+                    net_pressures[i] = round(passive_limit, 0)
+        for i in range(len(heights)):
+            if heights[i] == cut_elev - zero_length:
+                heights.insert(i + 1, heights[i])
+                net_pressures.insert(i + 1, 3 * beam_type[4] * net_pressures[i])
+                break
+        for i in range(len(heights)):
+            if heights[i] == cut_elev - zero_length:
+                heights.insert(i+1, heights[i])
+                net_pressures.insert(i+1, 3*beam_type[4]*net_pressures[i])
+                break
+
     new_nets = []
     new_heights = []
     for i in range(len(net_pressures)):

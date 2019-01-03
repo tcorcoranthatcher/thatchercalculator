@@ -90,9 +90,11 @@ def berm_reduction(layers, berm_array, cut_elev, passive_pressure, water_elev, t
             for area_point in berm_array:
                 if layers[i-1][0] >= area_point[1] >= layers[i][0]:
                     area_points.append(area_point)
-            weight_poly = Polygon(area_points)
-            area = weight_poly.area
-            weight += area * unit_weights[i][1]
+            if layers[i][0] != layers[i-1][0]:
+                weight_poly = Polygon(area_points)
+                area = weight_poly.area
+                weight += area * unit_weights[i][1]
+
 
         berm_weights.append([layers[i][0], weight])
     # FIND LENGTH l AT EACH WORKPOINT
@@ -119,7 +121,6 @@ def berm_reduction(layers, berm_array, cut_elev, passive_pressure, water_elev, t
         else:
             limiter = 10000000000000000
         limiters.append([layers[i][0], math.ceil(limiter)])
-    print(limiters)
 
     new_passives = []
     for i in range(len(passive_pressure)):

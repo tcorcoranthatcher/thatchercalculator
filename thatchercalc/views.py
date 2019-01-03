@@ -315,6 +315,8 @@ def output(request):
     if ers_type == 1:
         sheet_type = beam_type
 
+    soldier_beam_method = float(request.GET['soldier_beam_method'])
+
     supplied_length = float(request.GET['supplied_length'])
     supplied_elev = top_sheet[0] - supplied_length
 
@@ -364,7 +366,6 @@ def output(request):
 
     if berm_array != []:
         layers, work_points = berm_workpoints(layers, work_points, berm_array, cut_elev)
-
 
     if request.GET['footing_1_type'] != '':
         combined_footing_load = combine_footings(footings)
@@ -432,14 +433,15 @@ def output(request):
     active_pressure = active_pressures_output(layers, water_elev, total_weights)
     passive_pressure = passive_pressures_output(layers, water_cut_elev, cut_elev, total_weights)
     water_pressure = water_pressures_output(water)
-    net = net_pressures(active, passive, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type)
+    net = net_pressures(active, passive, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type,
+                        soldier_beam_method)
     if top_sheet[0] != layers[0][0]:
         net[0].insert(0, 0)
         net[1].insert(0, net[1][0])
         net[0].insert(0, 0)
         net[1].insert(0, top_sheet[0])
     beam_output = []
-    if ers_type == 1:
+    if ers_type == 1 and soldier_beam_method == 0:
         beam_output = [("Soldier Beam Analysis Effective Widths : " + beam_type[1] + " @ " + str(beam_spacing) +
                         "' spacing"),
                        ("From elevation " + str(net[1][0]) + "' to elevation " + str(cut_elev)+"': W = " +
@@ -448,6 +450,16 @@ def output(request):
                         "': W = 0 (net active W ="+ str(beam_type[4])+ "')"),
                        ("At elevation " + str(round(cut_elev-zero_length, 2)) + "' and below: W = 3*" +
                         str(beam_type[4]) + "' = " + str(round(3*beam_type[4], 2)) + "'")
+                       ]
+    if ers_type == 1 and soldier_beam_method == 1:
+        beam_output = [("Soldier Beam Analysis Effective Widths : " + beam_type[1] + " @ " + str(beam_spacing) + "' spacing"),
+                       ("From elevation " + str(net[1][0]) + "' to elevation " + str(cut_elev)+"': W = " + str(beam_spacing) + "'"),
+                       ("From elevation " + str(cut_elev) + "' to elevation " + str(round(cut_elev-zero_length, 2)) +
+                        "': W = 0 (net active W ="+ str(beam_type[4])+ "')"),
+                       ("At elevation " + str(round(cut_elev-zero_length, 2)) + "' and below: W = 3*" + str(beam_type[4]) +
+                        "' = " + str(round(3*beam_type[4], 2)) + "' for the passive pressures, and W = " + str(beam_type[4]) +
+                        "' for the active pressures.  Net pressure is limited negatively (passive side) by "
+                        "(Pa-Pp)*beam spacing")
                        ]
 
     data = minimum_length(net, brace_elev)
@@ -487,7 +499,8 @@ def output(request):
                                            "beam_output": beam_output,
                                            "wat_output": wat_output,
                                            "berm_output": berm_output,
-                                           "berm_reduction_output": berm_reduction_output
+                                           "berm_reduction_output": berm_reduction_output,
+                                           "soldier_beam_method": soldier_beam_method
                                            })
 
 
@@ -778,6 +791,8 @@ def cant_output(request):
     if ers_type == 1:
         sheet_type = beam_type
 
+    soldier_beam_method = float(request.GET['soldier_beam_method'])
+
     supplied_length = float(request.GET['supplied_length'])
     supplied_elev = top_sheet[0] - supplied_length
 
@@ -898,14 +913,15 @@ def cant_output(request):
     passive_cant = passive_pressures_back(layers, water_elev, cut_elev, surface_elev, total_weights)
     active_pressure_front = active_pressures_front_output(layers, water_cut_elev, cut_elev, total_weights)
     passive_pressure_back = passive_pressures_back_output(layers, water_elev, cut_elev, surface_elev, total_weights)
-    net = net_pressures(active, passive, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type)
+    net = net_pressures(active, passive, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type,
+                        soldier_beam_method)
     if top_sheet[0] != layers[0][0]:
         net[0].insert(0, 0)
         net[1].insert(0, net[1][0])
         net[0].insert(0, 0)
         net[1].insert(0, top_sheet[0])
     beam_output = []
-    if ers_type == 1:
+    if ers_type == 1 and soldier_beam_method == 0:
         beam_output = [("Soldier Beam Analysis Effective Widths : " + beam_type[1] + " @ " + str(beam_spacing) + "' spacing"),
                        ("From elevation " + str(net[1][0]) + "' to elevation " + str(cut_elev)+"': W = " + str(beam_spacing) + "'"),
                        ("From elevation " + str(cut_elev) + "' to elevation " + str(round(cut_elev-zero_length, 2)) +
@@ -913,7 +929,17 @@ def cant_output(request):
                        ("At elevation " + str(round(cut_elev-zero_length, 2)) + "' and below: W = 3*" + str(beam_type[4]) +
                         "' = " + str(round(3*beam_type[4], 2)) + "'")
                        ]
-    cant = cant_pressures(active_cant, passive_cant, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type)
+    if ers_type == 1 and soldier_beam_method == 1:
+        beam_output = [("Soldier Beam Analysis Effective Widths : " + beam_type[1] + " @ " + str(beam_spacing) + "' spacing"),
+                       ("From elevation " + str(net[1][0]) + "' to elevation " + str(cut_elev)+"': W = " + str(beam_spacing) + "'"),
+                       ("From elevation " + str(cut_elev) + "' to elevation " + str(round(cut_elev-zero_length, 2)) +
+                        "': W = 0 (net active W ="+ str(beam_type[4])+ "')"),
+                       ("At elevation " + str(round(cut_elev-zero_length, 2)) + "' and below: W = 3*" + str(beam_type[4]) +
+                        "' = " + str(round(3*beam_type[4], 2)) + "' for the passive pressures, and W = " + str(beam_type[4]) +
+                        "' for the active pressures.  Net pressure is limited negatively (passive side) by "
+                        "(Pa-Pp)*beam spacing")
+                       ]
+    cant = cant_pressures(active_cant, passive_cant, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type, soldier_beam_method)
     data = minimum_length_cantilever(net, cant, cut_elev)
     min_length = str(round(data[0], 2)) + "'"
     min_length_elev = str(round(data[1], 2)) + "'"
@@ -953,5 +979,6 @@ def cant_output(request):
                                                 "beam_output": beam_output,
                                                 "wat_output": wat_output,
                                                 "berm_output": berm_output,
-                                                "berm_reduction_output": berm_reduction_output
+                                                "berm_reduction_output": berm_reduction_output,
+                                                "soldier_beam_method": soldier_beam_method
                                                 })

@@ -372,8 +372,9 @@ def multiplier_cantilever(net_pressures, cant_pressures, minimum_length_data, cu
                                 multiplier = -1 * negative_moments / positive_moments
                                 multiplier_list.append((multiplier_length_list[k], multiplier_elev_list[k], multiplier,
                                                         x, z, iter_net_pressure, iter_cant_pressure, positive_moments, negative_moments, force_constant, force_z_constant, force_xz_constant, force_x_constant, force_x2_constant, net_pressures[0][i], cant_pressures[0][j]))
+                                print((multiplier_length_list[k], multiplier_elev_list[k], multiplier,
+                                       x, z, iter_net_pressure, iter_cant_pressure, positive_moments, negative_moments, force_constant, force_z_constant, force_xz_constant, force_x_constant, force_x2_constant, net_pressures[0][i],cant_pressures[0][j]))
 
-    print(multiplier_list)
     multiplier_list = sorted(multiplier_list, key=operator.itemgetter(0, 2))
     new_list = []
     check = []
@@ -397,7 +398,6 @@ def multiplier_cantilever(net_pressures, cant_pressures, minimum_length_data, cu
             output_string = "With " + str(multiplier_list[i][0]) + "' long ERS tipped @ Elev. " + str(multiplier_list[i][1])\
                             + "': Mult = " + str(round(multiplier_list[i][2], 2))
             output.append(output_string)
-    print(multiplier_list)
 
     return output, multi_x, multi_y, multi
 
