@@ -49,21 +49,34 @@ def minimum_length(net_pressures, brace_elev):
             slope = 0
         net_slopes.append(slope)
     for i in range(len(net_pressures[1])-1):
+        compute_string = ""
+        text_output_moments = []
         if net_pressures[0][i] >= 0 > net_pressures[0][i+1] or net_pressures[0][i] < 0:
             moment_constant = 0
             for j in range(i):
                 force_area = 0.5 * (net_pressures[0][j] + net_pressures[0][j + 1]) * distances[j]
+                compute_string += "0.5*(" + str(net_pressures[0][j]) + " + " + str(net_pressures[0][j + 1]) + ")*(" + \
+                                  str(round(distances[j], 2)) + ")"
                 if (3 * (net_pressures[0][j] + net_pressures[0][j + 1])) != 0:
                     moment_arm = brace_elev - (((2 * net_pressures[0][j] + net_pressures[0][j + 1]) * (distances[j]) /
                                                 (3 * (net_pressures[0][j] + net_pressures[0][j + 1]))) +
                                                net_pressures[1][j+1])
+                    compute_string += "*(" + str(round(moment_arm, 2))+ ")"
                 else:
                     moment_arm = brace_elev - net_pressures[1][j+1]
-                ##### POTENTIAL ERROR IN MOMENT ARM, MIGHT NEED TO USE ABSOLUTE VALUES TO GET CENTROID IDK #####
+                    compute_string += "*(" + str(round(moment_arm, 2)) + ")"
                 moment_constant = moment_constant + force_area*moment_arm
+                text_output_moments.append(compute_string)
+                compute_string = ""
             moment_x_constant = net_pressures[0][i] * (brace_elev - net_pressures[1][i])
             moment_x2_constant = net_pressures[0][i]/2 + net_slopes[i]*(brace_elev - net_pressures[1][i])/2
             moment_x3_constant = net_slopes[i]/3
+            text_output_moments.append(str(round(net_pressures[0][i],2))+
+                                       "*(x)*("+str(round(brace_elev - net_pressures[1][i], 2))+" + x/2)")
+            text_output_moments.append(
+                str(round(net_slopes[i],2)) + "*(x)*(x/2)*(" + str(round(brace_elev - net_pressures[1][i], 2)) +
+                " + 2x/3)")
+
             x = Symbol('x')
             solutions = solve(moment_constant + moment_x_constant*x + moment_x2_constant*x*x + moment_x3_constant*x*x*x,
                               x, complex=False)
@@ -90,7 +103,7 @@ def minimum_length(net_pressures, brace_elev):
              str(round(moment_x_constant, 2)) + '*x + ' + str(round(moment_x2_constant, 2)) + "*x^2 + " + str(round(moment_x3_constant, 2)) + \
              '*x^3 = 0.  x = ' + str(round(x_distance, 2)) + "."
 
-    return minimum_length, minimum_length_elev, waler_load, output, minimum_length_pressure
+    return minimum_length, minimum_length_elev, waler_load, output, minimum_length_pressure, text_output_moments
 
 
 def maximum_moment(net_pressures, waler_load, brace_elev):
@@ -145,6 +158,7 @@ def maximum_moment(net_pressures, waler_load, brace_elev):
                     y = j
                     zero_shear_point = net_pressures[1][0] - (net_pressures[1][0] - net_pressures[1][i] + y)
     moment = waler_load*(brace_elev-zero_shear_point)
+    max_elevation = zero_shear_point
     for i in range(len(net_pressures[1])-1):
         force = 0.5 * (net_pressures[0][i] + net_pressures[0][i + 1]) * distances[i]
         if 3*(net_pressures[0][i]+net_pressures[0][i+1]) != 0:
@@ -157,7 +171,7 @@ def maximum_moment(net_pressures, waler_load, brace_elev):
         elif moment_arm > 0 and moment_arm != y:
             moment = moment - force*moment_arm
 
-    return moment
+    return moment, max_elevation
 
 
 def multiplier(net_pressures, brace_elev, minimum_length_data, supplied_length):
@@ -201,7 +215,9 @@ def multiplier(net_pressures, brace_elev, minimum_length_data, supplied_length):
             slope_list.append(net_slopes[i])
             e_0 = e_1
             p_0 = p_1
+
     net_pressures = [net_pressures_sectioned_pressures, net_pressures_sectioned_elevations, slope_list]
+
     for i in range(len(multiplier_elev_list)):
         negative_moments = 0
         positive_moments = 0
@@ -233,11 +249,11 @@ def multiplier(net_pressures, brace_elev, minimum_length_data, supplied_length):
                 negative_moments += moment
         multiplier = -1 * negative_moments/positive_moments
         multiplier_list.append((multiplier_length_list[i], multiplier_elev_list[i], multiplier,
-                                multiplier_compute_list[-1][0]))
+                                multiplier_compute_list[-1][0], negative_moments, positive_moments))
 
     multi_pressure = []
     multi_elev = []
-    mult = []
+    mult = 0
     if supplied_length != []:
         for i in range(len(multiplier_list)):
             if multiplier_list[i][0] == supplied_length:
@@ -246,12 +262,21 @@ def multiplier(net_pressures, brace_elev, minimum_length_data, supplied_length):
                 mult = multiplier_list[i][2]
                 break
 
+    text_output = []
     for i in range(len(multiplier_list)):
         if multiplier_list[i][2] <= 50:
-            output_string = "With " + str(multiplier_list[i][0]) + "' long ERS tipped @ Elev. " + str(multiplier_list[i][1])\
-                            + "': Mult = " + str(round(multiplier_list[i][2], 2))
+            if multiplier_list[i][0] != supplied_length:
+                output_string = "With " + str(multiplier_list[i][0]) + "' long ERS tipped @ Elev. " + \
+                                str(multiplier_list[i][1]) + "': Mult = " + str(round(multiplier_list[i][2], 2))
+            else:
+                output_string = "With " + str(multiplier_list[i][0]) + "' long ERS tipped @ Elev. " + \
+                                str(multiplier_list[i][1]) + "': Mult = " + str(round(multiplier_list[i][2], 2))
+                text_output = "With supplied length = " + str(supplied_length) + "': Resisting moment = " + str(-1*round(multiplier_list[i][4],2)) + "#'.  Driving moment = "\
+                                + str(round(multiplier_list[i][5], 2)) + "#'"
+
             output.append(output_string)
-    return output, multi_pressure, multi_elev, mult
+
+    return output, multi_pressure, multi_elev, mult, text_output
 
 
 def deflection_calc(net_pressures, brace_elev, minimum_length_data, sheet_type):

@@ -369,7 +369,7 @@ def output(request):
 
     if request.GET['footing_1_type'] != '':
         combined_footing_load = combine_footings(footings)
-        layers, work_points = incorporate_footings(footings, combined_footing_load, layers, work_points)
+        layers, work_points = incorporate_footings(footings, combined_footing_load, layers, work_points, supplied_elev)
 
     if berm_array != []:
         layers = passive_heights(surface_side, berm_array, layers, cut_elev)
@@ -435,6 +435,7 @@ def output(request):
     water_pressure = water_pressures_output(water)
     net = net_pressures(active, passive, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type,
                         soldier_beam_method)
+    net_output = net[2]
     if top_sheet[0] != layers[0][0]:
         net[0].insert(0, 0)
         net[1].insert(0, net[1][0])
@@ -469,7 +470,9 @@ def output(request):
     design_text = data[3]
     min_length_pressure = data[4]
     multi = multiplier(net, brace_elev, data, supplied_length)
-    moment = math.ceil(maximum_moment(net, data[2], brace_elev))
+    moment = maximum_moment(net, data[2], brace_elev)
+    max_moment_elevation = round(moment[1],2)
+    moment = math.ceil(moment[0])
     deflection = deflection_calc(net, brace_elev, data, sheet_type)
     pressure_plot = braced_pressure_plot(layers, net, brace_elev, min_length_pressure, data[1], data[0], deflection,
                                          scale_factor, multi[1], multi[2], multi[3])
@@ -500,7 +503,12 @@ def output(request):
                                            "wat_output": wat_output,
                                            "berm_output": berm_output,
                                            "berm_reduction_output": berm_reduction_output,
-                                           "soldier_beam_method": soldier_beam_method
+                                           "soldier_beam_method": soldier_beam_method,
+                                           "net_output": net_output,
+                                           "max_moment_elevation": max_moment_elevation,
+                                           "min_length_work_moments": data[5],
+                                           "multiplier_supplied_length": multi[4],
+                                           "multiplier_value": round(multi[3], 2)
                                            })
 
 
@@ -845,7 +853,7 @@ def cant_output(request):
 
     if request.GET['footing_1_type'] != '':
         combined_footing_load = combine_footings(footings)
-        layers, work_points = incorporate_footings(footings, combined_footing_load, layers, work_points)
+        layers, work_points = incorporate_footings(footings, combined_footing_load, layers, work_points, supplied_elev)
 
     if berm_array != []:
         layers = passive_heights(surface_side, berm_array, layers, cut_elev)
@@ -915,6 +923,7 @@ def cant_output(request):
     passive_pressure_back = passive_pressures_back_output(layers, water_elev, cut_elev, surface_elev, total_weights)
     net = net_pressures(active, passive, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type,
                         soldier_beam_method)
+    net_output = net[2]
     if top_sheet[0] != layers[0][0]:
         net[0].insert(0, 0)
         net[1].insert(0, net[1][0])
@@ -940,6 +949,7 @@ def cant_output(request):
                         "(Pa-Pp)*beam spacing")
                        ]
     cant = cant_pressures(active_cant, passive_cant, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type, soldier_beam_method)
+    cant_output = cant[2]
     data = minimum_length_cantilever(net, cant, cut_elev)
     min_length = str(round(data[0], 2)) + "'"
     min_length_elev = str(round(data[1], 2)) + "'"
@@ -947,7 +957,9 @@ def cant_output(request):
     min_length_net_pressure = round(data[3])
     min_length_cant_pressure = round(data[4])
     multi = multiplier_cantilever(net, cant, data, cut_elev, supplied_length)
-    moment = math.ceil(maximum_moment_cantilever(net))
+    moment = maximum_moment_cantilever(net)
+    max_moment_elevation = round(moment[1],2)
+    moment = math.ceil(moment[0])
     deflection = deflection_calc_cantilever(net, data, sheet_type)
     pressure_plot = cant_pressure_plot(layers, net, min_length_cant_pressure, min_length_net_pressure, data[1], data[0],
                                        data[5], deflection, scale_factor, cant, multi[1], multi[2], multi[3])
@@ -980,5 +992,13 @@ def cant_output(request):
                                                 "wat_output": wat_output,
                                                 "berm_output": berm_output,
                                                 "berm_reduction_output": berm_reduction_output,
-                                                "soldier_beam_method": soldier_beam_method
+                                                "soldier_beam_method": soldier_beam_method,
+                                                "net_output": net_output,
+                                                "cant_output": cant_output,
+                                                "max_moment_elevation": max_moment_elevation,
+                                                "min_length_work_forces": data[7],
+                                                "min_length_work_moments": data[8],
+                                                "multiplier_supplied_length": multi[4],
+                                                "multiplier_value": round(multi[3], 2)
+
                                                 })

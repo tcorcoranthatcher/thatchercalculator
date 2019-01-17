@@ -103,16 +103,26 @@ def minimum_length_cantilever(net_pressures, cant_pressures, cut_elev):
         if net_pressures[1][i] <= cut_elev:
             force_constant = 0
             moment_constant = 0
+            compute_string = ""
+            text_output_forces = []
+            text_output_moments = []
             for j in range(i):
                 force_area = 0.5 * (net_pressures[0][j] + net_pressures[0][j + 1]) * distances[j]
+                compute_string += "0.5*(" + str(net_pressures[0][j]) + " + " + str(net_pressures[0][j+1]) + ")*(" + \
+                                  str(round(distances[j], 2)) + ")"
+                text_output_forces.append(compute_string)
                 if 3 * (net_pressures[0][j] + net_pressures[0][j + 1]) != 0:
                     moment_arm = (((2 * net_pressures[0][j] + net_pressures[0][j + 1]) * (distances[j]) /
                                    (3 * (net_pressures[0][j] + net_pressures[0][j + 1])))) + (
                         net_pressures[1][j + 1] - net_pressures[1][i])
+                    compute_string += "*(" + str(round(moment_arm, 2)) + "+x)"
                 else:
                     moment_arm = (net_pressures[1][j + 1] - net_pressures[1][i])
+                    compute_string += "*(" + str(round(moment_arm, 2)) + "+x)"
                 force_constant += force_area
                 moment_constant += force_area * moment_arm
+                text_output_moments.append(compute_string)
+                compute_string = ""
             for k in range(i, len(net_pressures[1])-1):
 
                 force_x_constant = net_pressures[0][i]
@@ -121,6 +131,11 @@ def minimum_length_cantilever(net_pressures, cant_pressures, cut_elev):
                 force_z_constant = (-1 * net_pressures[0][i] +
                                     (cant_pressures[0][k] -
                                      (cant_pressures[1][i] - cant_pressures[1][k]) * cant_slopes[k])) / 2
+                text_output_forces.append(str(round(net_pressures[0][i], 2))+"*x")
+                text_output_forces.append(str(round(net_slopes[i], 2)) + "*(x^2)/2")
+                text_output_forces.append("(-" + str(net_pressures[0][i]) + " - " + str(net_slopes[i]) + "*x + "
+                                          + str((round(cant_pressures[0][k] - (cant_pressures[1][i] - cant_pressures[1][k])
+                                                 * cant_slopes[k]), 2)) + " + " + str(cant_slopes[k]) + "*x)*(z/2)")
                 moment_x_constant = force_constant
                 moment_x2_constant = net_pressures[0][i]/2
                 moment_x3_constant = net_slopes[i]/6
@@ -128,6 +143,13 @@ def minimum_length_cantilever(net_pressures, cant_pressures, cut_elev):
                                                               (cant_pressures[1][i] - cant_pressures[1][k]) *
                                                               cant_slopes[k]))/6
                 moment_xz2_constant = (-1*net_slopes[i]+cant_slopes[k])/6
+                text_output_moments.append(str(round(force_constant,2))+"*x")
+                text_output_moments.append(str(round(net_pressures[0][i], 2)) + "*(x^2)/2")
+                text_output_moments.append("(-" + str(net_pressures[0][i]) + " - " + str(net_slopes[i]) + "*x + "
+                                           + str((round(cant_pressures[0][k] -
+                                                        (cant_pressures[1][i] - cant_pressures[1][k])
+                                                        * cant_slopes[k]), 2)) + " + " + str(cant_slopes[k]) +
+                                           "*x)*(z^2/6)")
 
                 x, z = cantilever_solver(force_constant, force_z_constant, force_xz_constant, force_x_constant,
                                          force_x2_constant, moment_constant, moment_x_constant, moment_z2_constant,
@@ -156,7 +178,11 @@ def minimum_length_cantilever(net_pressures, cant_pressures, cut_elev):
                                               minimum_length_cant_pressure, reference_point, force_constant, force_z_constant,
                                               force_xz_constant, force_x_constant, force_x2_constant, moment_constant,
                                               moment_x_constant, moment_z2_constant, moment_xz2_constant, moment_x2_constant,
-                                              moment_x3_constant])
+                                              moment_x3_constant, text_output_forces, text_output_moments])
+                            text_output_forces = []
+                            text_output_moments = []
+
+
     solutions.sort(key=lambda y: y[0])
     minimum_length = solutions[0][2]
     minimum_length_elev = solutions[0][3]
@@ -173,9 +199,11 @@ def minimum_length_cantilever(net_pressures, cant_pressures, cut_elev):
               ("x = " + str(round(solutions[0][0], 2))),
               ("z = " + str(round(solutions[0][1], 2)))
               ]
+    text_output_forces = solutions[0][18]
+    text_output_moments = solutions[0][19]
 
     return minimum_length, minimum_length_elev, output, minimum_length_net_pressure, minimum_length_cant_pressure, \
-           solutions[0][1], solutions[0]
+           solutions[0][1], solutions[0], text_output_forces, text_output_moments
 
 
 def maximum_moment_cantilever(net_pressures):
@@ -243,7 +271,7 @@ def maximum_moment_cantilever(net_pressures):
         elif moment_arm > 0 and moment_arm != y:
             moment = moment + force*moment_arm
 
-    return moment
+    return moment, zero_shear_point
 
 
 def multiplier_cantilever(net_pressures, cant_pressures, minimum_length_data, cut_elev, supplied_length):
@@ -385,7 +413,7 @@ def multiplier_cantilever(net_pressures, cant_pressures, minimum_length_data, cu
     multiplier_list = new_list
     multi_x = []
     multi_y = []
-    multi = []
+    multi = 0
     if supplied_length != []:
         for i in range(len(multiplier_list)):
             if multiplier_list[i][0] == supplied_length:
@@ -393,13 +421,25 @@ def multiplier_cantilever(net_pressures, cant_pressures, minimum_length_data, cu
                 multi_y = [multiplier_list[i][1]+multiplier_list[i][4], multiplier_list[i][1]]
                 multi = multiplier_list[i][2]
                 break
+    text_output = []
     for i in range(len(multiplier_list)):
         if multiplier_list[i][2] <= 50:
-            output_string = "With " + str(multiplier_list[i][0]) + "' long ERS tipped @ Elev. " + str(multiplier_list[i][1])\
+            if multiplier_list[i][0] != supplied_length:
+                output_string = "With " + str(multiplier_list[i][0]) + "' long ERS tipped @ Elev. " + str(multiplier_list[i][1])\
                             + "': Mult = " + str(round(multiplier_list[i][2], 2))
+            else:
+                output_string = "With " + str(multiplier_list[i][0]) + "' long ERS tipped @ Elev. " + \
+                                str(multiplier_list[i][1]) + "': Mult = " + str(round(multiplier_list[i][2], 2))
+                text_output.append("With supplied length = " + str(supplied_length) + "':")
+                text_output.append("Sum of forces equation used to solve for z with z = 0 @ Elev. " + str(round(multiplier_list[i][1], 2)) + "' and x = " + str(round(multiplier_list[i][3], 2)) + "':")
+                text_output.append(str(multiplier_list[i][9]) + " + " + str(multiplier_list[i][10]) + "*z + "
+                                   + str(multiplier_list[i][11]) + "*x*z + " + str(multiplier_list[i][12]) +
+                                   "*x + " + str(multiplier_list[i][13]) + "*x^2 = 0.  z = " + str(round(multiplier_list[i][4], 2)) + "'")
+                text_output.append("Resisting moment = " + str(-1 * round(multiplier_list[i][8], 2)) +
+                                   "#'.  Driving moment = " + str(round(multiplier_list[i][7], 2)) + "#'")
             output.append(output_string)
 
-    return output, multi_x, multi_y, multi
+    return output, multi_x, multi_y, multi, text_output
 
 
 def deflection_calc_cantilever(net_pressures, minimum_length_data, sheet_type):

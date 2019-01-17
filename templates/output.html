@@ -31,10 +31,18 @@
 <td>{{ water_pressures|join:"<br/>" }}</td>
 <br>
 <br>
+<td>{{ net_output|join:"<br/>" }}</td>
+<br>
+<br>
 <td>{{ beam_output|join:"<br/>" }}</td>
 <br>
 <h3>Braced Wall Design</h3>
-Find point on diagram where the sum of moments is 0 around that point.<br>
+Find point on diagram where the sum of moments is 0 about the brace elevation.<br>
+<br>
+Sum of Moments = 0<br>
+<td>{{ min_length_work_moments|join:"<br/>" }}</td>
+<br>
+<br>
 {{design_text}}
 <br>
 <br>Minimum Length: {{ min_length }}
@@ -46,7 +54,9 @@ Find point on diagram where the sum of moments is 0 around that point.<br>
 <br>
 <td>{{ multiplier|join:"<br/>" }}</td>
 <br>
-<br> Max Moment = {{ moment }} #'/'
+<br> {{ multiplier_supplied_length }} Multiplier =  {{ multiplier_value }}
+<br>
+<br> Max Moment = {{ moment }} #'/' @ Elev. {{ max_moment_elevation }}'
 <br>
 <br> Max Deflection = {{ deflection }}" @ Elev. {{ deflection_elev }}' with {{ sheet_type }}
 <br>

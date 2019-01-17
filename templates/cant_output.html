@@ -37,11 +37,26 @@
 <td>{{ passive_pressure_back|join:"<br/>" }}</td>
 <br>
 <br>
+<td>{{ net_output|join:"<br/>" }}</td>
+<br>
+<br>
+<td>{{ cant_output|join:"<br/>" }}</td>
+<br>
+<br>
 <td>{{ beam_output|join:"<br/>" }}</td>
 <br>
 <h3>Cantilever Wall Design</h3>
 Find point on diagram where both the sum of moments and sum of forces are 0 around that point.<br>
+Sum of Forces = 0<br>
+<td>{{ min_length_work_forces|join:"<br/>" }}</td>
+<br>
+<br>
+Sum of Moments = 0<br>
+<td>{{ min_length_work_moments|join:"<br/>" }}</td>
+<br>
+<br>
 <td>{{ design_text|join:"<br/>" }}</td>
+<br>
 <br>
 <br>Minimum Length: {{ min_length }}
 <br>Tip Elevation: {{ min_length_elev }}
@@ -49,7 +64,10 @@ Find point on diagram where both the sum of moments and sum of forces are 0 arou
 <br>
 <td>{{ multiplier|join:"<br/>" }}</td>
 <br>
-<br> Max Moment = {{ moment }} #'/'
+<br>
+<td>{{ multiplier_supplied_length|join:"<br/>" }}</td> Multiplier =  {{ multiplier_value }}
+<br>
+<br> Max Moment = {{ moment }} #'/' @ Elev. {{ max_moment_elevation }}'
 <br>
 <br> Max Deflection = {{ deflection }}" @ Elev. {{ deflection_elev }}' with {{ sheet_type }}
 <br>

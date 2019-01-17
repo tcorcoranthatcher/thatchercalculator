@@ -151,14 +151,21 @@ def net_pressures(active_pressures, passive_pressures, water_pressures,
                   beam_type, soldier_beam_method):
     net_pressures = []
     heights = []
+    text_output = []
     if len(active_pressures) != len(passive_pressures):
         return("error")
     else:
         for i in range(len(active_pressures)):
             net_pressure = active_pressures[i][1] + water_pressures[i][1] - passive_pressures[i][1]
+            text_output.append("Pnet @ " + str(active_pressures[i][0]) + "' (Pa+Pw-Pp) = " + str(active_pressures[i][1])
+                               + "psf + " + str(water_pressures[i][1]) + "psf - " + str(passive_pressures[i][1]) +
+                               "psf = " + str(net_pressure) + " psf")
             if active_pressures[i][0] == cut_elev:
                 net_pressures.append(active_pressures[i][1]+water_pressures[i][1])
                 heights.append(active_pressures[i][0])
+                text_output.insert(len(text_output)-1, ("Pnet @ " + str(active_pressures[i][0]) + "' (Pa+Pw-Pp) = " + str(
+                    active_pressures[i][1]) + "psf + " + str(water_pressures[i][1]) + "psf - 0psf = " +
+                                   str(active_pressures[i][1]+water_pressures[i][1]) + " psf"))
             net_pressures.append(net_pressure)
             heights.append(active_pressures[i][0])
 
@@ -238,15 +245,15 @@ def net_pressures(active_pressures, passive_pressures, water_pressures,
                 else:
                     net_pressures[i] = round(passive_limit, 0)
 
-
     print(heights)
-    return net_pressures, heights
+    return net_pressures, heights, text_output
 
 
 def cant_pressures(active_pressures, passive_pressures, water_pressures,
                    cut_elev, ers_type, beam_spacing, zero_length, beam_type, soldier_beam_method):
     net_pressures = []
     heights = []
+    text_output = []
     if len(active_pressures) != len(passive_pressures):
         return("error")
     else:
@@ -254,6 +261,9 @@ def cant_pressures(active_pressures, passive_pressures, water_pressures,
             net_pressure = active_pressures[i][1] - water_pressures[i][1] - passive_pressures[i][1]
             net_pressures.append(net_pressure)
             heights.append(active_pressures[i][0])
+            text_output.append("Pnet @ " + str(active_pressures[i][0]) + "' (PpBS+Pw-PaFS) = " + str(passive_pressures[i][1])
+                               + "psf + " + str(water_pressures[i][1]) + "psf - " + str(active_pressures[i][1]) +
+                               "psf = " + str(-1*net_pressure) + " psf")
     if ers_type == 1 and soldier_beam_method == 0:
         for i in range(len(heights)):
             if heights[i] > cut_elev:
@@ -356,7 +366,7 @@ def cant_pressures(active_pressures, passive_pressures, water_pressures,
             new_nets.append(-1*net_pressures[i])
             new_heights.append(heights[i])
 
-    return new_nets, new_heights
+    return new_nets, new_heights, text_output
 
 
 def water_pressures(layers, water_elev, cut_elev, total_weights, supplied_elev):
@@ -668,5 +678,29 @@ def water_around_toe(layers, water_elev, cut_elev, supplied_elev):
 
 
     return layers, text_output
+
+
+def net_pressure_output(active_pressures, passive_pressures, water_pressures, net_pressures):
+    output = []
+    # for i in range(len(net_pressures[1])-1):
+    #     output_string = "Pnet @ " + str(net_pressures[1][i]) + "' (Pa+Pw-Pp) = " + str(active_pressures[i][1]) + \
+    #                     "psf + " + str(water_pressures[i][1]) + "psf - " + str(passive_pressures[i][1]) + "psf = " + \
+    #                     str(net_pressures[0][i]) + " psf"
+    #     output.append(output_string)
+
+    return output
+
+
+def cant_pressure_output(active_pressures, passive_pressures, water_pressures, cant_pressures):
+    output = []
+    for i in range(len(cant_pressures[1])):
+        output_string = "Pnet @ " + str(cant_pressures[1][i]) + "' (PpBS-PaFS-Pw) = " + str(passive_pressures[i][1]) + \
+                        "psf - " + str(active_pressures[i][1]) + "psf - " + str(water_pressures[i][1]) + "psf = " + \
+                        str(cant_pressures[0][i]) + " psf"
+        output.append(output_string)
+
+    return output
+
+
 
 

@@ -110,12 +110,15 @@ def combine_footings(footings):
     return combined_footing_list
 
 
-def incorporate_footings(footings, combined_footing_load, layers, work_points):
+def incorporate_footings(footings, combined_footing_load, layers, work_points, supplied_elev):
     footing_work_points = []
     for footing in footings:
-        footing_work_points.append(footing[0])
-        footing_work_points.append(footing[1])
-        footing_work_points.append(footing[2])
+        if footing[0] > supplied_elev - 10:
+            footing_work_points.append(footing[0])
+        if footing[1] > supplied_elev - 10:
+            footing_work_points.append(footing[1])
+        if footing[2] > supplied_elev - 10:
+            footing_work_points.append(footing[2])
     footing_work_points = list(set(footing_work_points))
     footing_work_points = sorted(footing_work_points, reverse=True)
     for footing_work_point in footing_work_points:
