@@ -46,7 +46,6 @@ def footing_surcharge(type, width, distance, elevation, load, spacing_1, spacing
     elev_1 = round(elevation - b_1, 2)
     elev_2 = round(elevation - b_2, 2)
     elev_3 = round(elevation - b_3, 2)
-    text_output = []
 
     #  Data manipulation
     calc_elev_list = []
@@ -55,13 +54,17 @@ def footing_surcharge(type, width, distance, elevation, load, spacing_1, spacing
         calc_elev_list.append(round(calc_elev, 2))
 
     if type == 0:
-        qeq_max = math.ceil(load/(2*distance))
+        qeq_max = math.ceil(load / (2 * distance))
+        case = 1
     elif type == 1 and distance <= spacing_1/2:
         qeq_max = math.ceil(load/((2*distance)*(2*distance)))
+        case = 2
     elif type == 1 and spacing_1/2 < distance <= spacing_2/2:
         qeq_max = math.ceil(load/((2*distance)*(distance+spacing_1/2)))
+        case = 3
     else:
         qeq_max = math.ceil(load/((2*distance)*(spacing_1/2+spacing_2/2)))
+        case = 4
 
     footing_surcharges = []
     for elev in calc_elev_list:
@@ -83,7 +86,8 @@ def footing_surcharge(type, width, distance, elevation, load, spacing_1, spacing
                 if spacing_1/2 <= spacing_2/2 <= distance+delta/2:
                     footing_surcharges.append([elev, math.ceil(load/((2*distance+delta/2)*(spacing_1/2+spacing_2/2)))])
 
-    return elev_1, elev_2, elev_3, footing_surcharges, load, distance, type, qeq_max, elevation, spacing_1, spacing_2
+    return elev_1, elev_2, elev_3, footing_surcharges, load, distance, type, qeq_max, elevation, spacing_1, spacing_2, \
+           case
 
 
 def combine_footings(footings):
@@ -165,10 +169,12 @@ def text_output(footing, footing_number):
     elevation = footing[8]
     spacing_1 = footing[9]
     spacing_2 = footing[10]
-    output = []
+    case = footing[11]
 
+    output = []
     output.append('At Footing ' + str(footing_number) + ":")
     output.append('Elevation of bottom of footing = ' + str(elevation) + "'")
+    output.append('Distance from center line of footing to wall = ' + str(distance) + "'")
     if type == 0:
         output.append('Type = Continuous footing')
         output.append('Load = ' + str(load) + " plf")
@@ -176,7 +182,21 @@ def text_output(footing, footing_number):
         output.append('Type = Spread footing')
         output.append('Load = ' + str(load) + " pounds")
         output.append('Spacing to closest footings in plane = ' + str(spacing_1) + "', " + str(spacing_2) + "'")
-    output.append('Distance from center line of footing to wall = ' + str(distance) + "'")
+    if case == 1:
+        output.append("Max Footing Load = " + str(load) + " plf/(2*" + str(distance)+"') = " + str(qeq_max) + " psf")
+        # qeq_max = math.ceil(load / (2 * distance))
+    elif case == 2:
+        output.append("Max Footing Load = " + str(load) + "#/(2*" + str(distance) + "')^2 = " + str(qeq_max) + " psf")
+        # qeq_max = math.ceil(load/((2*distance)*(2*distance)))
+    elif case == 3:
+        output.append("Max Footing Load = " + str(load) + "#/((2*" + str(distance) + "')*(" + str(distance) + "' + " +
+                      str(spacing_1) + "'/2)) = " + str(qeq_max) + " psf")
+        # qeq_max = math.ceil(load/((2*distance)*(distance+spacing_1/2)))
+    elif case == 4:
+        output.append("Max Footing Load = " + str(load) + "#/((2*" + str(distance) + "')*(" + str(spacing_1) + "'/2 + " +
+                      str(spacing_2) + "'/2)) = " + str(qeq_max) + " psf")
+        # qeq_max = math.ceil(load/((2*distance)*(spacing_1/2+spacing_2/2)))
+
     output.append('At elevation ' + str(elev_1) + "' (above 1.5:1 slope), footing surcharge = 0 psf.")
     output.append('At elevation ' + str(elev_2) + "' (below 1:1 slope), footing surcharge = " + str(qeq_max) + " psf.")
     output.append('At elevation ' + str(elev_3) + "' (below 1:2 slope), footing surcharge = " + str(qeq_max) + " psf.")

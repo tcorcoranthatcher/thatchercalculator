@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cantilever Wall Calculator</title>
+    <title>Multi-layer Braced Wall Calculator</title>
 </head>
 <body>
-<h1>Cantilever Calculator</h1>
 
-<form action="{% url 'cant_output' %}">
+<h1>Multi-Level Braced Wall Calculator</h1>
+
+
+<form action="{% url 'multi_output' %}">
     <h2>Input Footings and/or trains(up to 4 each)</h2>
     Footing 1
     <br>
@@ -194,10 +196,10 @@
     Input the soil layers to be used in pressure calculations.
     <br>
     <br>
-    *To use Ka(min) other than 0.25, enter a cohesive soil with a Ka not equal to one
+      *To use Ka(min) other than 0.25, enter a cohesive soil with a Ka not equal to one
     <br>
     <br>
-    Layer 1:
+  Layer 1:
     <input type="radio" name="1.type" value="0">Granular
     <input type="radio" name="1.type" value="1">Cohesive<br>
     Name <input type="text" name="1.name">
@@ -286,11 +288,33 @@
     <br>
     <br>
     <h3>Input work points</h3>
-    Put in work points in descending order.  First work point must be the surface.
-    Changes in layer must be put in as two separate work points.<br>
-    If you need to switch to total weights at any point, check the box for the work point at which to
-    begin calculating by total weights.
+    -Put in work points in descending order.  First work point must be the surface.
+    -Changes in layer must be put in as two separate work points.<br>
+    -If you need to switch to total weights at any point, check the box for the work point at which to
+      begin calculating by total weights. <br>
+    -For water around toe:  check the box next to the work points to calculate new unit weights.  Also enter assumed length of ERS <br>
     <br>
+    <input type="hidden" name="wp1_wat" value="0">
+    <input type="hidden" name="wp2_wat" value="0">
+    <input type="hidden" name="wp3_wat" value="0">
+    <input type="hidden" name="wp4_wat" value="0">
+    <input type="hidden" name="wp5_wat" value="0">
+    <input type="hidden" name="wp6_wat" value="0">
+    <input type="hidden" name="wp7_wat" value="0">
+    <input type="hidden" name="wp8_wat" value="0">
+    <input type="hidden" name="wp9_wat" value="0">
+    <input type="hidden" name="wp10_wat" value="0">
+    <input type="hidden" name="wp11_wat" value="0">
+    <input type="hidden" name="wp12_wat" value="0">
+    <input type="hidden" name="wp13_wat" value="0">
+    <input type="hidden" name="wp14_wat" value="0">
+    <input type="hidden" name="wp15_wat" value="0">
+    <input type="hidden" name="wp16_wat" value="0">
+    <input type="hidden" name="wp17_wat" value="0">
+    <input type="hidden" name="wp18_wat" value="0">
+    <input type="hidden" name="wp19_wat" value="0">
+    <input type="hidden" name="wp20_wat" value="0">
+
     Work Point 1: Elevation <input type="text" name="wp1"> Layer <input type='text' name="wp1_layer">
     Total Weights <input type="radio" name="total_weights" value="-1" checked><br>
     Work Point 2: Elevation <input type="text" name="wp2"> Layer <input type='text' name="wp2_layer">
@@ -327,6 +351,10 @@
     Total Weights <input type="radio" name="total_weights" value="15" checked><br>
     Work Point 18: Elevation <input type="text" name="wp18"> Layer <input type='text' name="wp18_layer">
     Total Weights <input type="radio" name="total_weights" value="16" checked><br>
+    Work Point 19: Elevation <input type="text" name="wp19"> Layer <input type='text' name="wp19_layer">
+    Total Weights <input type="radio" name="total_weights" value="17" checked><br>
+    Work Point 20: Elevation <input type="text" name="wp20"> Layer <input type='text' name="wp20_layer">
+    Total Weights <input type="radio" name="total_weights" value="18" checked><br>
     Do not switch to total weights at any point <input type="radio" name="total_weights" value="200" checked><br>
     <input type="hidden" name="wat_check" value="0">
     Check for water around toe? <input type="checkbox" name="wat_check" value = '1'><br>
@@ -341,18 +369,25 @@
     <br>
     <input type="text" name="cut_elev">
     <br>
-    <h3>Surface Elevation</h3>
-    Elevation used for calculation of backside pressures<br>
+    <h3>Brace Elevation</h3>
+    <input type="text" name="brace_elev">
     <br>
-    <input type="text" name="surface_elev">
+    <h3>Apparent Pressure Diagram Type</h3>
+    <input type="radio" name="diagram_type" value="1">Soft Clay<br>
+    <input type="radio" name="diagram_type" value="2">Stiff Clay<br>
+    <input type="radio" name="diagram_type" value="3">Sand<br>
     <br>
-    <h3>Top of sheet</h3>
+    <h3>Back Side Shear</h3>
+    <input type="text" name="backside_x"> Back Side Shear Length (x-coordinate)<br>
+    <input type="text" name="backside_y"> Back Side Shear Height (y-coordinate)<br>
+    <br>
+    <h3>Top of sheet/soldier pile (Optional)</h3>
     Enter in the top of sheet if it does not coincide with the top of surface<br>
     <br>
     <input type="text" name="top_sheet">
     <br>
     <h2>Other Options</h2>
-    <input type="text" name="supplied_length"> Supplied Length (ft) REQUIRED <br>
+     <input type="text" name="supplied_length"> Supplied Length (ft) REQUIRED <br>
     <br>
     Deflected Shape Scale Factor
     <br>
@@ -440,7 +475,6 @@
     <option value="73">PZC 39</option>
     <option value="74">PZC 41</option>
     <option value="75">AZ 39-700</option>
-
     </select>
     <br>
     <br>
@@ -478,15 +512,12 @@
     <option value="21">HP18x181</option>
     <option value="22">HP18x204</option>
     </select><br>
-     <input type="text" name="beam_size_override"> (Optional) Beam/hole size (in) <br>
+    <input type="text" name="beam_size_override"> (Optional) Beam/hole size (in) <br>
     <input type="text" name="beam_override"> (Optional) Beam name <br>
     <input type="text" name="beam_modulus_override"> (Optional) Beam section modulus (in^3) <br>
     <input type="text" name="beam_inertia_override"> (Optional) Beam moment of inertia (in^4)<br>
     <br>
-    <br>
     <input type="submit" value="Calculate" />
-    <br><br><br>
-
 </form>
 </body>
 </html>

@@ -59,9 +59,14 @@ Sum of Moments = 0<br>
 <br> Max Moment = {{ moment }} #'/' @ Elev. {{ max_moment_elevation }}'
 <br>
 <br> Max Deflection = {{ deflection }}" @ Elev. {{ deflection_elev }}' with {{ sheet_type }}
+<br> I = {{ I }} in^4 with {{ sheet_type }}
+<br> Sx = {{ Sx }} in^3 with {{ sheet_type }}
 <br>
 <br> Bending Stress = {{ bending_stress}} ksi with {{ sheet_type }}
+<br>
 <br><br>
+{% load static %}
+<img src="{% static 'images/bracedef.jpg' %}" style="height: 80%; width: 80%; object-fit: contain"/>
 <br><br><br><br><br>
 <form action="{% url 'pressure_plot' %}">
     <input type="submit" value="Pressure Plot and Deflected Shape" />

@@ -1,36 +1,12 @@
 import math
 from sympy import Symbol, solve, re
-from .Lateral_Pressures import Layer, active_pressures, passive_pressures, water_pressures, net_pressures
 
 
-# layer_1 = Layer("Clay", 1, 130, 2.0, 1, 1)
-# layer_2 = Layer("Sand 30", 0, 120, 0, 0.33, 4.45)
-# layer_3 = Layer("Sand 33", 0, 125, 0, 0.29, 5.092)
-#
-# # Section elevation parameters
-# surface_elev = 670  # Used for computing backside passive pressures
-# cut_elev = 658  # Elevation at bottom of excavation
-# water_elev = 666  # Elevation of water
-# brace_elev = 666  # Elevation of single level brace
-# total_weights = 200  # INDEX in the layers list below in which total weight analysis is switched to if necessary
-#
-# # (height of layer, layer, total surcharge(convert soil surcharge height to psf))
-# layers = [[670, layer_1, 0, 0],
-#           [668, layer_1, 0, 0],
-#           [668, layer_2, 0, 0],
-#           [666, layer_2, 0, 0],
-#           [661, layer_2, 0, 0],
-#           [661, layer_3, 0, 0],
-#           [658, layer_3, 0, 0],
-#           [647, layer_3, 0, 0]]
-#
-# sheet_type = [6, "MSZ14-312", 19.62, 120.97]
-
-
-def minimum_length(net_pressures, brace_elev):
-    distances = []
-    net_slopes = []
-    waler_load = 0
+def two_layer_minimum_length(net_pressures, brace_elevations):
+    wall_distances = []
+    wall_slopes = []
+    strut_distances = []
+    strut_slopes = []
     reference_point = ()
     moment_constant = ()
     moment_x_constant = ()
@@ -42,48 +18,113 @@ def minimum_length(net_pressures, brace_elev):
 
     for i in range(len(net_pressures[1])-1):
         distance = -1*(net_pressures[1][i+1]-net_pressures[1][i])
-        distances.append(distance)
+        wall_distances.append(distance)
         if distance != 0:
             slope = (net_pressures[0][i+1]-net_pressures[0][i])/distance
         else:
             slope = 0
-        net_slopes.append(slope)
+        wall_slopes.append(slope)
+    for i in range(len(net_pressures[3])-1):
+        distance = -1*(net_pressures[3][i+1]-net_pressures[3][i])
+        strut_distances.append(distance)
+        if distance != 0:
+            slope = (net_pressures[2][i+1]-net_pressures[2][i])/distance
+        else:
+            slope = 0
+        strut_slopes.append(slope)
+
+    waler_load_top = []
+    waler_load_bot = []
+    # strut diagram sum of forces
+    top_force_sum = 0
+    bot_force_sum = 0
+    t1_half_elevation = (brace_elevations[0] + brace_elevations[1]) / 2
+    t2_half_elevation = (brace_elevations[1] + net_pressures[3][-1]) / 2
+    for i in range(len(net_pressures[2])-1):
+        if net_pressures[3][i] and net_pressures[3][i+1] >= t1_half_elevation:
+            top_force_sum += 0.5*(net_pressures[2][i] + net_pressures[2][i+1])*strut_distances[i]
+        elif net_pressures[3][i] > t1_half_elevation >= net_pressures[3][i+1]:
+            half_distance = net_pressures[3][i] - t1_half_elevation
+            t1_half_pressure = net_pressures[2][i] + strut_slopes[i]*half_distance
+            top_force_sum += 0.5*(net_pressures[2][i]+t1_half_pressure)*half_distance
+            bot_force_sum += 0.5*(net_pressures[2][i+1]+t1_half_pressure)*(net_pressures[3][i]-net_pressures[3][i+1] -
+                                                                           half_distance)
+        elif net_pressures[3][i] and net_pressures[3][i+1] >= t2_half_elevation:
+            bot_force_sum += 0.5*(net_pressures[2][i] + net_pressures[2][i+1])*strut_distances[i]
+        elif net_pressures[3][i] > t2_half_elevation >= net_pressures[3][i+1]:
+            half_distance = net_pressures[3][i] - t2_half_elevation
+            t2_half_pressure = net_pressures[2][i] + strut_slopes[i] * half_distance
+            bot_force_sum += 0.5 * (net_pressures[2][i + 1] + t2_half_pressure) * (
+                        net_pressures[3][i] - net_pressures[3][i + 1] - half_distance)
+    waler_load_top.append(math.ceil(top_force_sum))
+    waler_load_bot.append(math.ceil(bot_force_sum))
+
+    # strut diagram sum of moments
+    t1_moment = 0
+    cut_moment = 0
+    for i in range(len(net_pressures[2])-1):
+        if net_pressures[3][i+1] >= brace_elevations[1]:
+            force = 0.5*(net_pressures[2][i]+net_pressures[2][i+1])*strut_distances[i]
+            t1_distance = (net_pressures[3][i+1] - brace_elevations[1]) + (net_pressures[3][i]-net_pressures[3][i+1])*(net_pressures[2][i+1]+2*net_pressures[2][i])/(3*(net_pressures[2][i+1]+net_pressures[2][i]))
+            cut_distance = (net_pressures[3][i+1] - net_pressures[3][-1]) + (net_pressures[3][i]-net_pressures[3][i+1])*(net_pressures[2][i+1]+2*net_pressures[2][i])/(3*(net_pressures[2][i+1]+net_pressures[2][i]))
+            t1_moment += force*t1_distance
+            cut_moment += force*cut_distance
+        else:
+            force = 0.5 * (net_pressures[2][i] + net_pressures[2][i + 1]) * strut_distances[i]
+            cut_distance = (net_pressures[3][i + 1] - net_pressures[3][-1]) + (net_pressures[3][i] - net_pressures[3][i + 1]) * (net_pressures[2][i + 1] + 2 * net_pressures[2][i]) / (3 * (net_pressures[2][i + 1] + net_pressures[2][i]))
+            cut_moment += force * cut_distance
+    t1 = math.ceil(t1_moment/(brace_elevations[0]-brace_elevations[1]))
+    t2 = math.ceil((cut_moment-t1*(brace_elevations[0]-net_pressures[3][-1]))/(brace_elevations[1]-net_pressures[3][-1]))
+    waler_load_top.append(t1)
+    waler_load_bot.append(t2)
+
+    # wall diagram solve for t1
+    t1_moment = 0
+    for i in range(len(net_pressures[0]) - 1):
+        if net_pressures[1][i + 1] >= brace_elevations[1]:
+            force = 0.5 * (net_pressures[0][i] + net_pressures[0][i + 1]) * wall_distances[i]
+            t1_distance = (net_pressures[1][i + 1] - brace_elevations[1]) + (net_pressures[1][i] - net_pressures[1][i + 1]) * (net_pressures[0][i + 1] + 2 * net_pressures[0][i]) / (3 * (net_pressures[0][i + 1] + net_pressures[0][i]))
+            t1_moment += force * t1_distance
+    t1 = math.ceil(t1_moment/(brace_elevations[0]-brace_elevations[1]))
+    waler_load_top.append(t1)
+
+    # wall diagram minimum length and t2 solve
     for i in range(len(net_pressures[1])-1):
         compute_string = ""
         text_output_moments = []
         if net_pressures[0][i] >= 0 > net_pressures[0][i+1] or net_pressures[0][i] < 0:
-            moment_constant = 0
+            moment_constant = t1*(brace_elevations[0]-brace_elevations[1])
             for j in range(i):
-                force_area = 0.5 * (net_pressures[0][j] + net_pressures[0][j + 1]) * distances[j]
+                force_area = 0.5 * (net_pressures[0][j] + net_pressures[0][j + 1]) * wall_distances[j]
                 compute_string += "0.5*(" + str(net_pressures[0][j]) + " + " + str(net_pressures[0][j + 1]) + ")*(" + \
-                                  str(round(distances[j], 2)) + ")"
+                                  str(round(wall_distances[j], 2)) + ")"
                 if (3 * (net_pressures[0][j] + net_pressures[0][j + 1])) != 0:
-                    moment_arm = brace_elev - (((2 * net_pressures[0][j] + net_pressures[0][j + 1]) * (distances[j]) /
+                    moment_arm = brace_elevations[1] - (((2 * net_pressures[0][j] + net_pressures[0][j + 1]) * (wall_distances[j]) /
                                                 (3 * (net_pressures[0][j] + net_pressures[0][j + 1]))) +
                                                net_pressures[1][j+1])
                     compute_string += "*(" + str(round(moment_arm, 2)) + ")"
                 else:
-                    moment_arm = brace_elev - net_pressures[1][j+1]
+                    moment_arm = brace_elevations[1] - net_pressures[1][j+1]
                     compute_string += "*(" + str(round(moment_arm, 2)) + ")"
                 moment_constant = moment_constant + force_area*moment_arm
                 text_output_moments.append(compute_string)
                 compute_string = ""
-            moment_x_constant = net_pressures[0][i] * (brace_elev - net_pressures[1][i])
-            moment_x2_constant = net_pressures[0][i]/2 + net_slopes[i]*(brace_elev - net_pressures[1][i])/2
-            moment_x3_constant = net_slopes[i]/3
+            moment_x_constant = net_pressures[0][i] * (brace_elevations[1] - net_pressures[1][i])
+            moment_x2_constant = net_pressures[0][i]/2 + wall_slopes[i]*(brace_elevations[1] - net_pressures[1][i])/2
+            moment_x3_constant = wall_slopes[i]/3
             text_output_moments.append(str(round(net_pressures[0][i], 2)) +
-                                       "*(x)*("+str(round(brace_elev - net_pressures[1][i], 2))+" + x/2)")
+                                       "*(x)*("+str(round(brace_elevations[1] - net_pressures[1][i], 2))+" + x/2)")
             text_output_moments.append(
-                str(round(net_slopes[i], 2)) + "*(x)*(x/2)*(" + str(round(brace_elev - net_pressures[1][i], 2)) +
+                str(round(wall_slopes[i], 2)) + "*(x)*(x/2)*(" + str(round(brace_elevations[1] - net_pressures[1][i], 2)) +
                 " + 2x/3)")
 
             x = Symbol('x')
             solutions = solve(moment_constant + moment_x_constant*x + moment_x2_constant*x*x + moment_x3_constant*x*x*x,
                               x, complex=False)
             for j in solutions:
-                if 0 < re(j) < distances[i]:
+                if 0 < re(j) < wall_distances[i]:
                     x_distance = re(j)
-                    minimum_length_pressure = net_pressures[0][i]+net_slopes[i]*x_distance
+                    minimum_length_pressure = net_pressures[0][i]+wall_slopes[i]*x_distance
                     minimum_length_elev = net_pressures[1][i] - re(j)
                     minimum_length = re(j)+(net_pressures[1][0]-net_pressures[1][i])
                     reference_point = net_pressures[1][i]
@@ -92,22 +133,27 @@ def minimum_length(net_pressures, brace_elev):
                 continue  # executed if the loop ended normally (no break)
             break  # executed if 'continue' was skipped (break)
 
+    t2 = -t1
     for i in range(len(net_pressures[1])-1):
         if net_pressures[1][i] >= minimum_length_elev >= net_pressures[1][i+1]:
-            waler_load = waler_load + 0.5*net_slopes[i]*x_distance*x_distance + net_pressures[0][i]*x_distance
+            t2 = t2 + 0.5*wall_slopes[i]*x_distance*x_distance + net_pressures[0][i]*x_distance
         elif net_pressures[1][i] >= minimum_length_elev:
-            waler_load = waler_load + 0.5*(net_pressures[0][i]+net_pressures[0][i+1])*distances[i]
+            t2 = t2 + 0.5*(net_pressures[0][i]+net_pressures[0][i+1])*wall_distances[i]
+    waler_load_bot.append(math.ceil(t2))
 
     output = "With x=0 @ elev. " + \
-             str(reference_point) + "': \n" + str(round(moment_constant, 2)) + " + " +\
-             str(round(moment_x_constant, 2)) + '*x + ' + str(round(moment_x2_constant, 2)) + "*x^2 + " + str(round(moment_x3_constant, 2)) + \
+             str(reference_point) + "': \n" + str(round(moment_constant, 2)) + " + " + \
+             str(round(moment_x_constant, 2)) + '*x + ' + str(round(moment_x2_constant, 2)) + "*x^2 + " + str(
+        round(moment_x3_constant, 2)) + \
              '*x^3 = 0.  x = ' + str(round(x_distance, 2)) + "."
 
-    return minimum_length, minimum_length_elev, waler_load, output, minimum_length_pressure, \
+    waler_loads = [waler_load_top, waler_load_bot]
+
+    return minimum_length, minimum_length_elev, waler_loads, output, minimum_length_pressure, \
            text_output_moments, reference_point
 
 
-def maximum_moment(net_pressures, waler_load, brace_elev):
+def two_layer_maximum_moment(net_pressures, waler_load, brace_elev):
     distances = []
     net_slopes = []
     net_pressures_sectioned_pressures = []
@@ -145,7 +191,9 @@ def maximum_moment(net_pressures, waler_load, brace_elev):
         else:
             slope = 0
         net_slopes.append(slope)
-    shear = waler_load
+    waler_load_top = waler_load[0][2]
+    waler_load_bot = waler_load[1][2]
+    shear = waler_load_top + waler_load_bot
 
     for i in range(len(net_pressures[1])-1):
         shear_unit = 0.5*(net_pressures[0][i]+net_pressures[0][i+1])*distances[i]
@@ -158,7 +206,8 @@ def maximum_moment(net_pressures, waler_load, brace_elev):
                 if j > 0 and j < distances[i]:
                     y = j
                     zero_shear_point = net_pressures[1][0] - (net_pressures[1][0] - net_pressures[1][i] + y)
-    moment = waler_load*(brace_elev-zero_shear_point)
+
+    moment = waler_load_top*(brace_elev[0]-zero_shear_point) + waler_load_bot*(brace_elev[1]-zero_shear_point)
     max_elevation = zero_shear_point
     for i in range(len(net_pressures[1])-1):
         force = 0.5 * (net_pressures[0][i] + net_pressures[0][i + 1]) * distances[i]
@@ -175,7 +224,7 @@ def maximum_moment(net_pressures, waler_load, brace_elev):
     return moment, max_elevation
 
 
-def multiplier(net_pressures, brace_elev, minimum_length_data, supplied_length):
+def two_layer_multiplier(net_pressures, brace_elev, minimum_length_data, supplied_length):
     minimum_length = minimum_length_data[0]
     minimum_length_elev = minimum_length_data[1]
     distances = []
@@ -224,25 +273,27 @@ def multiplier(net_pressures, brace_elev, minimum_length_data, supplied_length):
         positive_moments = 0
         multiplier_compute_list = []
         for j in range(len(net_pressures[1])):
-            if net_pressures[1][j] >= multiplier_elev_list[i]:
-                multiplier_compute_list.append((net_pressures[0][j], net_pressures[1][j]))
-            if net_pressures[1][j] < multiplier_elev_list[i]:
-                y1 = net_pressures[1][j-1]
-                y2 = multiplier_elev_list[i]
-                d = y1-y2
-                slope = net_pressures[2][i]
-                mult_pressure = net_pressures[0][j-1] + d*slope
-                multiplier_compute_list.append((mult_pressure, multiplier_elev_list[i]))
-                break
+            if net_pressures[1][j] <= brace_elevations[1]:
+                if net_pressures[1][j] >= multiplier_elev_list[i]:
+                    multiplier_compute_list.append((net_pressures[0][j], net_pressures[1][j]))
+                if net_pressures[1][j] < multiplier_elev_list[i]:
+                    y1 = net_pressures[1][j-1]
+                    y2 = multiplier_elev_list[i]
+                    d = y1-y2
+                    slope = net_pressures[2][i]
+                    mult_pressure = net_pressures[0][j-1] + d*slope
+                    multiplier_compute_list.append((mult_pressure, multiplier_elev_list[i]))
+                    break
+
         for j in range(len(multiplier_compute_list)-1):
             h = multiplier_compute_list[j][1]-multiplier_compute_list[j+1][1]
             a = multiplier_compute_list[j][0]
             b = multiplier_compute_list[j+1][0]
             force_area = 0.5 * (a+b) * h
             if 3*(a+b) != 0:
-                moment_arm = brace_elev - ((h*(2*a+b)/(3*(a+b))) + multiplier_compute_list[j+1][1])
+                moment_arm = brace_elevations[1] - ((h*(2*a+b)/(3*(a+b))) + multiplier_compute_list[j+1][1])
             else:
-                moment_arm = brace_elev - multiplier_compute_list[j+1][1]
+                moment_arm = brace_elevations[1] - multiplier_compute_list[j+1][1]
             moment = force_area*moment_arm
             if moment >= 0:
                 positive_moments += moment
@@ -280,7 +331,7 @@ def multiplier(net_pressures, brace_elev, minimum_length_data, supplied_length):
     return output, multi_pressure, multi_elev, mult, text_output
 
 
-def deflection_calc(net_pressures, brace_elev, minimum_length_data, sheet_type):
+def two_layer_deflection_calc(net_pressures, brace_elev, minimum_length_data, sheet_type):
     distances = []
     net_slopes = []
     modulus = 29000000
@@ -331,13 +382,6 @@ def deflection_calc(net_pressures, brace_elev, minimum_length_data, sheet_type):
         p = 0.5*(net_pressures[0][i]+net_pressures[0][i+1])*(net_pressures[1][i]-net_pressures[1][i+1])
         p_elev = 0.5 * (net_pressures[1][i]+net_pressures[1][i+1])
         l = brace_elev - net_pressures[1][-1]
-        if p_elev > brace_elev:
-            for j in range(len(def_list)):
-                a = p_elev - brace_elev
-                x = def_list[j][1] - net_pressures[1][-1]
-                deflect = p*a*x*(l*l-x*x)/(6*l)
-                def_list[j][0] += deflect
-
         if p_elev < brace_elev:
             for j in range(len(def_list)):
                 a = p_elev - net_pressures[1][-1]
@@ -347,7 +391,6 @@ def deflection_calc(net_pressures, brace_elev, minimum_length_data, sheet_type):
                     # print(2, p_elev, def_list[j][1], x, a)
                     deflect = p*b*x*(l*l-b*b-x*x)/(6*l)
                 if x > a:
-                    # print(3, p_elev, def_list[j][1], x, a)
                     deflect = p*a*(l-x)*(2*l*x-x*x-a*a)/(6*l)
                 def_list[j][0] += deflect
     for i in range(len(def_list)):
@@ -357,13 +400,17 @@ def deflection_calc(net_pressures, brace_elev, minimum_length_data, sheet_type):
     return def_list, round(max_def_list[0][0], 3), round(max_def_list[0][1], 2)
 
 
-# active = active_pressures(layers, water_elev, total_weights)
-# passive = passive_pressures(layers, water_elev, cut_elev, total_weights)
-# water = water_pressures(layers, water_elev, cut_elev, total_weights)
-# net = net_pressures(active, passive, water, cut_elev)
-# min_length = minimum_length(net, brace_elev)
-# multi = multiplier(net, brace_elev, min_length)
-# moment = maximum_moment(net, min_length[2], brace_elev)
-# deflection = deflection_calc(net, brace_elev, min_length)
+wall_pressures = [0, 806, 806, 806, 806, 806, 806, 806, 806, 806, 806, 806, -442, -634, -634, -891, -891, -1919, -1919]
+wall_elevations = [13, 8.1, 8, 8, 6.5, 2, 2, 0.5, -1, -3, -3, -6.5, -6.5, -9, -15, -15, -19, -19, -26]
+strut_pressures = [0, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940, 940]
+strut_elevations = [13, 8.1, 8, 8, 6.5, 2, 2, 0.5, -1, -3, -3, -6.5]
+brace_elevations = [8, 0.5]
+
+x = two_layer_minimum_length([wall_pressures, wall_elevations, strut_pressures, strut_elevations], brace_elevations)
+y = two_layer_maximum_moment([wall_pressures, wall_elevations], x[2], brace_elevations)
+z = two_layer_multiplier([wall_pressures, wall_elevations], brace_elevations, x, 30)
+aa = two_layer_deflection_calc([wall_pressures, wall_elevations], brace_elevations[1], x, [6, "MSZ14-312", 19.62, 120.97])
+print(aa)
+
 
 
