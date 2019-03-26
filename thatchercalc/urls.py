@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^surface', views.surface, name='surface'),
     url(r'^cant_output', views.cant_output, name='cant_output'),
     url(r'^multilayer', views.multilayer, name='multilayer'),
-    url(r'^multi_output', views.multi_output, name='multi_output')
+    url(r'^multi_output', views.multi_output, name='multi_output'),
+    url(r'^strut_diagram', views.strut_diagram, name='strut_diagram')
 ]

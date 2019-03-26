@@ -740,7 +740,16 @@ def cant_pressure_output(active_pressures, passive_pressures, water_pressures, c
 def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut_elev, diagram_type, backside_x,
                        backside_y, layers, water_elev, total_weights, ers_type, beam_spacing, zero_length,
                        beam_type, soldier_beam_method):
-    apparent_pressure_diagram = []
+    text_output = []
+    if diagram_type == 1:
+        text_output.append("Using soft clay apparent pressure diagram:")
+        text_output.append("")
+    if diagram_type == 2:
+        text_output.append("Using stiff clay apparent pressure diagram:")
+        text_output.append("")
+    if diagram_type == 3:
+        text_output.append("Using sand apparent pressure diagram:")
+        text_output.append("")
     # diagram type: 1 for soft clay, 2 for stiff clay, 3 for sand
     # begin setting up apparent pressure diagram by taking elevations from active pressure calcs
     apparent_pressure_elevations = []
@@ -753,40 +762,50 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
     total_active = 0
     for i in range(len(active_pressures) - 1):
         if active_pressures[i][0] > cut_elev:
-            total_active += 0.5 * (active_pressures[i][1] + active_pressures[i + 1][1]) * \
-                            (active_pressures[i][0] - active_pressures[i + 1][0])
+            total_active += 0.5 * (active_pressures[i][1] + active_pressures[i+1][1]) * \
+                            (active_pressures[i][0] - active_pressures[i+1][0])
     total_active = math.ceil(total_active)
-
+    text_output.append("Total active from elevation " + str(active_pressures[0][0]) + "' to elevation " + str(cut_elev)
+                       + "' = " + str(total_active) + "#/'")
     # determine apparent pressure diagrams for walls and struts ABOVE THE CUT
     H = active_pressures[0][0] - cut_elev
+    text_output.append("H = " + str(active_pressures[0][0]) + "' - " + str(cut_elev) + "' = " + str(H) + "'")
     if diagram_type == 1:
         # ordinate calcs/checks go here
         strut_ordinate = math.ceil(1.4 * total_active / (round(0.25 * H / 2, 2) + round(0.75 * H, 2)))
         wall_ordinate = math.ceil(1.2 * total_active / (round(0.25 * H / 2, 2) + round(0.75 * H, 2)))
+        text_output.append(
+            'Pbs = 1.4*' + str(total_active) + "#/' / (0.875*" + str(H) + "') = " + str(strut_ordinate) + " psf")
+        text_output.append(
+            'Pbw = 1.2*' + str(total_active) + "#/' / (0.875*" + str(H) + "') = " + str(wall_ordinate) + " psf")
         for i in range(len(apparent_pressure_elevations)):
-            if apparent_pressure_elevations[i] >= (apparent_pressure_elevations[0] - round(0.25 * H, 2)):
+            if apparent_pressure_elevations[i] >= round(apparent_pressure_elevations[0] - 0.25 * H, 1):
                 apparent_pressure_wall_pressures.append(math.ceil(
-                    wall_ordinate * (apparent_pressure_elevations[0] - apparent_pressure_elevations[i]) / (0.25 * H)))
+                    wall_ordinate * (apparent_pressure_elevations[0] - apparent_pressure_elevations[i]) / (round(0.25 * H, 1))))
                 apparent_pressure_strut_pressures.append(math.ceil(
-                    strut_ordinate * (apparent_pressure_elevations[0] - apparent_pressure_elevations[i]) / (0.25 * H)))
-            if (apparent_pressure_elevations[0] - round(0.25 * H, 2)) > apparent_pressure_elevations[i] >= cut_elev:
+                    strut_ordinate * (apparent_pressure_elevations[0] - apparent_pressure_elevations[i]) / (round(0.25 * H, 1))))
+            if round(apparent_pressure_elevations[0] - 0.25 * H, 1) > apparent_pressure_elevations[i] >= cut_elev:
                 apparent_pressure_wall_pressures.append(wall_ordinate)
                 apparent_pressure_strut_pressures.append(strut_ordinate)
     if diagram_type == 2:
         # ordinate calcs/checks go here
         strut_ordinate = math.ceil(1.4 * total_active / (round(0.75 * H, 2)))
         wall_ordinate = math.ceil(1.2 * total_active / (round(0.75 * H, 2)))
+        text_output.append(
+            'Pbs = 1.4*' + str(total_active) + "#/' / (0.75*" + str(H) + "') = " + str(strut_ordinate) + " psf")
+        text_output.append(
+            'Pbw = 1.2*' + str(total_active) + "#/' / (0.75*" + str(H) + "') = " + str(wall_ordinate) + " psf")
         for i in range(len(apparent_pressure_elevations)):
-            if apparent_pressure_elevations[i] >= (apparent_pressure_elevations[0] - round(0.25 * H, 2)):
+            if apparent_pressure_elevations[i] >= round(apparent_pressure_elevations[0] - 0.25 * H, 1):
                 apparent_pressure_wall_pressures.append(math.ceil(
-                    wall_ordinate * (apparent_pressure_elevations[0] - apparent_pressure_elevations[i]) / (0.25 * H)))
+                    wall_ordinate * (apparent_pressure_elevations[0] - apparent_pressure_elevations[i]) / (round(0.25 * H, 1))))
                 apparent_pressure_strut_pressures.append(math.ceil(
-                    strut_ordinate * (apparent_pressure_elevations[0] - apparent_pressure_elevations[i]) / (0.25 * H)))
-            if (apparent_pressure_elevations[0] - round(0.25 * H, 2)) > apparent_pressure_elevations[i] >= (
-                    apparent_pressure_elevations[0] - round(0.75 * H, 2)):
+                    strut_ordinate * (apparent_pressure_elevations[0] - apparent_pressure_elevations[i]) / (round(0.25 * H, 1))))
+            if round(apparent_pressure_elevations[0] - 0.25 * H, 1) > apparent_pressure_elevations[i] >= \
+                    round(apparent_pressure_elevations[0] - 0.75 * H, 1):
                 apparent_pressure_wall_pressures.append(wall_ordinate)
                 apparent_pressure_strut_pressures.append(strut_ordinate)
-            if (apparent_pressure_elevations[0] - round(0.75 * H, 2)) > apparent_pressure_elevations[i] >= cut_elev:
+            if round(apparent_pressure_elevations[0] - 0.25 * H, 1) > apparent_pressure_elevations[i] >= cut_elev:
                 apparent_pressure_wall_pressures.append(math.ceil(wall_ordinate - wall_ordinate * (
                             (apparent_pressure_elevations[0] - 0.75 * H) - apparent_pressure_elevations[i]) / (
                                                                               0.25 * H)))
@@ -797,11 +816,21 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
         # ordinate calcs/checks go here
         strut_ordinate = math.ceil(1.4 * total_active / (round(H, 2)))
         wall_ordinate = math.ceil(1.2 * total_active / (round(H, 2)))
+        text_output.append(
+            'Pbs = 1.4*' + str(total_active) + "#/' / (" + str(H) + "') = " + str(strut_ordinate) + " psf")
+        text_output.append(
+            'Pbw = 1.2*' + str(total_active) + "#/' / (" + str(H) + "') = " + str(wall_ordinate) + " psf")
+
         for i in range(len(apparent_pressure_elevations)):
             apparent_pressure_wall_pressures.append(math.ceil(wall_ordinate))
             apparent_pressure_strut_pressures.append(math.ceil(strut_ordinate))
     # calculating qequiv, begin by getting backside friction.
     # trying to account for if the height of failure plane is above top of sheet and below top of sheet
+    text_output.append("")
+    text_output.append("Width of failure plane = " + str(backside_x) + "'")
+    text_output.append("Elevation @ failure plane = " + str(backside_y) + "'")
+    text_output.append("")
+    text_output.append("Backside Shear:")
     backside_friction = 0
     N = 0
     if backside_y >= layers[0][0]:
@@ -814,8 +843,12 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
             N = (backside_y - layers[0][0]) * layers[0][1].gamma * layers[0][1].ka
         if layers[0][1].type == 0:
             backside_friction = N * 0.5 * (backside_y - layers[0][0]) * math.tan(math.radians(layers[0][1].phi))
+            text_output.append(str(N) + "psf * 0.5 * (" + str(backside_y) + "' - " + str(layers[0][0]) + "') * tan(" +
+                               str(layers[0][1].phi) + "°) = " + str(round(backside_friction, 2)) + "#/'")
         else:
             backside_friction = (backside_y - layers[0][0]) * layers[0][1].qu * 1000
+            text_output.append("(" + str(backside_y) + "' - " + str(layers[0][0]) + "') * " +
+                               str(layers[0][1].qu * 1000) + "psf = " + str(round(backside_friction, 2)) + "#/'")
         old_N = N
         for i in range(len(layers) - 1):
             if layers[i + 1][0] >= cut_elev:
@@ -829,11 +862,41 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
                 if layers[i][1].type == 0:
                     backside_friction += 0.5 * (N + old_N) * (layers[i][0] - layers[i + 1][0]) * math.tan(
                         math.radians(layers[0][1].phi))
+                    text_output.append(str(N + old_N) + "psf * 0.5 * (" + str(layers[i][0]) + "' - " + str(layers[i+1][0]) + "') * tan(" +
+                               str(layers[0][1].phi) + "°) = " + str(round(0.5 * (N + old_N) * (layers[i][0] - layers[i + 1][0]) * math.tan(
+                        math.radians(layers[0][1].phi)), 2)) + "#/'")
                 else:
                     backside_friction += (layers[i][0] - layers[i + 1][0]) * layers[i][1].qu * 1000
+                    text_output.append("(" + str(layers[i][0]) + "' - " + str(layers[i+1][0]) + "') * " +
+                               str(layers[i][1].qu * 1000) + "psf = " + str(round(
+                        (layers[i][0] - layers[i + 1][0]) * layers[i][1].qu * 1000, 2)) + "#/'")
             old_N = N
     if backside_y < layers[0][0]:
         old_N = 0
+        for i in range(len(layers)-1):
+            if layers[i][0] > backside_y > layers[i+1][0]:
+                if layers[i][0] < water_elev:
+                    if total_weights != -1:
+                        N = old_N + (backside_y - layers[i + 1][0]) * layers[i][1].sub * layers[i][1].ka
+                    else:
+                        N = old_N + (backside_y - layers[i + 1][0]) * layers[i][1].gamma * layers[i][1].ka
+                else:
+                    N = old_N + (backside_y - layers[i + 1][0]) * layers[i][1].gamma * layers[i][1].ka
+                if layers[i][1].type == 0:
+                    backside_friction += 0.5 * (N + old_N) * (backside_y - layers[i + 1][0]) * math.tan(
+                        math.radians(layers[i][1].phi))
+                    text_output.append(str(N + old_N) + "psf * 0.5 * (" + str(backside_y) + "' - " + str(
+                        layers[i + 1][0]) + "') * tan(" +
+                                       str(layers[i][1].phi) + "°) = " + str(
+                        round(0.5 * (N + old_N) * (backside_y - layers[i + 1][0]) * math.tan(
+                            math.radians(layers[i][1].phi)), 2)) + "#/'")
+                else:
+                    backside_friction += (backside_y - layers[i + 1][0]) * layers[i][1].qu * 1000
+                    text_output.append("(" + str(backside_y) + "' - " + str(layers[i + 1][0]) + "') * " +
+                                       str(layers[i][1].qu * 1000) + "psf = " + str(round(
+                        (backside_y - layers[i + 1][0]) * layers[i][1].qu * 1000, 2)) + "#/'")
+                    break
+        old_N = N
         for i in range(len(layers) - 1):
             if layers[i][0] <= backside_y:
                 if layers[i + 1][0] >= cut_elev:
@@ -846,48 +909,66 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
                         N = old_N + (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma * layers[i][1].ka
                     if layers[i][1].type == 0:
                         backside_friction += 0.5 * (N + old_N) * (layers[i][0] - layers[i + 1][0]) * math.tan(
-                            math.radians(layers[0][1].phi))
+                            math.radians(layers[i][1].phi))
+                        text_output.append(str(N + old_N) + "psf * 0.5 * (" + str(layers[i][0]) + "' - " + str(
+                            layers[i + 1][0]) + "') * tan(" +
+                                           str(layers[i][1].phi) + "°) = " + str(
+                            round(0.5 * (N + old_N) * (layers[i][0] - layers[i + 1][0]) * math.tan(
+                                math.radians(layers[i][1].phi)), 2)) + "#/'")
                     else:
                         backside_friction += (layers[i][0] - layers[i + 1][0]) * layers[i][1].qu * 1000
-
+                        text_output.append("(" + str(layers[i][0]) + "' - " + str(layers[i + 1][0]) + "') * " +
+                                           str(layers[i][1].qu * 1000) + "psf = " + str(round(
+                            (layers[i][0] - layers[i + 1][0]) * layers[i][1].qu * 1000, 2)) + "#/'")
+            old_N = N
+    text_output.append("Backside Shear = " + str(math.ceil(backside_friction)) + "#/'")
+    text_output.append("")
+    text_output.append("ƔH @ Elev. " + str(cut_elev) + "':")
     # now calculating gamma*H at bottom of cut.  start by calculating surcharge at failure plane
     vert_pressure = 0
     for i in range(len(layers)):
         if layers[i][0] == cut_elev:
-            if layers[0][0] < water_elev:
-                if total_weights != -1:
-                    vert_pressure = layers[i][2] - (backside_y - layers[0][0]) * layers[0][1].sub
-                else:
-                    vert_pressure = layers[i][2] - (backside_y - layers[0][0]) * layers[0][1].gamma
-            else:
-                vert_pressure = layers[i][2] - (backside_y - layers[0][0]) * layers[0][1].gamma
+            vert_pressure = layers[i][2] + layers[i][3]
+            text_output.append(str(layers[i][2] + layers[i][3]) + "psf")
             break
-    if backside_y >= layers[0][0]:
-        if layers[0][0] < water_elev:
-            if total_weights != -1:
-                vert_pressure += (backside_y - layers[0][0]) * layers[0][1].sub
-            else:
-                vert_pressure += (backside_y - layers[0][0]) * layers[0][1].gamma
-        else:
-            vert_pressure += (backside_y - layers[0][0]) * layers[0][1].gamma
+    count = 0
+    for i in range(len(layers)):
+        count += 1
+        if layers[i][0] == cut_elev:
+            break
     for i in range(len(layers) - 1):
-        if layers[i + 1][0] >= cut_elev:
-            if layers[i][0] < water_elev:
-                if i <= total_weights:
+        if layers[i+1][0] >= cut_elev:
+            if layers[i][0] <= water_elev:
+                if i <= total_weights and layers[count][0] != cut_elev:
                     vert_pressure = vert_pressure + (layers[i][0] - layers[i + 1][0]) * layers[i][1].sub
+                    text_output.append(
+                        str("(" + str(layers[i][0]) + "' - " + str(layers[i+1][0]) + "')*" + str(
+                            layers[i][1].sub) + "psf"))
                 else:
                     vert_pressure = vert_pressure + (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma
+                    text_output.append(
+                        str("(" + str(layers[i][0]) + "' - " + str(layers[i + 1][0]) + "')*" + str(
+                            layers[i][1].gamma) + "psf"))
             else:
                 vert_pressure = vert_pressure + (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma
+                text_output.append(
+                    str("(" + str(layers[i][0]) + "' - " + str(layers[i + 1][0]) + "')*" + str(
+                        layers[i][1].gamma) + "psf"))
+    text_output.append("ƔH @ Elev. " + str(cut_elev) + "'=" + str(math.ceil(vert_pressure)) + " psf ")
+    text_output.append("")
 
     q_equiv = math.ceil((vert_pressure * backside_x - backside_friction) / backside_x)
+    text_output.append("q_equiv = (" + str(math.ceil(vert_pressure)) + "psf * " + str(backside_x) + "' - " + str(math.ceil(backside_friction)) + "#/') / " + str(backside_x) + "' = " + str(q_equiv) + " psf")
+    text_output.append("")
 
     # compute active pressures below cut
     # going to need an extra work point at the cut, save active pressure at that point as cut_active
     cut_active = 0
+    active_pressure_string = ""
     for i in range(len(layers)-1):
         if layers[i][0] == cut_elev and layers[i + 1][0] != cut_elev:
-            vert_pressure = q_equiv + layers[i][3]
+            vert_pressure = q_equiv
+            active_pressure_string = "Pa @ " + str(cut_elev) + "' = (" + str(q_equiv) + "psf"
             if layers[i][1].type == 0:
                 cut_active = math.ceil(vert_pressure * layers[i][1].ka) + layers[i][4]
             if layers[i][1].type == 1:
@@ -897,11 +978,20 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
                 ka_min = layers[i][1].ka
             if layers[i][1].type == 1 and cut_active <= vert_pressure * ka_min:
                 cut_active = math.ceil(vert_pressure * ka_min) + layers[i][4]
+                active_pressure_string += ")-2*" + str(layers[i][1].qu * 1000) + "psf = (-) => " + str(
+                    vert_pressure) + "psf*" + str(ka_min)
+            elif layers[i][1].type == 1 and not cut_active <= vert_pressure * ka_min:
+                active_pressure_string += ")-2*" + str(layers[i][1].qu * 1000) + "psf"
+            else:
+                active_pressure_string += ")*" + str(layers[i][1].ka)
+    active_pressure_string += " = " + (str(cut_active)) + " psf"
+    text_output.append(active_pressure_string)
 
     # compute apparent pressures below cut
     for i in range(len(layers)):
         if layers[i][0] < cut_elev:
-            vert_pressure = q_equiv + layers[i][3]
+            vert_pressure = q_equiv
+            active_pressure_string = "Pa @ " + str(layers[i][0]) + "' = (" + str(q_equiv) + "psf"
             for k in range(i + 1):
                 if k != 0:
                     if layers[k - 1][0] != layers[k][0]:
@@ -909,11 +999,17 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
                             if layers[k][0] < water_elev:
                                 if i <= total_weights:
                                     vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][1].sub
+                                    active_pressure_string += " + " + str(layers[k][1].sub) + "pcf*" + str(
+                                        round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
                                 else:
                                     vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][
                                         1].gamma
+                                    active_pressure_string += " + " + str(layers[k][1].gamma) + "pcf*" + str(
+                                        round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
                             else:
                                 vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][1].gamma
+                                active_pressure_string += " + " + str(layers[k][1].gamma) + "pcf*" + str(
+                                    round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
             if layers[i][1].type == 0:
                 active_pressure = math.ceil(vert_pressure * layers[i][1].ka) + layers[i][4]
             if layers[i][1].type == 1:
@@ -923,6 +1019,14 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
                 ka_min = layers[i][1].ka
             if layers[i][1].type == 1 and active_pressure <= vert_pressure * ka_min:
                 active_pressure = math.ceil(vert_pressure * ka_min) + layers[i][4]
+                active_pressure_string += ")-2*" + str(layers[i][1].qu * 1000) + "psf = (-) => " + str(
+                    vert_pressure) + "psf*" + str(ka_min)
+            elif layers[i][1].type == 1 and not active_pressure <= vert_pressure * ka_min:
+                active_pressure_string += ")-2*" + str(layers[i][1].qu * 1000) + "psf"
+            else:
+                active_pressure_string += ")*" + str(layers[i][1].ka)
+            active_pressure_string += " = " + (str(active_pressure)) + " psf"
+            text_output.append(active_pressure_string)
             apparent_pressure_wall_pressures.append(active_pressure)
             apparent_pressure_strut_pressures.append(0)
 
@@ -931,25 +1035,36 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
     apparent_strut_actives = []
     for i in range(len(apparent_pressure_elevations)-1):
         apparent_wall_actives.append((apparent_pressure_elevations[i], apparent_pressure_wall_pressures[i]))
-        if apparent_pressure_elevations[i] >= cut_elev:
+        if apparent_pressure_elevations[i] >= cut_elev and not apparent_pressure_elevations[i-1] == apparent_pressure_elevations[i] == cut_elev:
             apparent_strut_actives.append((apparent_pressure_elevations[i], apparent_pressure_strut_pressures[i]))
+
 
     net_pressures = []
     heights = []
+    text_output.append("")
 
     for i in range(len(apparent_wall_actives)):
         check = 0
         net_pressure = apparent_wall_actives[i][1] + water_pressures[i][1] - passive_pressures[i][1]
-        if apparent_wall_actives[i][0] == cut_elev and apparent_wall_actives[i+1][0] != cut_elev:
+        net_string = "Pnet @ " + str(apparent_wall_actives[i][0]) + "' (Pa+Pw-Pp) = " + \
+                     str(apparent_wall_actives[i][1]) + "psf + " + str(water_pressures[i][1]) + "psf - " + \
+                     str(passive_pressures[i][1]) + "psf = " + str(net_pressure) + " psf"
+        if apparent_wall_actives[i][0] == cut_elev:
             net_pressures.append(math.ceil(apparent_wall_actives[i][1] + water_pressures[i][1]))
             heights.append(apparent_wall_actives[i][0])
+            text_output.append("Pnet @ " + str(apparent_wall_actives[i][0]) + "' (Pa+Pw-Pp) = " + str(apparent_wall_actives[i][1]) +
+                               "psf + " + str(water_pressures[i][1]) + "psf - 0 psf = "  + str(math.ceil(apparent_wall_actives[i][1] + water_pressures[i][1])) + " psf")
             check = 1
         if check == 0:
             net_pressures.append(net_pressure)
             heights.append(active_pressures[i][0])
+            text_output.append(net_string)
         if check == 1:
             net_pressures.append(cut_active + water_pressures[i][1] - passive_pressures[i][1])
             heights.append(active_pressures[i][0])
+            text_output.append("Pnet @ " + str(apparent_wall_actives[i][0]) + "' (Pa+Pw-Pp) = " + str(cut_active) +
+                               "psf + " + str(water_pressures[i][1]) + "psf - " + str(passive_pressures[i][1]) +
+                               "psf = " + str(cut_active + water_pressures[i][1] - passive_pressures[i][1]) + " psf")
 
     if ers_type == 1 and soldier_beam_method == 0:
         for i in range(len(heights)):
@@ -1038,43 +1153,43 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
         strut_pressures.append(apparent_strut_actives[i][1]+water_pressures[i][1])
         strut_heights.append(apparent_strut_actives[i][0])
 
-    return net_pressures, heights, strut_pressures, strut_heights
+    return net_pressures, heights, strut_pressures, strut_heights, text_output
 
 
 def apparent_pressures_output():
     return
 
 
-layer_1 = Layer('sand', 0, 120, 0, 0.30, 3, 32)
-layer_2 = Layer('clay', 1, 135, 1, 0.30, 1, 0)
-layer_3 = Layer('clay', 1, 125, 0.6, 0.3, 1, 0)
-layer_4 = Layer('clay', 1, 125, 0.55, 1, 1, 0)
-layer_5 = Layer('clay', 1, 125, 0.8, 1, 1, 0)
-layer_6 = Layer('clay', 1, 125, 1.75, 1, 1, 0)
-
-layers = [[13, layer_1, 0, 0, 0, 0],
-          [8.1, layer_1, 30, 0, 0, 0],
-          [8, layer_1, 30, 0, 0, 0],
-          [8, layer_2, 30, 0, 0, 0],
-          [6.5, layer_2, 90, 0, 0, 0],
-          [2, layer_2, 210, 0, 0, 0],
-          [2, layer_3, 210, 0, 0, 0],
-          [-1, layer_3, 240, 0, 0, 0],
-          [-3, layer_3, 270, 0, 0, 0],
-          [-3, layer_4, 270, 0, 0, 0],
-          [-6.5, layer_4, 300, 0, 0, 0],
-          [-9, layer_4, 300, 0, 0, 0],
-          [-15, layer_4, 330, 0, 0, 0],
-          [-15, layer_3, 330, 0, 0, 0],
-          [-19, layer_3, 330, 0, 0, 0],
-          [-19, layer_5, 330, 0, 0, 0],
-          [-26, layer_5, 330, 0, 0, 0],
-          [-26, layer_6, 330, 0, 0, 0]]
-
-water_elev = -10000
-cut_elev = -6.5
-active = active_pressures(layers, water_elev, 10000)
-water = water_pressures(layers, water_elev, cut_elev, 10000, 30)
-passive = passive_pressures(layers, water_elev, cut_elev, 10000)
-x = apparent_pressures(active, passive, water, cut_elev, 1, 19.5, 14, layers, -10000, 10000, 0, 0, 0, 0, 0)
-print(x)
+# layer_1 = Layer('sand', 0, 120, 0, 0.30, 3, 32)
+# layer_2 = Layer('clay', 1, 135, 1, 0.30, 1, 0)
+# layer_3 = Layer('clay', 1, 125, 0.6, 0.3, 1, 0)
+# layer_4 = Layer('clay', 1, 125, 0.55, 1, 1, 0)
+# layer_5 = Layer('clay', 1, 125, 0.8, 1, 1, 0)
+# layer_6 = Layer('clay', 1, 125, 1.75, 1, 1, 0)
+#
+# layers = [[13, layer_1, 0, 0, 0, 0],
+#           [8.1, layer_1, 30, 0, 0, 0],
+#           [8, layer_1, 30, 0, 0, 0],
+#           [8, layer_2, 30, 0, 0, 0],
+#           [6.5, layer_2, 90, 0, 0, 0],
+#           [2, layer_2, 210, 0, 0, 0],
+#           [2, layer_3, 210, 0, 0, 0],
+#           [-1, layer_3, 240, 0, 0, 0],
+#           [-3, layer_3, 270, 0, 0, 0],
+#           [-3, layer_4, 270, 0, 0, 0],
+#           [-6.5, layer_4, 300, 0, 0, 0],
+#           [-9, layer_4, 300, 0, 0, 0],
+#           [-15, layer_4, 330, 0, 0, 0],
+#           [-15, layer_3, 330, 0, 0, 0],
+#           [-19, layer_3, 330, 0, 0, 0],
+#           [-19, layer_5, 330, 0, 0, 0],
+#           [-26, layer_5, 330, 0, 0, 0],
+#           [-26, layer_6, 330, 0, 0, 0]]
+#
+# water_elev = -10000
+# cut_elev = -6.5
+# active = active_pressures(layers, water_elev, 10000)
+# water = water_pressures(layers, water_elev, cut_elev, 10000, 30)
+# passive = passive_pressures(layers, water_elev, cut_elev, 10000)
+# x = apparent_pressures(active, passive, water, cut_elev, 1, 19.5, 14, layers, -10000, 10000, 0, 0, 0, 0, 0)
+# print(x)

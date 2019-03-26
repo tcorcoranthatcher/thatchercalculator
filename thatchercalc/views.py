@@ -5,7 +5,8 @@ from .Lateral_Pressures import Layer, active_pressures_output, passive_pressures
     active_pressures, passive_pressures, water_pressures, net_pressures, active_pressures_front,\
     passive_pressures_back, cant_pressures, active_pressures_front_output, passive_pressures_back_output, \
     water_around_toe, apparent_pressures, apparent_pressures_output
-from .Pressure_Plot import braced_pressure_plot, surface_plot, cant_pressure_plot
+from .Pressure_Plot import braced_pressure_plot, surface_plot, cant_pressure_plot, multi_layer_pressure_plot, \
+    strut_pressure_plot
 from bokeh.io import save
 from .Braced import minimum_length, multiplier, maximum_moment, deflection_calc
 from .Footings import footing_surcharge, combine_footings, incorporate_footings, text_output
@@ -527,6 +528,10 @@ def pressure_plot(request):
 
 def surface(request):
     return render(request, 'surface.html')
+
+
+def strut_diagram(request):
+    return render(request, 'strut_diagram.html')
 
 
 def cant_output(request):
@@ -1178,6 +1183,16 @@ def multi_output(request):
                         float(request.GET['8.qu']),
                         float(request.GET['8.ka']), float(request.GET['8.kp']),
                         float(request.GET['8.phi']))
+    if request.GET['9.name'] != '':
+        layer_9 = Layer(request.GET['9.name'], float(request.GET['9.type']), float(request.GET['9.gamma']),
+                        float(request.GET['9.qu']),
+                        float(request.GET['9.ka']), float(request.GET['9.kp']),
+                        float(request.GET['9.phi']))
+    if request.GET['10.name'] != '':
+        layer_10 = Layer(request.GET['10.name'], float(request.GET['10.type']), float(request.GET['10.gamma']),
+                        float(request.GET['10.qu']),
+                        float(request.GET['10.ka']), float(request.GET['10.kp']),
+                        float(request.GET['10.phi']))
 
     # elevation, layer, soil surcharge placeholder, footing placeholder, train placeholder, passive height placeholder
     layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 10000],
@@ -1199,7 +1214,18 @@ def multi_output(request):
               [request.GET['wp17'], request.GET['wp17_layer'], 0, 0, 0, 10000],
               [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0, 10000],
               [request.GET['wp19'], request.GET['wp19_layer'], 0, 0, 0, 10000],
-              [request.GET['wp20'], request.GET['wp20_layer'], 0, 0, 0, 10000]]
+              [request.GET['wp20'], request.GET['wp20_layer'], 0, 0, 0, 10000],
+              [request.GET['wp21'], request.GET['wp21_layer'], 0, 0, 0, 10000],
+              [request.GET['wp22'], request.GET['wp22_layer'], 0, 0, 0, 10000],
+              [request.GET['wp23'], request.GET['wp23_layer'], 0, 0, 0, 10000],
+              [request.GET['wp24'], request.GET['wp24_layer'], 0, 0, 0, 10000],
+              [request.GET['wp25'], request.GET['wp25_layer'], 0, 0, 0, 10000],
+              [request.GET['wp26'], request.GET['wp26_layer'], 0, 0, 0, 10000],
+              [request.GET['wp27'], request.GET['wp27_layer'], 0, 0, 0, 10000],
+              [request.GET['wp28'], request.GET['wp28_layer'], 0, 0, 0, 10000],
+              [request.GET['wp29'], request.GET['wp29_layer'], 0, 0, 0, 10000],
+              [request.GET['wp30'], request.GET['wp30_layer'], 0, 0, 0, 10000]
+              ]
     new_layers = []  # Remove all layers with no entries
     for i in range(len(layers)):
         if layers[i] != ['', '', 0, 0, 0, 10000]:
@@ -1228,7 +1254,18 @@ def multi_output(request):
                    [0, request.GET['wp17']],
                    [0, request.GET['wp18']],
                    [0, request.GET['wp19']],
-                   [0, request.GET['wp20']]]
+                   [0, request.GET['wp20']],
+                   [0, request.GET['wp21']],
+                   [0, request.GET['wp22']],
+                   [0, request.GET['wp23']],
+                   [0, request.GET['wp24']],
+                   [0, request.GET['wp25']],
+                   [0, request.GET['wp26']],
+                   [0, request.GET['wp27']],
+                   [0, request.GET['wp28']],
+                   [0, request.GET['wp29']],
+                   [0, request.GET['wp30']]
+                   ]
 
     new_work_points = []  # Remove all points with no entries
     for i in range(len(work_points)):
@@ -1262,7 +1299,9 @@ def multi_output(request):
 
     cut_elev = float(request.GET['cut_elev'])
     total_weights = float(request.GET['total_weights'])
-    brace_elev = float(request.GET['brace_elev'])
+    top_brace_elev = float(request.GET['top_brace_elev'])
+    bot_brace_elev = float(request.GET['bot_brace_elev'])
+    brace_elevations = [top_brace_elev, bot_brace_elev]
     scale_factor = float(request.GET['scale_factor'])
     sheet_type = float(request.GET['sheet_type'])
     beam_type = float(request.GET['beam_type'])
@@ -1328,11 +1367,15 @@ def multi_output(request):
             layers[i][1] = layer_7
         if layers[i][1] == 8.0:
             layers[i][1] = layer_8
+        if layers[i][1] == 9.0:
+            layers[i][1] = layer_9
+        if layers[i][1] == 10.0:
+            layers[i][1] = layer_10
 
     for i in range(len(layers)-1):
         d = layers[0][0] - cut_elev
-        clay_apparent_elev = layers[0][0] - round(0.25*d, 2)
-        stiff_clay_apparent_elev = layers[0][0] - round(0.75*d, 2)
+        clay_apparent_elev = round(layers[0][0] - 0.25*d, 1)
+        stiff_clay_apparent_elev = round(layers[0][0] - 0.75*d, 1)
         if diagram_type == 1 or diagram_type == 2:
             if layers[i][0] > clay_apparent_elev > layers[i+1][0]:
                 layers.insert(i+1, [clay_apparent_elev, layers[i][1], 0.0, 0.0, 0.0, 10000])
@@ -1438,20 +1481,24 @@ def multi_output(request):
     active_pressure = active_pressures_output(layers, water_elev, total_weights)
     passive_pressure = passive_pressures_output(layers, water_cut_elev, cut_elev, total_weights)
     water_pressure = water_pressures_output(water)
-    apparent = apparent_pressures(active, cut_elev, diagram_type, backside_x, backside_y, layers, water_elev, total_weights)
-    net = net_pressures(active, passive, water, cut_elev, ers_type, beam_spacing, zero_length, beam_type,
-                        soldier_beam_method)
-    net_output = net[2]
+    apparent = apparent_pressures(active, passive, water, cut_elev, diagram_type, backside_x,
+                       backside_y, layers, water_elev, total_weights, ers_type, beam_spacing, zero_length,
+                       beam_type, soldier_beam_method)
+
     if top_sheet[0] != layers[0][0]:
-        net[0].insert(0, 0)
-        net[1].insert(0, net[1][0])
-        net[0].insert(0, 0)
-        net[1].insert(0, top_sheet[0])
+        apparent[0].insert(0, 0)
+        apparent[1].insert(0, apparent[1][0])
+        apparent[0].insert(0, 0)
+        apparent[1].insert(0, top_sheet[0])
+        apparent[2].insert(0, 0)
+        apparent[3].insert(0, apparent[3][0])
+        apparent[2].insert(0, 0)
+        apparent[3].insert(0, top_sheet[0])
     beam_output = []
     if ers_type == 1 and soldier_beam_method == 0:
         beam_output = [("Soldier Beam Analysis Effective Widths : " + beam_type[1] + " @ " + str(beam_spacing) +
                         "' spacing"),
-                       ("From elevation " + str(net[1][0]) + "' to elevation " + str(cut_elev) + "': W = " +
+                       ("From elevation " + str(apparent[1][0]) + "' to elevation " + str(cut_elev) + "': W = " +
                         str(beam_spacing) + "'"),
                        ("From elevation " + str(cut_elev) + "' to elevation " + str(round(cut_elev - zero_length, 2)) +
                         "': W = 0 (net active W =" + str(beam_type[4]) + "')"),
@@ -1461,7 +1508,7 @@ def multi_output(request):
     if ers_type == 1 and soldier_beam_method == 1:
         beam_output = [
             ("Soldier Beam Analysis Effective Widths : " + beam_type[1] + " @ " + str(beam_spacing) + "' spacing"),
-            ("From elevation " + str(net[1][0]) + "' to elevation " + str(cut_elev) + "': W = " + str(
+            ("From elevation " + str(apparent[1][0]) + "' to elevation " + str(cut_elev) + "': W = " + str(
                 beam_spacing) + "'"),
             ("From elevation " + str(cut_elev) + "' to elevation " + str(round(cut_elev - zero_length, 2)) +
              "': W = 0 (net active W =" + str(beam_type[4]) + "')"),
@@ -1471,24 +1518,26 @@ def multi_output(request):
              "(Pa-Pp)*beam spacing")
             ]
 
-    data = minimum_length(net, brace_elev)
+    data = two_layer_minimum_length(apparent, brace_elevations)
     min_length = str(round(data[0], 2)) + "'"
     min_length_elev = str(round(data[1], 2)) + "'"
-    waler_load = str(math.ceil(data[2])) + "#/'"
+    waler_load = data[2] # currently a list that contains all waler loads
+    waler_load_output = data[7]
     design_text = data[3]
     min_length_pressure = data[4]
-    multi = multiplier(net, brace_elev, data, supplied_length)
-    moment = maximum_moment(net, data[2], brace_elev)
+    multi = two_layer_multiplier(apparent, brace_elevations[1], data, supplied_length)
+    moment = two_layer_maximum_moment(apparent, waler_load, brace_elevations)
     max_moment_elevation = round(moment[1], 2)
     moment = math.ceil(moment[0])
-    deflection = deflection_calc(net, brace_elev, data, sheet_type)
+    deflection = two_layer_deflection_calc(apparent, brace_elevations[1], data, sheet_type)
     zero_point = data[6]
-    pressure_plot = braced_pressure_plot(layers, net, brace_elev, min_length_pressure, data[1], data[0], deflection,
-                                         scale_factor, multi[1], multi[2], multi[3], zero_point)
+    pressure_plot = multi_layer_pressure_plot(layers, apparent, brace_elevations, min_length_pressure, data[1], data[0], deflection, scale_factor, multi[1], multi[2], multi[3], zero_point)
     surface = surface_plot(surface_array, work_points)
+    strut_diagram = strut_pressure_plot(layers, [apparent[2], apparent[3]], brace_elevations)
     bending_stress = round(moment * 12 / 1000 / sheet_type[2], 2)
     save(pressure_plot, 'P:/thatchercalc/templates/pressure_plot.html')
     save(surface, 'P:/thatchercalc/templates/surface.html')
+    save(strut_diagram, 'P:/thatchercalc/templates/strut_diagram.html')
 
     return render(request, "multi_output.html", {"surcharge": surcharge_output,
                                            "layers": layers,
@@ -1497,7 +1546,7 @@ def multi_output(request):
                                            "water_pressures": water_pressure,
                                            "min_length": min_length,
                                            "min_length_elev": min_length_elev,
-                                           "waler_load": waler_load,
+                                           "waler_load": waler_load_output,
                                            "design_text": design_text,
                                            "multiplier": multi[0],
                                            "moment": moment,
@@ -1513,7 +1562,7 @@ def multi_output(request):
                                            "berm_output": berm_output,
                                            "berm_reduction_output": berm_reduction_output,
                                            "soldier_beam_method": soldier_beam_method,
-                                           "net_output": net_output,
+                                           "net_output": apparent[4],
                                            "max_moment_elevation": max_moment_elevation,
                                            "min_length_work_moments": data[5],
                                            "multiplier_supplied_length": multi[4],
