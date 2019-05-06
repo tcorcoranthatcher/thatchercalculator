@@ -517,11 +517,9 @@ def deflection_calc_cantilever(net_pressures, minimum_length_data, sheet_type):
     return def_list, max_deflection, max_deflection_elev
 
 
-# net = [[35, 292, 631, 539, 1106, 1096, -3366, -5077, -4886, -6314,-10006, -5791, -6141, -10175],
-#        [740, 734, 730, 730, 724.17, 723.25, 718, 716, 716, 714.33, 710, 710, 703, 703]]
-# cant = [[0, 0, 250, 250, 614, 5745, 6050, 6166, 10527, 10984, 12169, 8448, 8829, 16835],
-#         [740, 734, 730, 730, 724.17, 723.25, 718, 716, 716, 714.33, 710, 710, 703, 703]]
-# cut_elev = 723.25
+# net = [[520, 1254, 956, 2171, 411, 52, 155, -1258, -3746, -2888, -10760], [13, 10, 10, 4, 4, 2.7, 2.7, 1, -2, -2, -14]]
+# cant = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 8741, 10817], [13, 10, 10, 4, 4, 2.7, 2.7, 1, -2, -2, -14]]
+# cut_elev = 4
 # active = active_pressures(layers, water_elev, total_weights)
 # passive = passive_pressures(layers, water_elev, cut_elev, total_weights)
 # water = water_pressures(layers, water_elev, cut_elev, total_weights)

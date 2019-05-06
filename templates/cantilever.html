@@ -285,12 +285,98 @@
     ϕ <input type="text" name="8.phi"> Enter 0 if cohesive.
     <br>
     <br>
+    Layer 9:
+    <input type="radio" name="9.type" value="0">Granular
+    <input type="radio" name="9.type" value="1">Cohesive<br>
+    Name <input type="text" name="9.name">
+    Unit Weight (pcf) <input type="text" name="9.gamma"> <br>
+    qu (tsf) <input type="text" name="9.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="9.ka">
+    Kp <input type="text" name="9.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="9.phi"> Enter 0 if cohesive.
+    <br>
+    <br>
+    Layer 10:
+    <input type="radio" name="10.type" value="0">Granular
+    <input type="radio" name="10.type" value="1">Cohesive<br>
+    Name <input type="text" name="10.name">
+    Unit Weight (pcf) <input type="text" name="10.gamma"> <br>
+    qu (tsf) <input type="text" name="10.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="10.ka">
+    Kp <input type="text" name="10.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="10.phi"> Enter 0 if cohesive.
+    <br>
+    <br>
+    Layer 11:
+    <input type="radio" name="11.type" value="0">Granular
+    <input type="radio" name="11.type" value="1">Cohesive<br>
+    Name <input type="text" name="11.name">
+    Unit Weight (pcf) <input type="text" name="11.gamma"> <br>
+    qu (tsf) <input type="text" name="11.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="11.ka">
+    Kp <input type="text" name="11.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="11.phi"> Enter 0 if cohesive.
+    <br>
+    <br>
+    Layer 12:
+    <input type="radio" name="12.type" value="0">Granular
+    <input type="radio" name="12.type" value="1">Cohesive<br>
+    Name <input type="text" name="12.name">
+    Unit Weight (pcf) <input type="text" name="12.gamma"> <br>
+    qu (tsf) <input type="text" name="12.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="12.ka">
+    Kp <input type="text" name="12.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="12.phi"> Enter 0 if cohesive.
+    <br>
+    <br>
+    Layer 13:
+    <input type="radio" name="13.type" value="0">Granular
+    <input type="radio" name="13.type" value="1">Cohesive<br>
+    Name <input type="text" name="13.name">
+    Unit Weight (pcf) <input type="text" name="13.gamma"> <br>
+    qu (tsf) <input type="text" name="13.qu"> Enter 0 if sand.<br>
+    Ka <input type="text" name="13.ka">
+    Kp <input type="text" name="13.kp"> Enter 1 for both if cohesive.<br>
+    ϕ <input type="text" name="13.phi"> Enter 0 if cohesive.
+    <br>
+    <br>
     <h3>Input work points</h3>
     Put in work points in descending order.  First work point must be the surface.
     Changes in layer must be put in as two separate work points.<br>
     If you need to switch to total weights at any point, check the box for the work point at which to
     begin calculating by total weights.
     <br>
+    <input type="hidden" name="wp1_wat" value="0">
+    <input type="hidden" name="wp2_wat" value="0">
+    <input type="hidden" name="wp3_wat" value="0">
+    <input type="hidden" name="wp4_wat" value="0">
+    <input type="hidden" name="wp5_wat" value="0">
+    <input type="hidden" name="wp6_wat" value="0">
+    <input type="hidden" name="wp7_wat" value="0">
+    <input type="hidden" name="wp8_wat" value="0">
+    <input type="hidden" name="wp9_wat" value="0">
+    <input type="hidden" name="wp10_wat" value="0">
+    <input type="hidden" name="wp11_wat" value="0">
+    <input type="hidden" name="wp12_wat" value="0">
+    <input type="hidden" name="wp13_wat" value="0">
+    <input type="hidden" name="wp14_wat" value="0">
+    <input type="hidden" name="wp15_wat" value="0">
+    <input type="hidden" name="wp16_wat" value="0">
+    <input type="hidden" name="wp17_wat" value="0">
+    <input type="hidden" name="wp18_wat" value="0">
+    <input type="hidden" name="wp19_wat" value="0">
+    <input type="hidden" name="wp20_wat" value="0">
+    <input type="hidden" name="wp21_wat" value="0">
+    <input type="hidden" name="wp22_wat" value="0">
+    <input type="hidden" name="wp23_wat" value="0">
+    <input type="hidden" name="wp24_wat" value="0">
+    <input type="hidden" name="wp25_wat" value="0">
+    <input type="hidden" name="wp26_wat" value="0">
+    <input type="hidden" name="wp27_wat" value="0">
+    <input type="hidden" name="wp28_wat" value="0">
+    <input type="hidden" name="wp29_wat" value="0">
+    <input type="hidden" name="wp30_wat" value="0">
+
     Work Point 1: Elevation <input type="text" name="wp1"> Layer <input type='text' name="wp1_layer">
     Total Weights <input type="radio" name="total_weights" value="-1" checked><br>
     Work Point 2: Elevation <input type="text" name="wp2"> Layer <input type='text' name="wp2_layer">
@@ -327,6 +413,30 @@
     Total Weights <input type="radio" name="total_weights" value="15" checked><br>
     Work Point 18: Elevation <input type="text" name="wp18"> Layer <input type='text' name="wp18_layer">
     Total Weights <input type="radio" name="total_weights" value="16" checked><br>
+    Work Point 19: Elevation <input type="text" name="wp19"> Layer <input type='text' name="wp19_layer">
+    Total Weights <input type="radio" name="total_weights" value="17" checked><br>
+    Work Point 20: Elevation <input type="text" name="wp20"> Layer <input type='text' name="wp20_layer">
+    Total Weights <input type="radio" name="total_weights" value="18" checked><br>
+    Work Point 21: Elevation <input type="text" name="wp21"> Layer <input type='text' name="wp21_layer">
+    Total Weights <input type="radio" name="total_weights" value="19" checked><br>
+    Work Point 22: Elevation <input type="text" name="wp22"> Layer <input type='text' name="wp22_layer">
+    Total Weights <input type="radio" name="total_weights" value="20" checked><br>
+    Work Point 23: Elevation <input type="text" name="wp23"> Layer <input type='text' name="wp23_layer">
+    Total Weights <input type="radio" name="total_weights" value="21" checked><br>
+    Work Point 24: Elevation <input type="text" name="wp24"> Layer <input type='text' name="wp24_layer">
+    Total Weights <input type="radio" name="total_weights" value="22" checked><br>
+    Work Point 25: Elevation <input type="text" name="wp25"> Layer <input type='text' name="wp25_layer">
+    Total Weights <input type="radio" name="total_weights" value="23" checked><br>
+    Work Point 26: Elevation <input type="text" name="wp26"> Layer <input type='text' name="wp26_layer">
+    Total Weights <input type="radio" name="total_weights" value="24" checked><br>
+    Work Point 27: Elevation <input type="text" name="wp27"> Layer <input type='text' name="wp27_layer">
+    Total Weights <input type="radio" name="total_weights" value="25" checked><br>
+    Work Point 28: Elevation <input type="text" name="wp28"> Layer <input type='text' name="wp28_layer">
+    Total Weights <input type="radio" name="total_weights" value="26" checked><br>
+    Work Point 29: Elevation <input type="text" name="wp29"> Layer <input type='text' name="wp29_layer">
+    Total Weights <input type="radio" name="total_weights" value="27" checked><br>
+    Work Point 30: Elevation <input type="text" name="wp30"> Layer <input type='text' name="wp30_layer">
+    Total Weights <input type="radio" name="total_weights" value="28" checked><br>
     Do not switch to total weights at any point <input type="radio" name="total_weights" value="200" checked><br>
     <input type="hidden" name="wat_check" value="0">
     Check for water around toe? <input type="checkbox" name="wat_check" value = '1'><br>
@@ -440,6 +550,21 @@
     <option value="73">PZC 39</option>
     <option value="74">PZC 41</option>
     <option value="75">AZ 39-700</option>
+    <option value="76">MSZ10-312</option>
+    <option value="77">MSZ10-340</option>
+    <option value="78">MSZ10-350</option>
+    <option value="79">MSZ10-375</option>
+    <option value="80">MSZ10-406</option>
+    <option value="81">MSZ11-312</option>
+    <option value="82">MSZ11-340</option>
+    <option value="83">MSZ11-350</option>
+    <option value="84">MSZ11-375</option>
+    <option value="85">MSZ11-406</option>
+    <option value="86">MSZ12-312</option>
+    <option value="87">MSZ12-340</option>
+    <option value="88">MSZ12-350</option>
+    <option value="89">MSZ12-375</option>
+    <option value="90">MSZ12-406</option>
 
     </select>
     <br>

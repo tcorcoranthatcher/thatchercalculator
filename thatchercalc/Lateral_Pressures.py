@@ -933,9 +933,11 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
             break
     count = 0
     for i in range(len(layers)):
-        count += 1
         if layers[i][0] == cut_elev:
             break
+        count += 1
+    if count == len(layers):
+        count -= 1
     for i in range(len(layers) - 1):
         if layers[i+1][0] >= cut_elev:
             if layers[i][0] <= water_elev:

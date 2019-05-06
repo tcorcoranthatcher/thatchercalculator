@@ -64,8 +64,12 @@ def two_layer_minimum_length(net_pressures, brace_elevations):
     for i in range(len(net_pressures[2])-1):
         if net_pressures[3][i+1] >= brace_elevations[1]:
             force = 0.5*(net_pressures[2][i]+net_pressures[2][i+1])*strut_distances[i]
-            t1_distance = (net_pressures[3][i+1] - brace_elevations[1]) + (net_pressures[3][i]-net_pressures[3][i+1])*(net_pressures[2][i+1]+2*net_pressures[2][i])/(3*(net_pressures[2][i+1]+net_pressures[2][i]))
-            cut_distance = (net_pressures[3][i+1] - net_pressures[3][-1]) + (net_pressures[3][i]-net_pressures[3][i+1])*(net_pressures[2][i+1]+2*net_pressures[2][i])/(3*(net_pressures[2][i+1]+net_pressures[2][i]))
+            if 3*(net_pressures[2][i+1]+net_pressures[2][i]) != 0:
+                t1_distance = (net_pressures[3][i+1] - brace_elevations[1]) + (net_pressures[3][i]-net_pressures[3][i+1])*(net_pressures[2][i+1]+2*net_pressures[2][i])/(3*(net_pressures[2][i+1]+net_pressures[2][i]))
+                cut_distance = (net_pressures[3][i+1] - net_pressures[3][-1]) + (net_pressures[3][i]-net_pressures[3][i+1])*(net_pressures[2][i+1]+2*net_pressures[2][i])/(3*(net_pressures[2][i+1]+net_pressures[2][i]))
+            else:
+                t1_distance = (net_pressures[3][i + 1] - brace_elevations[1])
+                cut_distance = (net_pressures[3][i + 1] - net_pressures[3][-1])
             t1_moment += force*t1_distance
             cut_moment += force*cut_distance
         else:
@@ -82,7 +86,10 @@ def two_layer_minimum_length(net_pressures, brace_elevations):
     for i in range(len(net_pressures[0]) - 1):
         if net_pressures[1][i + 1] >= brace_elevations[1]:
             force = 0.5 * (net_pressures[0][i] + net_pressures[0][i + 1]) * wall_distances[i]
-            t1_distance = (net_pressures[1][i + 1] - brace_elevations[1]) + (net_pressures[1][i] - net_pressures[1][i + 1]) * (net_pressures[0][i + 1] + 2 * net_pressures[0][i]) / (3 * (net_pressures[0][i + 1] + net_pressures[0][i]))
+            if 3 * (net_pressures[0][i + 1] + net_pressures[0][i]) != 0:
+                t1_distance = (net_pressures[1][i + 1] - brace_elevations[1]) + (net_pressures[1][i] - net_pressures[1][i + 1]) * (net_pressures[0][i + 1] + 2 * net_pressures[0][i]) / (3 * (net_pressures[0][i + 1] + net_pressures[0][i]))
+            else:
+                t1_distance = (net_pressures[1][i + 1] - brace_elevations[1])
             t1_moment += force * t1_distance
     t1 = math.ceil(t1_moment/(brace_elevations[0]-brace_elevations[1]))
     waler_load_top.append(t1)

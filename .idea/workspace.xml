@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/thatchercalc/multilayer.py" line="162" />
+    <bookmark url="file://$PROJECT_DIR$/templates/cantilever.html" line="413" />
+    <bookmark url="file://$PROJECT_DIR$/templates/cantilever.html" line="433" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06abeead-86e0-42c8-801a-9c227cd57fea" name="Default" comment="In the process of adding multi-layer, not finished yet">
+    <list default="true" id="06abeead-86e0-42c8-801a-9c227cd57fea" name="Default" comment="added more work points for each of the three scenarios">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/multi_output.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/multi_output.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/braced.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/braced.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cantilever.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cantilever.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/multilayer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/multilayer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/pressure_plot.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pressure_plot.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/surface.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/surface.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/Braced.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Braced.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/Cantilever.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Cantilever.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/Pressure_Plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Pressure_Plot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/multilayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/multilayer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/sheet_database.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/sheet_database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,24 +30,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/thatchercalc/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6281">
-              <caret line="1446" column="60" selection-start-line="1446" selection-start-column="60" selection-end-line="1446" selection-end-column="60" />
+            <state relative-caret-position="23968">
+              <caret line="1498" column="38" selection-start-line="1498" selection-start-column="38" selection-end-line="1498" selection-end-column="38" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
-                <element signature="e#1621#28298#0" />
-                <element signature="e#28556#55832#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/thatchercalc/urls.py">
+        <entry file="file://$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="15" column="67" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
+            <state>
+              <caret column="11" selection-start-column="11" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/thatchercalc/Cantilever.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1059">
+              <caret line="274" column="43" lean-forward="true" selection-start-line="274" selection-start-column="43" selection-end-line="274" selection-end-column="43" />
               <folding>
-                <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#0#175#0" expanded="true" />
+                <element signature="e#1430#2790#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/thatchercalc/Braced.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="432">
+              <caret line="29" column="46" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -53,29 +76,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/thatchercalc/multilayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="45" column="35" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
+            <state relative-caret-position="1328">
+              <caret line="84" column="17" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/thatchercalc/Train_Loading.py">
+        <entry file="file://$PROJECT_DIR$/thatchercalc/sheet_database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1728">
+              <caret line="108" column="17" selection-start-line="108" selection-start-column="17" selection-end-line="108" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/multilayer.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="8752">
+              <caret line="547" column="95" selection-start-line="547" selection-start-column="95" selection-end-line="547" selection-end-column="95" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py">
+        <entry file="file://$PROJECT_DIR$/templates/cantilever.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="40" column="27" lean-forward="true" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
+            <state relative-caret-position="123">
+              <caret line="564" column="41" lean-forward="true" selection-start-line="564" selection-start-column="41" selection-end-line="564" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/braced.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1296">
+              <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -92,9 +130,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>supplied_length</find>
-      <find>type</find>
-      <find>division_ties</find>
       <find>soldier_beam</find>
       <find>lateral_pressures</find>
       <find>beam_type</find>
@@ -107,7 +142,6 @@
       <find>sheet_type</find>
       <find>design_text</find>
       <find>beam_spacing</find>
-      <find>total_weights</find>
       <find>tan</find>
       <find>surcharge</find>
       <find>apparent_pressure_elevations</find>
@@ -122,6 +156,10 @@
       <find>i + 1</find>
       <find>apparent_strut</find>
       <find>train</find>
+      <find>qu</find>
+      <find>count</find>
+      <find>cut_elev</find>
+      <find>total_weights</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -143,31 +181,31 @@
         <option value="$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Berms.py" />
         <option value="$USER_HOME$/Downloads/Playoff Calculator" />
-        <option value="$PROJECT_DIR$/thatchercalc/sheet_database.py" />
         <option value="$USER_HOME$/Downloads/Playoff_10_teams.py" />
         <option value="$USER_HOME$/Downloads/Thatcher Playoffs.py" />
-        <option value="$PROJECT_DIR$/templates/cantilever.html" />
         <option value="$PROJECT_DIR$/thatchercalc/settings.py" />
         <option value="$PROJECT_DIR$/templates/cant_output.html" />
         <option value="$PROJECT_DIR$/thatchercalc/Footings.py" />
-        <option value="$PROJECT_DIR$/thatchercalc/Cantilever.py" />
         <option value="$PROJECT_DIR$/templates/home.html" />
-        <option value="$PROJECT_DIR$/templates/braced.html" />
-        <option value="$PROJECT_DIR$/thatchercalc/Braced.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Train_Loading.py" />
         <option value="$PROJECT_DIR$/templates/output.html" />
         <option value="$PROJECT_DIR$/templates/multi_output.html" />
         <option value="$PROJECT_DIR$/thatchercalc/urls.py" />
-        <option value="$PROJECT_DIR$/templates/multilayer.html" />
         <option value="$PROJECT_DIR$/thatchercalc/Pressure_Plot.py" />
-        <option value="$PROJECT_DIR$/thatchercalc/views.py" />
         <option value="$PROJECT_DIR$/thatchercalc/multilayer.py" />
+        <option value="$PROJECT_DIR$/templates/cantilever.html" />
+        <option value="$PROJECT_DIR$/templates/multilayer.html" />
+        <option value="$PROJECT_DIR$/thatchercalc/views.py" />
+        <option value="$PROJECT_DIR$/thatchercalc/sheet_database.py" />
         <option value="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" />
+        <option value="$PROJECT_DIR$/thatchercalc/Braced.py" />
+        <option value="$PROJECT_DIR$/thatchercalc/Cantilever.py" />
+        <option value="$PROJECT_DIR$/templates/braced.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-323" />
+    <option name="x" value="-1069" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
@@ -178,6 +216,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -199,11 +238,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://P:/thatchercalc/thatchercalc/Cantilever.py" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -228,8 +267,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Bracket">
-    <configuration name="Berms" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.Cantilever">
+    <configuration name="Braced" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="thatchercalc" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -241,7 +280,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/thatchercalc/Berms.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/thatchercalc/Braced.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -335,19 +374,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Berms" />
+      <item itemvalue="Python.Bracket" />
       <item itemvalue="Python.Cantilever" />
       <item itemvalue="Python.Lateral_Pressures" />
       <item itemvalue="Python.multilayer" />
-      <item itemvalue="Python.Bracket" />
+      <item itemvalue="Python.Braced" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Cantilever" />
+        <item itemvalue="Python.Braced" />
         <item itemvalue="Python.Bracket" />
         <item itemvalue="Python.Lateral_Pressures" />
         <item itemvalue="Python.multilayer" />
-        <item itemvalue="Python.Cantilever" />
-        <item itemvalue="Python.Berms" />
       </list>
     </recent_temporary>
   </component>
@@ -404,32 +443,59 @@
       <option name="project" value="LOCAL" />
       <updated>1552493547416</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Multi-layer finished in principle, bug fixes necessary&#10;&#10;Footings w/ multi-layer broken, must be hand calculated for now.  in the meantime, need to change that footing load is only added in at the very end and not at the beginning.  active pressures need to be calculated specifically for multi-layer without footings in it.">
+      <created>1553607620060</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1553607620060</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12486828" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.12486828" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49894625" weight="0.18634886" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49736565" visible="true" weight="0.18634886" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Python Console" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50105375" side_tool="true" weight="0.18634886" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50263435" side_tool="true" weight="0.18634886" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Data View" order="3" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12486828" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49736565" visible="true" weight="0.18634886" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3997833" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Python Console" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50263435" side_tool="true" weight="0.18634886" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Data View" order="3" />
+    </layout-to-restore>
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
@@ -441,7 +507,9 @@
     <MESSAGE value="Added different methods to compute net pressures with soldier beams" />
     <MESSAGE value="Updated outputs for Chawla" />
     <MESSAGE value="In the process of adding multi-layer, not finished yet" />
-    <option name="LAST_COMMIT_MESSAGE" value="In the process of adding multi-layer, not finished yet" />
+    <MESSAGE value="Multi-layer finished in principle, bug fixes necessary&#10;&#10;Footings w/ multi-layer broken, must be hand calculated for now.  in the meantime, need to change that footing load is only added in at the very end and not at the beginning.  active pressures need to be calculated specifically for multi-layer without footings in it." />
+    <MESSAGE value="added more work points for each of the three scenarios" />
+    <option name="LAST_COMMIT_MESSAGE" value="added more work points for each of the three scenarios" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -529,13 +597,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/cantilever.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="9" column="39" selection-start-line="9" selection-end-line="9" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
@@ -546,42 +607,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/Cantilever.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" selection-start-line="3" selection-end-line="5" selection-end-column="28" />
-          <folding>
-            <element signature="e#1430#2790#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/pressure_plot.html">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/braced.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/sheet_database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/Braced.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="50" column="44" lean-forward="true" selection-start-line="50" selection-start-column="44" selection-end-line="50" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/output.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -600,13 +627,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="683">
           <caret line="299" column="73" selection-start-line="299" selection-start-column="73" selection-end-line="299" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/multilayer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="407" column="95" selection-start-line="407" selection-start-column="95" selection-end-line="407" selection-end-column="95" />
         </state>
       </provider>
     </entry>
@@ -630,16 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="15" column="67" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/thatchercalc/Train_Loading.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -650,29 +660,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/multilayer.py">
+    <entry file="file://$PROJECT_DIR$/thatchercalc/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="45" column="35" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thatchercalc/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6281">
-          <caret line="1446" column="60" selection-start-line="1446" selection-start-column="60" selection-end-line="1446" selection-end-column="60" />
+        <state relative-caret-position="240">
+          <caret line="15" column="67" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#1621#28298#0" />
-            <element signature="e#28556#55832#0" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="40" column="27" lean-forward="true" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
+        <state>
+          <caret column="11" selection-start-column="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/Braced.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="29" column="46" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/multilayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1328">
+          <caret line="84" column="17" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/sheet_database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1728">
+          <caret line="108" column="17" selection-start-line="108" selection-start-column="17" selection-end-line="108" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/multilayer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8752">
+          <caret line="547" column="95" selection-start-line="547" selection-start-column="95" selection-end-line="547" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/Cantilever.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1059">
+          <caret line="274" column="43" lean-forward="true" selection-start-line="274" selection-start-column="43" selection-end-line="274" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#175#0" expanded="true" />
+            <element signature="e#1430#2790#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thatchercalc/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23968">
+          <caret line="1498" column="38" selection-start-line="1498" selection-start-column="38" selection-end-line="1498" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/braced.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1296">
+          <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/cantilever.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="564" column="41" lean-forward="true" selection-start-line="564" selection-start-column="41" selection-end-line="564" selection-end-column="41" />
         </state>
       </provider>
     </entry>

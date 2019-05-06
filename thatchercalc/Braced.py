@@ -365,5 +365,9 @@ def deflection_calc(net_pressures, brace_elev, minimum_length_data, sheet_type):
 # multi = multiplier(net, brace_elev, min_length)
 # moment = maximum_moment(net, min_length[2], brace_elev)
 # deflection = deflection_calc(net, brace_elev, min_length)
-
-
+#
+# net = [[520, 1255, 956, 1871, 2074, 2782, 3153, 4778, 6728, 7950, 1505, 1219, 3647, 1873, 2058, 1402, 1775, 1775, 475, 475, -831, -831, -2307, -2307],
+#        [13, 10, 10, 5.5, 4.5, 1, 0, -2, -2, -3.5, -3.5, -4.8, -4.8, -7.5, -7.5, -8.5, -8.5, -11.5, -11.5, -13, -13, -19, -19, -26]]
+#
+# print(deflection_calc(net, 5.5, minimum_length(net, 5.5), [16, "HP16x141", 234, 1870, 1.33]))
+# print(minimum_length(net, 5.5))

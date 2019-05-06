@@ -200,6 +200,31 @@ def output(request):
                         float(request.GET['8.qu']),
                         float(request.GET['8.ka']), float(request.GET['8.kp']),
                         float(request.GET['8.phi']))
+    if request.GET['9.name'] != '':
+        layer_9 = Layer(request.GET['9.name'], float(request.GET['9.type']), float(request.GET['9.gamma']),
+                        float(request.GET['9.qu']),
+                        float(request.GET['9.ka']), float(request.GET['9.kp']),
+                        float(request.GET['9.phi']))
+    if request.GET['10.name'] != '':
+        layer_10 = Layer(request.GET['10.name'], float(request.GET['10.type']), float(request.GET['10.gamma']),
+                        float(request.GET['10.qu']),
+                        float(request.GET['10.ka']), float(request.GET['10.kp']),
+                        float(request.GET['10.phi']))
+    if request.GET['11.name'] != '':
+        layer_11 = Layer(request.GET['11.name'], float(request.GET['11.type']), float(request.GET['11.gamma']),
+                        float(request.GET['11.qu']),
+                        float(request.GET['11.ka']), float(request.GET['11.kp']),
+                        float(request.GET['11.phi']))
+    if request.GET['12.name'] != '':
+        layer_12 = Layer(request.GET['12.name'], float(request.GET['12.type']), float(request.GET['12.gamma']),
+                        float(request.GET['12.qu']),
+                        float(request.GET['12.ka']), float(request.GET['12.kp']),
+                        float(request.GET['12.phi']))
+    if request.GET['13.name'] != '':
+        layer_13 = Layer(request.GET['13.name'], float(request.GET['13.type']), float(request.GET['13.gamma']),
+                        float(request.GET['13.qu']),
+                        float(request.GET['13.ka']), float(request.GET['13.kp']),
+                        float(request.GET['13.phi']))
 
     # elevation, layer, soil surcharge placeholder, footing placeholder, train placeholder, passive height placeholder
     layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 10000],
@@ -221,7 +246,18 @@ def output(request):
               [request.GET['wp17'], request.GET['wp17_layer'], 0, 0, 0, 10000],
               [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0, 10000],
               [request.GET['wp19'], request.GET['wp19_layer'], 0, 0, 0, 10000],
-              [request.GET['wp20'], request.GET['wp20_layer'], 0, 0, 0, 10000]]
+              [request.GET['wp20'], request.GET['wp20_layer'], 0, 0, 0, 10000],
+              [request.GET['wp21'], request.GET['wp21_layer'], 0, 0, 0, 10000],
+              [request.GET['wp22'], request.GET['wp22_layer'], 0, 0, 0, 10000],
+              [request.GET['wp23'], request.GET['wp23_layer'], 0, 0, 0, 10000],
+              [request.GET['wp24'], request.GET['wp24_layer'], 0, 0, 0, 10000],
+              [request.GET['wp25'], request.GET['wp25_layer'], 0, 0, 0, 10000],
+              [request.GET['wp26'], request.GET['wp26_layer'], 0, 0, 0, 10000],
+              [request.GET['wp27'], request.GET['wp27_layer'], 0, 0, 0, 10000],
+              [request.GET['wp28'], request.GET['wp28_layer'], 0, 0, 0, 10000],
+              [request.GET['wp29'], request.GET['wp29_layer'], 0, 0, 0, 10000],
+              [request.GET['wp30'], request.GET['wp30_layer'], 0, 0, 0, 10000]]
+
     new_layers = []  # Remove all layers with no entries
     for i in range(len(layers)):
         if layers[i] != ['', '', 0, 0, 0, 10000]:
@@ -250,7 +286,17 @@ def output(request):
                    [0, request.GET['wp17']],
                    [0, request.GET['wp18']],
                    [0, request.GET['wp19']],
-                   [0, request.GET['wp20']]]
+                   [0, request.GET['wp20']],
+                   [0, request.GET['wp21']],
+                   [0, request.GET['wp22']],
+                   [0, request.GET['wp23']],
+                   [0, request.GET['wp24']],
+                   [0, request.GET['wp25']],
+                   [0, request.GET['wp26']],
+                   [0, request.GET['wp27']],
+                   [0, request.GET['wp28']],
+                   [0, request.GET['wp29']],
+                   [0, request.GET['wp30']]]
     
     new_work_points = []  # Remove all points with no entries
     for i in range(len(work_points)):
@@ -345,6 +391,16 @@ def output(request):
             layers[i][1] = layer_7
         if layers[i][1] == 8.0:
             layers[i][1] = layer_8
+        if layers[i][1] == 9.0:
+            layers[i][1] = layer_9
+        if layers[i][1] == 10.0:
+            layers[i][1] = layer_10
+        if layers[i][1] == 11.0:
+            layers[i][1] = layer_11
+        if layers[i][1] == 12.0:
+            layers[i][1] = layer_12
+        if layers[i][1] == 13.0:
+            layers[i][1] = layer_13
 
     for i in range(len(layers)-1):
         if layers[i][0] >= supplied_elev >= layers[i+1][0]:
@@ -695,6 +751,31 @@ def cant_output(request):
                         float(request.GET['8.qu']),
                         float(request.GET['8.ka']), float(request.GET['8.kp']),
                         float(request.GET['8.phi']))
+    if request.GET['9.name'] != '':
+        layer_9 = Layer(request.GET['9.name'], float(request.GET['9.type']), float(request.GET['9.gamma']),
+                        float(request.GET['9.qu']),
+                        float(request.GET['9.ka']), float(request.GET['9.kp']),
+                        float(request.GET['9.phi']))
+    if request.GET['10.name'] != '':
+        layer_10 = Layer(request.GET['10.name'], float(request.GET['10.type']), float(request.GET['10.gamma']),
+                        float(request.GET['10.qu']),
+                        float(request.GET['10.ka']), float(request.GET['10.kp']),
+                        float(request.GET['10.phi']))
+    if request.GET['11.name'] != '':
+        layer_11 = Layer(request.GET['11.name'], float(request.GET['11.type']), float(request.GET['11.gamma']),
+                        float(request.GET['11.qu']),
+                        float(request.GET['11.ka']), float(request.GET['11.kp']),
+                        float(request.GET['11.phi']))
+    if request.GET['12.name'] != '':
+        layer_12 = Layer(request.GET['12.name'], float(request.GET['12.type']), float(request.GET['12.gamma']),
+                        float(request.GET['12.qu']),
+                        float(request.GET['12.ka']), float(request.GET['12.kp']),
+                        float(request.GET['12.phi']))
+    if request.GET['13.name'] != '':
+        layer_13 = Layer(request.GET['13.name'], float(request.GET['13.type']), float(request.GET['13.gamma']),
+                        float(request.GET['13.qu']),
+                        float(request.GET['13.ka']), float(request.GET['13.kp']),
+                        float(request.GET['13.phi']))
 
     layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 10000],
               [request.GET['wp2'], request.GET['wp2_layer'], 0, 0, 0, 10000],
@@ -713,7 +794,21 @@ def cant_output(request):
               [request.GET['wp15'], request.GET['wp15_layer'], 0, 0, 0, 10000],
               [request.GET['wp16'], request.GET['wp16_layer'], 0, 0, 0, 10000],
               [request.GET['wp17'], request.GET['wp17_layer'], 0, 0, 0, 10000],
-              [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0, 10000]]
+              [request.GET['wp18'], request.GET['wp18_layer'], 0, 0, 0, 10000],
+              [request.GET['wp19'], request.GET['wp19_layer'], 0, 0, 0, 10000],
+              [request.GET['wp20'], request.GET['wp20_layer'], 0, 0, 0, 10000],
+              [request.GET['wp21'], request.GET['wp21_layer'], 0, 0, 0, 10000],
+              [request.GET['wp22'], request.GET['wp22_layer'], 0, 0, 0, 10000],
+              [request.GET['wp23'], request.GET['wp23_layer'], 0, 0, 0, 10000],
+              [request.GET['wp24'], request.GET['wp24_layer'], 0, 0, 0, 10000],
+              [request.GET['wp25'], request.GET['wp25_layer'], 0, 0, 0, 10000],
+              [request.GET['wp26'], request.GET['wp26_layer'], 0, 0, 0, 10000],
+              [request.GET['wp27'], request.GET['wp27_layer'], 0, 0, 0, 10000],
+              [request.GET['wp28'], request.GET['wp28_layer'], 0, 0, 0, 10000],
+              [request.GET['wp29'], request.GET['wp29_layer'], 0, 0, 0, 10000],
+              [request.GET['wp30'], request.GET['wp30_layer'], 0, 0, 0, 10000]]
+
+
     new_layers = []  # Remove all layers with no entries
     for i in range(len(layers)):
         if layers[i] != ['', '', 0, 0, 0, 10000]:
@@ -741,7 +836,18 @@ def cant_output(request):
                    [0, request.GET['wp16']],
                    [0, request.GET['wp17']],
                    [0, request.GET['wp18']],
-                   ]
+                   [0, request.GET['wp21']],
+                   [0, request.GET['wp22']],
+                   [0, request.GET['wp23']],
+                   [0, request.GET['wp24']],
+                   [0, request.GET['wp25']],
+                   [0, request.GET['wp26']],
+                   [0, request.GET['wp27']],
+                   [0, request.GET['wp28']],
+                   [0, request.GET['wp29']],
+                   [0, request.GET['wp30']]]
+
+
     new_work_points = []  # Remove all points with no entries
     for i in range(len(work_points)):
         if work_points[i] != [0, '']:
@@ -836,6 +942,16 @@ def cant_output(request):
             layers[i][1] = layer_7
         if layers[i][1] == 8.0:
             layers[i][1] = layer_8
+        if layers[i][1] == 9.0:
+            layers[i][1] = layer_9
+        if layers[i][1] == 10.0:
+            layers[i][1] = layer_10
+        if layers[i][1] == 11.0:
+            layers[i][1] = layer_11
+        if layers[i][1] == 12.0:
+            layers[i][1] = layer_12
+        if layers[i][1] == 13.0:
+            layers[i][1] = layer_13
 
     for i in range(len(layers)-1):
         if layers[i][0] >= supplied_elev >= layers[i+1][0]:
@@ -1193,6 +1309,56 @@ def multi_output(request):
                         float(request.GET['10.qu']),
                         float(request.GET['10.ka']), float(request.GET['10.kp']),
                         float(request.GET['10.phi']))
+    if request.GET['11.name'] != '':
+        layer_11 = Layer(request.GET['11.name'], float(request.GET['11.type']), float(request.GET['11.gamma']),
+                        float(request.GET['11.qu']),
+                        float(request.GET['11.ka']), float(request.GET['11.kp']),
+                        float(request.GET['11.phi']))
+    if request.GET['12.name'] != '':
+        layer_12 = Layer(request.GET['12.name'], float(request.GET['12.type']), float(request.GET['12.gamma']),
+                        float(request.GET['12.qu']),
+                        float(request.GET['12.ka']), float(request.GET['12.kp']),
+                        float(request.GET['12.phi']))
+    if request.GET['13.name'] != '':
+        layer_13 = Layer(request.GET['13.name'], float(request.GET['13.type']), float(request.GET['13.gamma']),
+                        float(request.GET['13.qu']),
+                        float(request.GET['13.ka']), float(request.GET['13.kp']),
+                        float(request.GET['13.phi']))
+    if request.GET['14.name'] != '':
+        layer_14 = Layer(request.GET['14.name'], float(request.GET['14.type']), float(request.GET['14.gamma']),
+                        float(request.GET['14.qu']),
+                        float(request.GET['14.ka']), float(request.GET['14.kp']),
+                        float(request.GET['14.phi']))
+    if request.GET['15.name'] != '':
+        layer_15 = Layer(request.GET['15.name'], float(request.GET['15.type']), float(request.GET['15.gamma']),
+                        float(request.GET['15.qu']),
+                        float(request.GET['15.ka']), float(request.GET['15.kp']),
+                        float(request.GET['15.phi']))
+    if request.GET['16.name'] != '':
+        layer_16 = Layer(request.GET['16.name'], float(request.GET['16.type']), float(request.GET['16.gamma']),
+                        float(request.GET['16.qu']),
+                        float(request.GET['16.ka']), float(request.GET['16.kp']),
+                        float(request.GET['16.phi']))
+    if request.GET['17.name'] != '':
+        layer_17 = Layer(request.GET['17.name'], float(request.GET['17.type']), float(request.GET['17.gamma']),
+                        float(request.GET['17.qu']),
+                        float(request.GET['17.ka']), float(request.GET['17.kp']),
+                        float(request.GET['17.phi']))
+    if request.GET['18.name'] != '':
+        layer_18 = Layer(request.GET['18.name'], float(request.GET['18.type']), float(request.GET['18.gamma']),
+                        float(request.GET['18.qu']),
+                        float(request.GET['18.ka']), float(request.GET['18.kp']),
+                        float(request.GET['18.phi']))
+    if request.GET['19.name'] != '':
+        layer_19 = Layer(request.GET['19.name'], float(request.GET['19.type']), float(request.GET['19.gamma']),
+                        float(request.GET['19.qu']),
+                        float(request.GET['19.ka']), float(request.GET['19.kp']),
+                        float(request.GET['19.phi']))
+    if request.GET['20.name'] != '':
+        layer_20 = Layer(request.GET['20.name'], float(request.GET['20.type']), float(request.GET['20.gamma']),
+                         float(request.GET['20.qu']),
+                         float(request.GET['20.ka']), float(request.GET['20.kp']),
+                         float(request.GET['20.phi']))
 
     # elevation, layer, soil surcharge placeholder, footing placeholder, train placeholder, passive height placeholder
     layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 10000],
@@ -1224,7 +1390,17 @@ def multi_output(request):
               [request.GET['wp27'], request.GET['wp27_layer'], 0, 0, 0, 10000],
               [request.GET['wp28'], request.GET['wp28_layer'], 0, 0, 0, 10000],
               [request.GET['wp29'], request.GET['wp29_layer'], 0, 0, 0, 10000],
-              [request.GET['wp30'], request.GET['wp30_layer'], 0, 0, 0, 10000]
+              [request.GET['wp30'], request.GET['wp30_layer'], 0, 0, 0, 10000],
+              [request.GET['wp31'], request.GET['wp31_layer'], 0, 0, 0, 10000],
+              [request.GET['wp32'], request.GET['wp32_layer'], 0, 0, 0, 10000],
+              [request.GET['wp33'], request.GET['wp33_layer'], 0, 0, 0, 10000],
+              [request.GET['wp34'], request.GET['wp34_layer'], 0, 0, 0, 10000],
+              [request.GET['wp35'], request.GET['wp35_layer'], 0, 0, 0, 10000],
+              [request.GET['wp36'], request.GET['wp36_layer'], 0, 0, 0, 10000],
+              [request.GET['wp37'], request.GET['wp37_layer'], 0, 0, 0, 10000],
+              [request.GET['wp38'], request.GET['wp38_layer'], 0, 0, 0, 10000],
+              [request.GET['wp39'], request.GET['wp39_layer'], 0, 0, 0, 10000],
+              [request.GET['wp40'], request.GET['wp40_layer'], 0, 0, 0, 10000]
               ]
     new_layers = []  # Remove all layers with no entries
     for i in range(len(layers)):
@@ -1264,7 +1440,17 @@ def multi_output(request):
                    [0, request.GET['wp27']],
                    [0, request.GET['wp28']],
                    [0, request.GET['wp29']],
-                   [0, request.GET['wp30']]
+                   [0, request.GET['wp30']],
+                   [0, request.GET['wp31']],
+                   [0, request.GET['wp32']],
+                   [0, request.GET['wp33']],
+                   [0, request.GET['wp34']],
+                   [0, request.GET['wp35']],
+                   [0, request.GET['wp36']],
+                   [0, request.GET['wp37']],
+                   [0, request.GET['wp38']],
+                   [0, request.GET['wp39']],
+                   [0, request.GET['wp40']]
                    ]
 
     new_work_points = []  # Remove all points with no entries
@@ -1371,6 +1557,26 @@ def multi_output(request):
             layers[i][1] = layer_9
         if layers[i][1] == 10.0:
             layers[i][1] = layer_10
+        if layers[i][1] == 11.0:
+            layers[i][1] = layer_11
+        if layers[i][1] == 12.0:
+            layers[i][1] = layer_12
+        if layers[i][1] == 13.0:
+            layers[i][1] = layer_13
+        if layers[i][1] == 14.0:
+            layers[i][1] = layer_14
+        if layers[i][1] == 15.0:
+            layers[i][1] = layer_15
+        if layers[i][1] == 16.0:
+            layers[i][1] = layer_16
+        if layers[i][1] == 17.0:
+            layers[i][1] = layer_17
+        if layers[i][1] == 18.0:
+            layers[i][1] = layer_18
+        if layers[i][1] == 19.0:
+            layers[i][1] = layer_19
+        if layers[i][1] == 20.0:
+            layers[i][1] = layer_20
 
     for i in range(len(layers)-1):
         d = layers[0][0] - cut_elev
