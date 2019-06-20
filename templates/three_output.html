@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Braced Wall Design</title>
+    <title>Three-layer Braced Wall Design</title>
     <style>
         body{
             font-size: 80%;
@@ -48,6 +48,9 @@
 <td>{{ water_pressures|join:"<br/>" }}</td>
 <br>
 <br>
+{% load static %}
+<img src="{% static 'images/apparent_pressures.jpg' %}" style="height: 40%; width: 40%; object-fit: contain"/>
+<br>
 <td>{{ net_output|join:"<br/>" }}</td>
 <br>
 {% if beam_output %}
@@ -55,7 +58,7 @@
     <td>{{ beam_output|join:"<br/>" }}</td>
     <br>
 {% endif %}
-<h3>Braced Wall Design</h3>
+<h3>Three-layer Braced Wall Design</h3>
 Find point on diagram where the sum of moments is 0 about the brace elevation.<br>
 <br>
 Sum of Moments = 0<br>
@@ -67,8 +70,8 @@ Sum of Moments = 0<br>
 <br>Minimum Length: {{ min_length }}
 <br>Tip Elevation: {{ min_length_elev }}
 <br>
-<br>At this tip elevation, summing forces of the pressure diagram yields:
-<br>T= {{ waler_load }}
+<br>
+<td>{{ waler_load|join:"<br/>" }}</td>
 <br>
 <br>
 <td>{{ multiplier|join:"<br/>" }}</td>
@@ -81,17 +84,17 @@ Sum of Moments = 0<br>
 <br> I = {{ I }} in^4 with {{ sheet_type }}
 <br> Sx = {{ Sx }} in^3 with {{ sheet_type }}
 <br>
-<br> Bending Stress = {{ bending_stress}} ksi with {{ sheet_type }}
+<br> Bending Stress = {{ bending_stress }} ksi with {{ sheet_type }}
 <br>
 <br><br>
-<!--{% load static %}
-<img src="{% static 'images/bracedef.jpg' %}" style="height: 80%; width: 80%; object-fit: contain"/>-->
-<br><br>
 <form action="{% url 'pressure_plot' %}">
-    <input type="submit" value="Pressure Plot and Deflected Shape" />
+    <input type="submit" value="Wall Diagram and Deflected Shape" />
 </form>
 <form action="{% url 'surface' %}">
     <input type="submit" value="Surface Plot" />
+</form>
+<form action="{% url 'strut_diagram' %}">
+    <input type="submit" value="Strut Diagram" />
 </form>
 <br><br>
 </body>

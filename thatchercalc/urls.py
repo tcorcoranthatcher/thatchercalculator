@@ -13,5 +13,7 @@ urlpatterns = [
     url(r'^cant_output', views.cant_output, name='cant_output'),
     url(r'^multilayer', views.multilayer, name='multilayer'),
     url(r'^multi_output', views.multi_output, name='multi_output'),
-    url(r'^strut_diagram', views.strut_diagram, name='strut_diagram')
+    url(r'^strut_diagram', views.strut_diagram, name='strut_diagram'),
+    url(r'^three_layer', views.three_layer, name='three_layer'),
+    url(r'^three_output', views.three_output, name='three_output'),
 ]

@@ -97,6 +97,7 @@ def berm_reduction(layers, berm_array, cut_elev, passive_pressure, water_elev, t
 
 
         berm_weights.append([layers[i][0], weight])
+
     # FIND LENGTH l AT EACH WORKPOINT
     berm_line = LineString(berm_array)
     length_list = []

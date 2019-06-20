@@ -4,352 +4,510 @@
     <meta charset="UTF-8">
     <title>Braced Wall Calculator</title>
     <style>
+    body{
+            font-size: 100%;
+                }
+    .grid-container-footings {
+    display: inline-grid;
+    grid-template-columns: 70px 70px 70px 70px auto;
+    }
+    .grid-item-footings {}
+    .text_box {
+    width: 60px;
+    height: 11px;
+    }
+    .grid-container-surface {
+    display: inline-grid;
+    grid-template-columns: 75px 75px 75px 75px 75px 75px 75px;
+    }
+    .grid-item-surface {}
+    .text_box_surface {
+    width: 45px;
+    height: 11px;
+    }
+     .grid-container-soils {
+    display: inline-grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto;
+    }
+    .grid-item-soils {}
+    .text_box_soils {
+    width: 35px;
+    height: 11px;
+    }
+    .grid-container-wp {
+    display: inline-grid;
+    grid-template-columns: 45px 45px 45px 45px 45px 45px 45px 45px 45px 45px auto;
+    }
+    .grid-item-wp {}
+    .text_box_wp {
+    width: 40px;
+    height: 11px;
+    }
     </style>
-
 </head>
 <body>
 <h1>One Level Braced Wall Calculator</h1>
 
 <form action="{% url 'output' %}">
-
-    <h2>Input Footings and/or trains(up to 4 each)</h2>
-    Footing 1
+    <h3>Input Footings and/or Rails</h3>
+    <div class="grid-container-footings">
+        <div class="grid-item-footings">
+        Footing 1
+            <br>
+            <input type="text" name="footing_1_type" class="text_box"><br>
+            <input type="text" name="footing_1_width" class="text_box"><br>
+            <input type="text" name="footing_1_distance" class="text_box"><br>
+            <input type="text" name="footing_1_elevation" class="text_box"><br>
+            <input type="text" name="footing_1_load" class="text_box"><br>
+            <input type="text" name="footing_1_spacing_1" class="text_box"><br>
+            <input type="text" name="footing_1_spacing_2" class="text_box"><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Footing 2
+            <br>
+            <input type="text" name="footing_2_type" class="text_box"><br>
+            <input type="text" name="footing_2_width" class="text_box"><br>
+            <input type="text" name="footing_2_distance" class="text_box"><br>
+            <input type="text" name="footing_2_elevation" class="text_box"><br>
+            <input type="text" name="footing_2_load" class="text_box"><br>
+            <input type="text" name="footing_2_spacing_1" class="text_box"><br>
+            <input type="text" name="footing_2_spacing_2" class="text_box"><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Footing 3
+            <br>
+            <input type="text" name="footing_3_type" class="text_box"><br>
+            <input type="text" name="footing_3_width" class="text_box"><br>
+            <input type="text" name="footing_3_distance" class="text_box"><br>
+            <input type="text" name="footing_3_elevation" class="text_box"><br>
+            <input type="text" name="footing_3_load" class="text_box"><br>
+            <input type="text" name="footing_3_spacing_1" class="text_box"><br>
+            <input type="text" name="footing_3_spacing_2" class="text_box"><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Footing 4
+            <br>
+            <input type="text" name="footing_4_type" class="text_box"><br>
+            <input type="text" name="footing_4_width" class="text_box"><br>
+            <input type="text" name="footing_4_distance" class="text_box"><br>
+            <input type="text" name="footing_4_elevation" class="text_box"><br>
+            <input type="text" name="footing_4_load" class="text_box"><br>
+            <input type="text" name="footing_4_spacing_1" class="text_box"><br>
+            <input type="text" name="footing_4_spacing_2" class="text_box"><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            <br>
+            0 is continuous, 1 is spread<br>
+            Width<br>
+            Distance from center line of footing to wall<br>
+            Elevation of bottom of footing<br>
+            Load in plf for continuous, lbs for spread<br>
+            Spacing to closest footing (0 if continuous)<br>
+            Spacing to next closest footing (0 if continuous)<br>
+        </div>
+    </div>
     <br>
-    <input type="text" name="footing_1_type">Enter 0 if continuous, 1 if spread<br>
-    <input type="text" name="footing_1_width">Footing width<br>
-    <input type="text" name="footing_1_distance">Distance from center line of footing to wall<br>
-    <input type="text" name="footing_1_elevation">Elevation of bottom of footing<br>
-    <input type="text" name="footing_1_load">Load on footing in plf for continuous, pounds for spread<br>
-    <input type="text" name="footing_1_spacing_1">Spread footing spacing to closest footing in plane (enter 0 if continuous)<br>
-    <input type="text" name="footing_1_spacing_2">Spread footing spacing to next closest footing (enter 0 if continuous)<br>
-    <br>
-    Footing 2
-    <br>
-    <input type="text" name="footing_2_type">Enter 0 if continuous, 1 if spread<br>
-    <input type="text" name="footing_2_width">Footing width<br>
-    <input type="text" name="footing_2_distance">Distance from center line of footing to wall<br>
-    <input type="text" name="footing_2_elevation">Elevation of bottom of footing<br>
-    <input type="text" name="footing_2_load">Load on footing in plf for continuous, pounds for spread<br>
-    <input type="text" name="footing_2_spacing_1">Spread footing spacing to closest footing in plane (enter 0 if continuous)<br>
-    <input type="text" name="footing_2_spacing_2">Spread footing spacing to next closest footing (enter 0 if continuous)<br>
-    <br>
-    Footing 3
-    <br>
-    <input type="text" name="footing_3_type">Enter 0 if continuous, 1 if spread<br>
-    <input type="text" name="footing_3_width">Footing width<br>
-    <input type="text" name="footing_3_distance">Distance from center line of footing to wall<br>
-    <input type="text" name="footing_3_elevation">Elevation of bottom of footing<br>
-    <input type="text" name="footing_3_load">Load on footing in plf for continuous, pounds for spread<br>
-    <input type="text" name="footing_3_spacing_1">Spread footing spacing to closest footing in plane (enter 0 if continuous)<br>
-    <input type="text" name="footing_3_spacing_2">Spread footing spacing to next closest footing (enter 0 if continuous)<br>
-    <br>
-    Footing 4
-    <br>
-    <input type="text" name="footing_4_type">Enter 0 if continuous, 1 if spread<br>
-    <input type="text" name="footing_4_width">Footing width<br>
-    <input type="text" name="footing_4_distance">Distance from center line of footing to wall<br>
-    <input type="text" name="footing_4_elevation">Elevation of bottom of footing<br>
-    <input type="text" name="footing_4_load">Load on footing in plf for continuous, pounds for spread<br>
-    <input type="text" name="footing_4_spacing_1">Spread footing spacing to closest footing in plane (enter 0 if continuous)<br>
-    <input type="text" name="footing_4_spacing_2">Spread footing spacing to next closest footing (enter 0 if continuous)<br>
-    <br>
-    <br>
-    Train 1
-    <br>
-    <input type="text" name="train_1_distance">Distance from edge of tie to sheeting<br>
-    <input type="text" name="train_1_load">Q, Strip Load Surcharge<br>
-    <input type="text" name="train_1_tie_size">Tie Size<br>
-    <input type="text" name="train_1_elevation">Elevation of train track<br>
-    <br>
-    Train 2
-    <br>
-    <input type="text" name="train_2_distance">Distance from edge of tie to sheeting<br>
-    <input type="text" name="train_2_load">Q, Strip Load Surcharge<br>
-    <input type="text" name="train_2_tie_size">Tie Size<br>
-    <input type="text" name="train_2_elevation">Elevation of train track<br>
-    Train 3
-    <br>
-    <input type="text" name="train_3_distance">Distance from edge of tie to sheeting<br>
-    <input type="text" name="train_3_load">Q, Strip Load Surcharge<br>
-    <input type="text" name="train_3_tie_size">Tie Size<br>
-    <input type="text" name="train_3_elevation">Elevation of train track<br>
-    Train 4
-    <br>
-    <input type="text" name="train_4_distance">Distance from edge of tie to sheeting<br>
-    <input type="text" name="train_4_load">Q, Strip Load Surcharge<br>
-    <input type="text" name="train_4_tie_size">Tie Size<br>
-    <input type="text" name="train_4_elevation">Elevation of train track<br>
-    <br>
-    <h2>Describe the surface of the section</h2>
+    <div class="grid-container-footings">
+        <div class="grid-item-footings">
+            Train 1
+            <br>
+            <input type="text" name="train_1_distance" class="text_box"><br>
+            <input type="text" name="train_1_load" class="text_box"><br>
+            <input type="text" name="train_1_tie_size" class="text_box"><br>
+            <input type="text" name="train_1_elevation" class="text_box"><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Train 2
+            <br>
+            <input type="text" name="train_2_distance" class="text_box"><br>
+            <input type="text" name="train_2_load" class="text_box"><br>
+            <input type="text" name="train_2_tie_size" class="text_box"><br>
+            <input type="text" name="train_2_elevation" class="text_box"><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Train 3
+            <br>
+            <input type="text" name="train_3_distance" class="text_box"><br>
+            <input type="text" name="train_3_load" class="text_box"><br>
+            <input type="text" name="train_3_tie_size" class="text_box"><br>
+            <input type="text" name="train_3_elevation" class="text_box"><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Train 4
+            <br>
+            <input type="text" name="train_4_distance" class="text_box"><br>
+            <input type="text" name="train_4_load" class="text_box"><br>
+            <input type="text" name="train_4_tie_size" class="text_box"><br>
+            <input type="text" name="train_4_elevation" class="text_box"><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            <br>
+             Distance from edge of tie to sheeting<br>
+             Q, Strip Load Surcharge<br>
+             Tie Size<br>
+             Elevation of train track<br>
+            <br>
+        </div>
+    </div>
     <h3>What side is the surface on?</h3>
     <input type="radio" name="surface_side" value="-1" checked>Left of ERS<br>
     <input type="radio" name="surface_side" value="1">Right of ERS<br>
-    <br>
     <h3>Input surface points</h3>
     Input coordinates starting from the ERS point and going sequentially along the surface.<br>
-    The final point's x-coordinate should go out to pretty far (50 units or more past the last point)<br>
     <br>
-    <input type="text" name="point0x">Point(0)-x<br>
-    <input type="text" name="point0y">Point(0)-y<br>
-    <br>
-    <input type="text" name="point1x">Point(1)-x<br>
-    <input type="text" name="point1y">Point(1)-y<br>
-    <br>
-    <input type="text" name="point2x">Point(2)-x<br>
-    <input type="text" name="point2y">Point(2)-y<br>
-    <br>
-    <input type="text" name="point3x">Point(3)-x<br>
-    <input type="text" name="point3y">Point(3)-y<br>
-    <br>
-    <input type="text" name="point4x">Point(4)-x<br>
-    <input type="text" name="point4y">Point(4)-y<br>
-    <br>
-    <input type="text" name="point5x">Point(5)-x<br>
-    <input type="text" name="point5y">Point(5)-y<br>
-    <br>
-    <input type="text" name="point6x">Point(6)-x<br>
-    <input type="text" name="point6y">Point(6)-y<br>
-    <br>
-    <input type="text" name="point7x">Point(7)-x<br>
-    <input type="text" name="point7y">Point(7)-y<br>
-    <br>
-    <input type="text" name="point8x">Point(8)-x<br>
-    <input type="text" name="point8y">Point(8)-y<br>
-    <br>
-    <input type="text" name="point9x">Point(9)-x<br>
-    <input type="text" name="point9y">Point(9)-y<br>
-    <br>
-    <input type="text" name="point10x">Point(10)-x<br>
-    <input type="text" name="point10y">Point(10)-y<br>
-    <br>
-    <input type="text" name="point11x">Point(11)-x<br>
-    <input type="text" name="point11y">Point(11)-y<br>
-    <br>
-    <input type="text" name="point12x">Point(12)-x<br>
-    <input type="text" name="point12y">Point(12)-y<br>
-    <br>
-    <input type="text" name="point13x">Point(13)-x<br>
-    <input type="text" name="point13y">Point(13)-y<br>
-    <h3>Surcharge Parameters</h3>
+    <div class="grid-container-surface">
+        <div class="grid-item-surface">
+            <input type="text" name="point0x" class="text_box_surface">0x<br>
+            <input type="text" name="point0y" class="text_box_surface">0y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point1x" class="text_box_surface">1x<br>
+            <input type="text" name="point1y" class="text_box_surface">1y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point2x" class="text_box_surface">2x<br>
+            <input type="text" name="point2y" class="text_box_surface">2y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point3x" class="text_box_surface">3x<br>
+            <input type="text" name="point3y" class="text_box_surface">3y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point4x" class="text_box_surface">4x<br>
+            <input type="text" name="point4y" class="text_box_surface">4y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point5x" class="text_box_surface">5x<br>
+            <input type="text" name="point5y" class="text_box_surface">5y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point6x" class="text_box_surface">6x<br>
+            <input type="text" name="point6y" class="text_box_surface">6y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point7x" class="text_box_surface">7x<br>
+            <input type="text" name="point7y" class="text_box_surface">7y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point8x" class="text_box_surface">8x<br>
+            <input type="text" name="point8y" class="text_box_surface">8y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point9x" class="text_box_surface">9x<br>
+            <input type="text" name="point9y" class="text_box_surface">9y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point10x" class="text_box_surface">10x<br>
+            <input type="text" name="point10y" class="text_box_surface">10y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point11x" class="text_box_surface">11x<br>
+            <input type="text" name="point11y" class="text_box_surface">11y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point12x" class="text_box_surface">12x<br>
+            <input type="text" name="point12y" class="text_box_surface">12y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point13x" class="text_box_surface">13x<br>
+            <input type="text" name="point13y" class="text_box_surface">13y<br>
+        </div>
+    </div>
+     <h3>Surcharge Parameters</h3>
+    <input type="text" name="surcharge_unit_weight" class="text_box">
     Enter unit weight of surcharge soil to be considered in pcf.<br>
-    <input type="text" name="surcharge_unit_weight"><br>
+    <input type="text" name="min_surcharge_height" class="text_box">
     Enter minimum surcharge height for all layers (leave blank if does not apply)<br>
-    <input type="text" name="min_surcharge_height"><br>
     <h3>Failure Angle</h3>
     <input type="radio" name="angle" value="45" checked>45 deg<br>
     <input type="radio" name="angle" value="55">55 deg<br>
-    <h3>At what elevation does the angle change? (leave blank if does not apply)</h3>
-    <input type="text" name="angle_change_elev">
     <br>
-    <h3>Which situation applies to the angle change?</h3>
+    <input type="text" name="angle_change_elev" class="text_box">
+    At what elevation does the angle change? (leave blank if does not apply)<br>
+    <br>
     <input type="radio" name="angle_change_type" value="0" checked>Does not apply<br>
     <input type="radio" name="angle_change_type" value="1">Sand-over-clay (use 55 degree angle)<br>
     <input type="radio" name="angle_change_type" value="2">Clay-over-sand (use 45 degree angle)<br>
-    <br>
     <h3>Input berm (if applicable)</h3>
     Input coordinates starting from the ERS point and going sequentially along the berm.<br>
-    The final point's x-coordinate should go out to pretty far (50 units or more past the last point)<br>
+     <div class="grid-container-surface">
+        <div class="grid-item-surface">
+            <input type="text" name="berm0x" class="text_box_surface">0x<br>
+            <input type="text" name="berm0y" class="text_box_surface">0y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm1x" class="text_box_surface">1x<br>
+            <input type="text" name="berm1y" class="text_box_surface">1y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm2x" class="text_box_surface">2x<br>
+            <input type="text" name="berm2y" class="text_box_surface">2y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm3x" class="text_box_surface">3x<br>
+            <input type="text" name="berm3y" class="text_box_surface">3y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm4x" class="text_box_surface">4x<br>
+            <input type="text" name="berm4y" class="text_box_surface">4y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm5x" class="text_box_surface">5x<br>
+            <input type="text" name="berm5y" class="text_box_surface">5y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm6x" class="text_box_surface">6x<br>
+            <input type="text" name="berm6y" class="text_box_surface">6y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm7x" class="text_box_surface">7x<br>
+            <input type="text" name="berm7y" class="text_box_surface">7y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm8x" class="text_box_surface">8x<br>
+            <input type="text" name="berm8y" class="text_box_surface">8y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm9x" class="text_box_surface">9x<br>
+            <input type="text" name="berm9y" class="text_box_surface">9y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm10x" class="text_box_surface">10x<br>
+            <input type="text" name="berm10y" class="text_box_surface">10y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm11x" class="text_box_surface">11x<br>
+            <input type="text" name="berm11y" class="text_box_surface">11y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm12x" class="text_box_surface">12x<br>
+            <input type="text" name="berm12y" class="text_box_surface">12y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm13x" class="text_box_surface">13x<br>
+            <input type="text" name="berm13y" class="text_box_surface">13y<br>
+        </div>
+    </div>
+    <h3>Input Soil Properties</h3>
+    *To use Ka(min) other than 0.25, enter a cohesive soil with a Ka not equal to one<br>
     <br>
-    <input type="text" name="berm0x">Point(0)-x<br>
-    <input type="text" name="berm0y">Point(0)-y<br>
-    <br>
-    <input type="text" name="berm1x">Point(1)-x<br>
-    <input type="text" name="berm1y">Point(1)-y<br>
-    <br>
-    <input type="text" name="berm2x">Point(2)-x<br>
-    <input type="text" name="berm2y">Point(2)-y<br>
-    <br>
-    <input type="text" name="berm3x">Point(3)-x<br>
-    <input type="text" name="berm3y">Point(3)-y<br>
-    <br>
-    <input type="text" name="berm4x">Point(4)-x<br>
-    <input type="text" name="berm4y">Point(4)-y<br>
-    <br>
-    <input type="text" name="berm5x">Point(5)-x<br>
-    <input type="text" name="berm5y">Point(5)-y<br>
-    <br>
-    <input type="text" name="berm6x">Point(6)-x<br>
-    <input type="text" name="berm6y">Point(6)-y<br>
-    <br>
-    <input type="text" name="berm7x">Point(7)-x<br>
-    <input type="text" name="berm7y">Point(7)-y<br>
-    <br>
-    <input type="text" name="berm8x">Point(8)-x<br>
-    <input type="text" name="berm8y">Point(8)-y<br>
-    <br>
-    <input type="text" name="berm9x">Point(9)-x<br>
-    <input type="text" name="berm9y">Point(9)-y<br>
-    <br>
-    <input type="text" name="berm10x">Point(10)-x<br>
-    <input type="text" name="berm10y">Point(10)-y<br>
-    <br>
-    <input type="text" name="berm11x">Point(11)-x<br>
-    <input type="text" name="berm11y">Point(11)-y<br>
-    <br>
-    <input type="text" name="berm12x">Point(12)-x<br>
-    <input type="text" name="berm12y">Point(12)-y<br>
-    <br>
-    <input type="text" name="berm13x">Point(13)-x<br>
-    <input type="text" name="berm13y">Point(13)-y<br>
-    <br>
-    <br>
-    <h2>Work Points and Soil Layers</h2>
-    <h3>Input Soil Layers</h3>
-    Input the soil layers to be used in pressure calculations.
-    <br>
-    <br>
-      *To use Ka(min) other than 0.25, enter a cohesive soil with a Ka not equal to one
-    <br>
-    <br>
-  Layer 1:
-    <input type="radio" name="1.type" value="0">Granular
-    <input type="radio" name="1.type" value="1">Cohesive<br>
-    Name <input type="text" name="1.name">
-    Unit Weight (pcf) <input type="text" name="1.gamma"> <br>
-    qu (tsf) <input type="text" name="1.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="1.ka">
-    Kp <input type="text" name="1.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="1.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 2:
-    <input type="radio" name="2.type" value="0">Granular
-    <input type="radio" name="2.type" value="1">Cohesive<br>
-    Name <input type="text" name="2.name">
-    Unit Weight (pcf) <input type="text" name="2.gamma"> <br>
-    qu (tsf) <input type="text" name="2.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="2.ka">
-    Kp <input type="text" name="2.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="2.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 3:
-    <input type="radio" name="3.type" value="0">Granular
-    <input type="radio" name="3.type" value="1">Cohesive<br>
-    Name <input type="text" name="3.name">
-    Unit Weight (pcf) <input type="text" name="3.gamma"> <br>
-    qu (tsf) <input type="text" name="3.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="3.ka">
-    Kp <input type="text" name="3.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="3.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 4:
-    <input type="radio" name="4.type" value="0">Granular
-    <input type="radio" name="4.type" value="1">Cohesive<br>
-    Name <input type="text" name="4.name">
-    Unit Weight (pcf) <input type="text" name="4.gamma"> <br>
-    qu (tsf) <input type="text" name="4.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="4.ka">
-    Kp <input type="text" name="4.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="4.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 5:
-    <input type="radio" name="5.type" value="0">Granular
-    <input type="radio" name="5.type" value="1">Cohesive<br>
-    Name <input type="text" name="5.name">
-    Unit Weight (pcf) <input type="text" name="5.gamma"> <br>
-    qu (tsf) <input type="text" name="5.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="5.ka">
-    Kp <input type="text" name="5.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="5.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 6:
-    <input type="radio" name="6.type" value="0">Granular
-    <input type="radio" name="6.type" value="1">Cohesive<br>
-    Name <input type="text" name="6.name">
-    Unit Weight (pcf) <input type="text" name="6.gamma"> <br>
-    qu (tsf) <input type="text" name="6.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="6.ka">
-    Kp <input type="text" name="6.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="6.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 7:
-    <input type="radio" name="7.type" value="0">Granular
-    <input type="radio" name="7.type" value="1">Cohesive<br>
-    Name <input type="text" name="7.name">
-    Unit Weight (pcf) <input type="text" name="7.gamma"> <br>
-    qu (tsf) <input type="text" name="7.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="7.ka">
-    Kp <input type="text" name="7.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="7.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 8:
-    <input type="radio" name="8.type" value="0">Granular
-    <input type="radio" name="8.type" value="1">Cohesive<br>
-    Name <input type="text" name="8.name">
-    Unit Weight (pcf) <input type="text" name="8.gamma"> <br>
-    qu (tsf) <input type="text" name="8.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="8.ka">
-    Kp <input type="text" name="8.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="8.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 9:
-    <input type="radio" name="9.type" value="0">Granular
-    <input type="radio" name="9.type" value="1">Cohesive<br>
-    Name <input type="text" name="9.name">
-    Unit Weight (pcf) <input type="text" name="9.gamma"> <br>
-    qu (tsf) <input type="text" name="9.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="9.ka">
-    Kp <input type="text" name="9.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="9.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 10:
-    <input type="radio" name="10.type" value="0">Granular
-    <input type="radio" name="10.type" value="1">Cohesive<br>
-    Name <input type="text" name="10.name">
-    Unit Weight (pcf) <input type="text" name="10.gamma"> <br>
-    qu (tsf) <input type="text" name="10.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="10.ka">
-    Kp <input type="text" name="10.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="10.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 11:
-    <input type="radio" name="11.type" value="0">Granular
-    <input type="radio" name="11.type" value="1">Cohesive<br>
-    Name <input type="text" name="11.name">
-    Unit Weight (pcf) <input type="text" name="11.gamma"> <br>
-    qu (tsf) <input type="text" name="11.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="11.ka">
-    Kp <input type="text" name="11.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="11.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 12:
-    <input type="radio" name="12.type" value="0">Granular
-    <input type="radio" name="12.type" value="1">Cohesive<br>
-    Name <input type="text" name="12.name">
-    Unit Weight (pcf) <input type="text" name="12.gamma"> <br>
-    qu (tsf) <input type="text" name="12.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="12.ka">
-    Kp <input type="text" name="12.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="12.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    Layer 13:
-    <input type="radio" name="13.type" value="0">Granular
-    <input type="radio" name="13.type" value="1">Cohesive<br>
-    Name <input type="text" name="13.name">
-    Unit Weight (pcf) <input type="text" name="13.gamma"> <br>
-    qu (tsf) <input type="text" name="13.qu"> Enter 0 if sand.<br>
-    Ka <input type="text" name="13.ka">
-    Kp <input type="text" name="13.kp"> Enter 1 for both if cohesive.<br>
-    ϕ <input type="text" name="13.phi"> Enter 0 if cohesive.
-    <br>
-    <br>
-    <h3>Input work points</h3>
-    -Put in work points in descending order.  First work point must be the surface.
-    -Changes in layer must be put in as two separate work points.<br>
-    -If you need to switch to total weights at any point, check the box for the work point at which to
-      begin calculating by total weights. <br>
-    -For water around toe:  check the box next to the work points to calculate new unit weights.  Also enter assumed length of ERS <br>
+    <div class="grid-container-soils">
+        <div class="grid-item-soils">
+            Layer 1: <br>
+            <input type="radio" name="1.type" value="0"><br>
+            <input type="radio" name="1.type" value="1"><br>
+            <input type="text" name="1.name" class="text_box_soils"><br>
+            <input type="text" name="1.gamma" class="text_box_soils"><br>
+            <input type="text" name="1.qu" class="text_box_soils"><br>
+            <input type="text" name="1.ka" class="text_box_soils"><br>
+            <input type="text" name="1.kp" class="text_box_soils"><br>
+            <input type="text" name="1.phi" class="text_box_soils"><br>
+            <br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 2: <br>
+            <input type="radio" name="2.type" value="0"><br>
+            <input type="radio" name="2.type" value="1"><br>
+            <input type="text" name="2.name" class="text_box_soils"><br>
+            <input type="text" name="2.gamma" class="text_box_soils"><br>
+            <input type="text" name="2.qu" class="text_box_soils"><br>
+            <input type="text" name="2.ka" class="text_box_soils"><br>
+            <input type="text" name="2.kp" class="text_box_soils"><br>
+            <input type="text" name="2.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 3: <br>
+            <input type="radio" name="3.type" value="0"><br>
+            <input type="radio" name="3.type" value="1"><br>
+            <input type="text" name="3.name" class="text_box_soils"><br>
+            <input type="text" name="3.gamma" class="text_box_soils"><br>
+            <input type="text" name="3.qu" class="text_box_soils"><br>
+            <input type="text" name="3.ka" class="text_box_soils"><br>
+            <input type="text" name="3.kp" class="text_box_soils"><br>
+            <input type="text" name="3.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 4: <br>
+            <input type="radio" name="4.type" value="0"><br>
+            <input type="radio" name="4.type" value="1"><br>
+            <input type="text" name="4.name" class="text_box_soils"><br>
+            <input type="text" name="4.gamma" class="text_box_soils"><br>
+            <input type="text" name="4.qu" class="text_box_soils"><br>
+            <input type="text" name="4.ka" class="text_box_soils"><br>
+            <input type="text" name="4.kp" class="text_box_soils"><br>
+            <input type="text" name="4.phi" class="text_box_soils"><br>
+        </div>
+        <div class=grid-item-soils">
+            Layer 5: <br>
+            <input type="radio" name="5.type" value="0"><br>
+            <input type="radio" name="5.type" value="1"><br>
+            <input type="text" name="5.name" class="text_box_soils"><br>
+            <input type="text" name="5.gamma" class="text_box_soils"><br>
+            <input type="text" name="5.qu" class="text_box_soils"><br>
+            <input type="text" name="5.ka" class="text_box_soils"><br>
+            <input type="text" name="5.kp" class="text_box_soils"><br>
+            <input type="text" name="5.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 6: <br>
+            <input type="radio" name="6.type" value="0"><br>
+            <input type="radio" name="6.type" value="1"><br>
+            <input type="text" name="6.name" class="text_box_soils"><br>
+            <input type="text" name="6.gamma" class="text_box_soils"><br>
+            <input type="text" name="6.qu" class="text_box_soils"><br>
+            <input type="text" name="6.ka" class="text_box_soils"><br>
+            <input type="text" name="6.kp" class="text_box_soils"><br>
+            <input type="text" name="6.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 7: <br>
+            <input type="radio" name="7.type" value="0"><br>
+            <input type="radio" name="7.type" value="1"><br>
+            <input type="text" name="7.name" class="text_box_soils"><br>
+            <input type="text" name="7.gamma" class="text_box_soils"><br>
+            <input type="text" name="7.qu" class="text_box_soils"><br>
+            <input type="text" name="7.ka" class="text_box_soils"><br>
+            <input type="text" name="7.kp" class="text_box_soils"><br>
+            <input type="text" name="7.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+             <br>
+            Granular or<br>
+            Cohesive<br>
+            Name<br>
+            ɣ(pcf)<br>
+            qu(tsf) <br>
+            Ka <br>
+            Kp <br>
+            ϕ(°) <br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 8: <br>
+            <input type="radio" name="8.type" value="0"><br>
+            <input type="radio" name="8.type" value="1"><br>
+            <input type="text" name="8.name" class="text_box_soils"><br>
+            <input type="text" name="8.gamma" class="text_box_soils"><br>
+            <input type="text" name="8.qu" class="text_box_soils"><br>
+            <input type="text" name="8.ka" class="text_box_soils"><br>
+            <input type="text" name="8.kp" class="text_box_soils"><br>
+            <input type="text" name="8.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 9: <br>
+            <input type="radio" name="9.type" value="0"><br>
+            <input type="radio" name="9.type" value="1"><br>
+            <input type="text" name="9.name" class="text_box_soils"><br>
+            <input type="text" name="9.gamma" class="text_box_soils"><br>
+            <input type="text" name="9.qu" class="text_box_soils"><br>
+            <input type="text" name="9.ka" class="text_box_soils"><br>
+            <input type="text" name="9.kp" class="text_box_soils"><br>
+            <input type="text" name="9.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 10: <br>
+            <input type="radio" name="10.type" value="0"><br>
+            <input type="radio" name="10.type" value="1"><br>
+            <input type="text" name="10.name" class="text_box_soils"><br>
+            <input type="text" name="10.gamma" class="text_box_soils"><br>
+            <input type="text" name="10.qu" class="text_box_soils"><br>
+            <input type="text" name="10.ka" class="text_box_soils"><br>
+            <input type="text" name="10.kp" class="text_box_soils"><br>
+            <input type="text" name="10.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 11: <br>
+            <input type="radio" name="11.type" value="0"><br>
+            <input type="radio" name="11.type" value="1"><br>
+            <input type="text" name="11.name" class="text_box_soils"><br>
+            <input type="text" name="11.gamma" class="text_box_soils"><br>
+            <input type="text" name="11.qu" class="text_box_soils"><br>
+            <input type="text" name="11.ka" class="text_box_soils"><br>
+            <input type="text" name="11.kp" class="text_box_soils"><br>
+            <input type="text" name="11.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 12: <br>
+            <input type="radio" name="12.type" value="0"><br>
+            <input type="radio" name="12.type" value="1"><br>
+            <input type="text" name="12.name" class="text_box_soils"><br>
+            <input type="text" name="12.gamma" class="text_box_soils"><br>
+            <input type="text" name="12.qu" class="text_box_soils"><br>
+            <input type="text" name="12.ka" class="text_box_soils"><br>
+            <input type="text" name="12.kp" class="text_box_soils"><br>
+            <input type="text" name="12.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 13: <br>
+            <input type="radio" name="13.type" value="0"><br>
+            <input type="radio" name="13.type" value="1"><br>
+            <input type="text" name="13.name" class="text_box_soils"><br>
+            <input type="text" name="13.gamma" class="text_box_soils"><br>
+            <input type="text" name="13.qu" class="text_box_soils"><br>
+            <input type="text" name="13.ka" class="text_box_soils"><br>
+            <input type="text" name="13.kp" class="text_box_soils"><br>
+            <input type="text" name="13.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 14: <br>
+            <input type="radio" name="14.type" value="0"><br>
+            <input type="radio" name="14.type" value="1"><br>
+            <input type="text" name="14.name" class="text_box_soils"><br>
+            <input type="text" name="14.gamma" class="text_box_soils"><br>
+            <input type="text" name="14.qu" class="text_box_soils"><br>
+            <input type="text" name="14.ka" class="text_box_soils"><br>
+            <input type="text" name="14.kp" class="text_box_soils"><br>
+            <input type="text" name="14.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Granular or<br>
+            Cohesive<br>
+            Name<br>
+            ɣ(pcf)<br>
+            qu(tsf) <br>
+            Ka <br>
+            Kp <br>
+            ϕ(°) <br>
+        </div>
+    </div>
+    <h3>Input Work Points and Misc. Data</h3>
+    Put in work points in descending order.  First work point must be the surface.
+    Changes in layer must be put in as two separate work points.<br>
+    If you need to switch to total weights at any point, check the box for the work point at which to begin calculating by total weights. <br>
     <br>
     <input type="hidden" name="wp1_wat" value="0">
     <input type="hidden" name="wp2_wat" value="0">
@@ -382,94 +540,192 @@
     <input type="hidden" name="wp29_wat" value="0">
     <input type="hidden" name="wp30_wat" value="0">
 
-    Work Point 1: Elevation <input type="text" name="wp1"> Layer <input type='text' name="wp1_layer">
-    Total Weights <input type="radio" name="total_weights" value="-1" checked><br>
-    Work Point 2: Elevation <input type="text" name="wp2"> Layer <input type='text' name="wp2_layer">
-    Total Weights <input type="radio" name="total_weights" value="0" checked><br>
-    Work Point 3: Elevation <input type="text" name="wp3"> Layer <input type='text' name="wp3_layer">
-    Total Weights <input type="radio" name="total_weights" value="1" checked><br>
-    Work Point 4: Elevation <input type="text" name="wp4"> Layer <input type='text' name="wp4_layer">
-    Total Weights <input type="radio" name="total_weights" value="2" checked><br>
-    Work Point 5: Elevation <input type="text" name="wp5"> Layer <input type='text' name="wp5_layer">
-    Total Weights <input type="radio" name="total_weights" value="3" checked><br>
-    Work Point 6: Elevation <input type="text" name="wp6"> Layer <input type='text' name="wp6_layer">
-    Total Weights <input type="radio" name="total_weights" value="4" checked><br>
-    Work Point 7: Elevation <input type="text" name="wp7"> Layer <input type='text' name="wp7_layer">
-    Total Weights <input type="radio" name="total_weights" value="5" checked><br>
-    Work Point 8: Elevation <input type="text" name="wp8"> Layer <input type='text' name="wp8_layer">
-    Total Weights <input type="radio" name="total_weights" value="6" checked><br>
-    Work Point 9: Elevation <input type="text" name="wp9"> Layer <input type='text' name="wp9_layer">
-    Total Weights <input type="radio" name="total_weights" value="7" checked><br>
-    Work Point 10: Elevation <input type="text" name="wp10"> Layer <input type='text' name="wp10_layer">
-    Total Weights <input type="radio" name="total_weights" value="8" checked><br>
-    Work Point 11: Elevation <input type="text" name="wp11"> Layer <input type='text' name="wp11_layer">
-    Total Weights <input type="radio" name="total_weights" value="9" checked><br>
-    Work Point 12: Elevation <input type="text" name="wp12"> Layer <input type='text' name="wp12_layer">
-    Total Weights <input type="radio" name="total_weights" value="10" checked><br>
-    Work Point 13: Elevation <input type="text" name="wp13"> Layer <input type='text' name="wp13_layer">
-    Total Weights <input type="radio" name="total_weights" value="11" checked><br>
-    Work Point 14: Elevation <input type="text" name="wp14"> Layer <input type='text' name="wp14_layer">
-    Total Weights <input type="radio" name="total_weights" value="12" checked><br>
-    Work Point 15: Elevation <input type="text" name="wp15"> Layer <input type='text' name="wp15_layer">
-    Total Weights <input type="radio" name="total_weights" value="13" checked><br>
-    Work Point 16: Elevation <input type="text" name="wp16"> Layer <input type='text' name="wp16_layer">
-    Total Weights <input type="radio" name="total_weights" value="14" checked><br>
-    Work Point 17: Elevation <input type="text" name="wp17"> Layer <input type='text' name="wp17_layer">
-    Total Weights <input type="radio" name="total_weights" value="15" checked><br>
-    Work Point 18: Elevation <input type="text" name="wp18"> Layer <input type='text' name="wp18_layer">
-    Total Weights <input type="radio" name="total_weights" value="16" checked><br>
-    Work Point 19: Elevation <input type="text" name="wp19"> Layer <input type='text' name="wp19_layer">
-    Total Weights <input type="radio" name="total_weights" value="17" checked><br>
-    Work Point 20: Elevation <input type="text" name="wp20"> Layer <input type='text' name="wp20_layer">
-    Total Weights <input type="radio" name="total_weights" value="18" checked><br>
-    Work Point 21: Elevation <input type="text" name="wp21"> Layer <input type='text' name="wp21_layer">
-    Total Weights <input type="radio" name="total_weights" value="19" checked><br>
-    Work Point 22: Elevation <input type="text" name="wp22"> Layer <input type='text' name="wp22_layer">
-    Total Weights <input type="radio" name="total_weights" value="20" checked><br>
-    Work Point 23: Elevation <input type="text" name="wp23"> Layer <input type='text' name="wp23_layer">
-    Total Weights <input type="radio" name="total_weights" value="21" checked><br>
-    Work Point 24: Elevation <input type="text" name="wp24"> Layer <input type='text' name="wp24_layer">
-    Total Weights <input type="radio" name="total_weights" value="22" checked><br>
-    Work Point 25: Elevation <input type="text" name="wp25"> Layer <input type='text' name="wp25_layer">
-    Total Weights <input type="radio" name="total_weights" value="23" checked><br>
-    Work Point 26: Elevation <input type="text" name="wp26"> Layer <input type='text' name="wp26_layer">
-    Total Weights <input type="radio" name="total_weights" value="24" checked><br>
-    Work Point 27: Elevation <input type="text" name="wp27"> Layer <input type='text' name="wp27_layer">
-    Total Weights <input type="radio" name="total_weights" value="25" checked><br>
-    Work Point 28: Elevation <input type="text" name="wp28"> Layer <input type='text' name="wp28_layer">
-    Total Weights <input type="radio" name="total_weights" value="26" checked><br>
-    Work Point 29: Elevation <input type="text" name="wp29"> Layer <input type='text' name="wp29_layer">
-    Total Weights <input type="radio" name="total_weights" value="27" checked><br>
-    Work Point 30: Elevation <input type="text" name="wp30"> Layer <input type='text' name="wp30_layer">
-    Total Weights <input type="radio" name="total_weights" value="28" checked><br>
+    <div class="grid-container-wp">
+        <div class="grid-item-wp">
+            WP1: <input type="radio" name="total_weights" value="-1" checked><br>
+            <input type="text" name="wp1" class="text_box_wp"><br>
+            <input type='text' name="wp1_layer" class="text_box_wp"><br>
+            <br>
+        </div>
+         <div class="grid-item-wp">
+            WP2: <input type="radio" name="total_weights" value="0" checked><br>
+            <input type="text" name="wp2" class="text_box_wp"><br>
+            <input type='text' name="wp2_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP3: <input type="radio" name="total_weights" value="11" checked><br>
+            <input type="text" name="wp3" class="text_box_wp"><br>
+            <input type='text' name="wp3_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP4: <input type="radio" name="total_weights" value="2" checked><br>
+            <input type="text" name="wp4" class="text_box_wp"><br>
+            <input type='text' name="wp4_layer" class="text_box_wp"><br>
+        </div>
+       <div class="grid-item-wp">
+            WP5: <input type="radio" name="total_weights" value="3" checked><br>
+            <input type="text" name="wp5" class="text_box_wp"><br>
+            <input type='text' name="wp5_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP6: <input type="radio" name="total_weights" value="4" checked><br>
+            <input type="text" name="wp6" class="text_box_wp"><br>
+            <input type='text' name="wp6_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP7: <input type="radio" name="total_weights" value="5" checked><br>
+            <input type="text" name="wp7" class="text_box_wp"><br>
+            <input type='text' name="wp7_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP8: <input type="radio" name="total_weights" value="6" checked><br>
+            <input type="text" name="wp8" class="text_box_wp"><br>
+            <input type='text' name="wp8_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP9: <input type="radio" name="total_weights" value="7" checked><br>
+            <input type="text" name="wp9" class="text_box_wp"><br>
+            <input type='text' name="wp9_layer" class="text_box_wp"><br>
+        </div>
+       <div class="grid-item-wp">
+            WP10: <input type="radio" name="total_weights" value="8" checked><br>
+            <input type="text" name="wp10" class="text_box_wp"><br>
+            <input type='text' name="wp10_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            <br>
+            Total Weights?<br>
+            Elevation<br>
+            Layer<br>
+        </div>
+        <div class="grid-item-wp">
+            WP11: <input type="radio" name="total_weights" value="9" checked><br>
+            <input type="text" name="wp11" class="text_box_wp"><br>
+            <input type='text' name="wp11_layer" class="text_box_wp"><br>
+            <br>
+        </div>
+         <div class="grid-item-wp">
+            WP12: <input type="radio" name="total_weights" value="10" checked><br>
+            <input type="text" name="wp12" class="text_box_wp"><br>
+            <input type='text' name="wp12_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP13: <input type="radio" name="total_weights" value="11" checked><br>
+            <input type="text" name="wp13" class="text_box_wp"><br>
+            <input type='text' name="wp13_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+           WP14: <input type="radio" name="total_weights" value="12" checked><br>
+            <input type="text" name="wp14" class="text_box_wp"><br>
+            <input type='text' name="wp14_layer" class="text_box_wp"><br>
+        </div>
+       <div class="grid-item-wp">
+            WP15: <input type="radio" name="total_weights" value="13" checked><br>
+            <input type="text" name="wp15" class="text_box_wp"><br>
+            <input type='text' name="wp15_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+           WP16: <input type="radio" name="total_weights" value="14" checked><br>
+            <input type="text" name="wp16" class="text_box_wp"><br>
+            <input type='text' name="wp16_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP17: <input type="radio" name="total_weights" value="15" checked><br>
+            <input type="text" name="wp17" class="text_box_wp"><br>
+            <input type='text' name="wp17_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP18: <input type="radio" name="total_weights" value="16" checked><br>
+            <input type="text" name="wp18" class="text_box_wp"><br>
+            <input type='text' name="wp18_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP19: <input type="radio" name="total_weights" value="17" checked><br>
+            <input type="text" name="wp19" class="text_box_wp"><br>
+            <input type='text' name="wp19_layer" class="text_box_wp"><br>
+        </div>
+       <div class="grid-item-wp">
+            WP20: <input type="radio" name="total_weights" value="18" checked><br>
+            <input type="text" name="wp20" class="text_box_wp"><br>
+            <input type='text' name="wp20_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            <br>
+            Total Weights?<br>
+            Elevation<br>
+            Layer<br>
+        </div>
+        <div class="grid-item-wp">
+            WP21: <input type="radio" name="total_weights" value="19" checked><br>
+            <input type="text" name="wp21" class="text_box_wp"><br>
+            <input type='text' name="wp21_layer" class="text_box_wp"><br>
+            <br>
+        </div>
+         <div class="grid-item-wp">
+            WP22: <input type="radio" name="total_weights" value="20" checked><br>
+            <input type="text" name="wp22" class="text_box_wp"><br>
+            <input type='text' name="wp22_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP23: <input type="radio" name="total_weights" value="21" checked><br>
+            <input type="text" name="wp23" class="text_box_wp"><br>
+            <input type='text' name="wp23_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+           WP24: <input type="radio" name="total_weights" value="22" checked><br>
+            <input type="text" name="wp24" class="text_box_wp"><br>
+            <input type='text' name="wp24_layer" class="text_box_wp"><br>
+        </div>
+       <div class="grid-item-wp">
+            WP25: <input type="radio" name="total_weights" value="23" checked><br>
+            <input type="text" name="wp25" class="text_box_wp"><br>
+            <input type='text' name="wp25_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+           WP26: <input type="radio" name="total_weights" value="24" checked><br>
+            <input type="text" name="wp26" class="text_box_wp"><br>
+            <input type='text' name="wp26_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP27: <input type="radio" name="total_weights" value="25" checked><br>
+            <input type="text" name="wp27" class="text_box_wp"><br>
+            <input type='text' name="wp27_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP28: <input type="radio" name="total_weights" value="26" checked><br>
+            <input type="text" name="wp28" class="text_box_wp"><br>
+            <input type='text' name="wp28_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP29: <input type="radio" name="total_weights" value="27" checked><br>
+            <input type="text" name="wp29" class="text_box_wp"><br>
+            <input type='text' name="wp29_layer" class="text_box_wp"><br>
+        </div>
+       <div class="grid-item-wp">
+            WP30: <input type="radio" name="total_weights" value="28" checked><br>
+            <input type="text" name="wp30" class="text_box_wp"><br>
+            <input type='text' name="wp30_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            <br>
+            Total Weights?<br>
+            Elevation<br>
+            Layer<br>
+        </div>
+
+    </div>
+    <br>
     Do not switch to total weights at any point <input type="radio" name="total_weights" value="200" checked><br>
     <input type="hidden" name="wat_check" value="0">
     Check for water around toe? <input type="checkbox" name="wat_check" value = '1'><br>
     <br>
-    <h3>Water Elevation (Leave blank if does not apply)</h3>
-    <input type="text" name="water_elev"> Water elev
-    <br>
-    <input type="text" name="water_cut_elev"> If water elev on the passive side is not at the cut, enter it here<br>
-    <br>
-    <h3>Excavation Elevation</h3>
-    Enter the elevation of the cut.<br>
-    <br>
-    <input type="text" name="cut_elev">
-    <br>
-    <h3>Brace Elevation</h3>
-    <input type="text" name="brace_elev">
-    <br>
-    <h3>Top of sheet/soldier pile (Optional)</h3>
-    Enter in the top of sheet if it does not coincide with the top of surface<br>
-    <br>
-    <input type="text" name="top_sheet">
-    <br>
-    <h2>Other Options</h2>
-     <input type="text" name="supplied_length"> Supplied Length (ft) REQUIRED <br>
-    <br>
-    Deflected Shape Scale Factor
-    <br>
-    <input type="text" name="scale_factor"><br>
+    <input type="text" name="water_elev" class="text_box"> Water Elevation (leave blank if does not apply)<br>
+    <input type="text" name="water_cut_elev" class="text_box"> If water elev on the passive side is not at the cut, enter it here<br>
+    <input type="text" name="cut_elev" class="text_box"> Enter the elevation of the cut.<br>
+    <input type="text" name="brace_elev" class="text_box"> Enter the elevation of the brace<br>
+     <input type="text" name="top_sheet" class="text_box"> Enter in the top of sheet if it does not coincide with the top of surface (optional)<br>
+    <input type="text" name="supplied_length" class="text_box"> Supplied Length (ft)<br>
+    <input type="text" name="scale_factor" class="text_box"> Deflected Shape Scale Factor<br>
     Larger the number, more pronounced deflected shape (try ~2000)<br>
     <br>
     Type of ERS:<br>
@@ -568,6 +824,17 @@
     <option value="88">MSZ12-350</option>
     <option value="89">MSZ12-375</option>
     <option value="90">MSZ12-406</option>
+    <option value="91">LZ-8</option>
+    <option value="92">LZ-7</option>
+    <option value="93">LZ-5</option>
+    <option value="94">LZ-3</option>
+    <option value="95">LZ-250</option>
+    <option value="96">SZ-10</option>
+    <option value="97">SZ-11</option>
+    <option value="98">SZ-12</option>
+    <option value="99">SZ-14</option>
+    <option value="100">SZ-15</option>
+
 
     </select>
     <br>
@@ -580,7 +847,7 @@
     <input type="radio" name="soldier_beam_method" value="1">Method 2: (3*width*Pp-1*width*Pa)<=(Pp-Pa)*spacing<br>
     <br>
     Soldier pile spacing:<br>
-    <input type="text" name="beam_spacing"><br>
+    <input type="text" name="beam_spacing" class="text_box"><br>
     Choose soldier pile:<select name="beam_type"><br>
     <option value="0">Custom</option>
     <option value="1">HP8x36</option>
@@ -606,13 +873,13 @@
     <option value="21">HP18x181</option>
     <option value="22">HP18x204</option>
     </select><br>
-    <input type="text" name="beam_size_override"> (Optional) Beam/hole size (in) <br>
-    <input type="text" name="beam_override"> (Optional) Beam name <br>
-    <input type="text" name="beam_modulus_override"> (Optional) Beam section modulus (in^3) <br>
-    <input type="text" name="beam_inertia_override"> (Optional) Beam moment of inertia (in^4)<br>
+    <input type="text" name="beam_size_override" class="text_box"> (Optional) Beam/hole size (in) <br>
+    <input type="text" name="beam_override" class="text_box"> (Optional) Beam name <br>
+    <input type="text" name="beam_modulus_override" class="text_box"> (Optional) Beam section modulus (in^3) <br>
+    <input type="text" name="beam_inertia_override" class="text_box"> (Optional) Beam moment of inertia (in^4)<br>
     <br>
     <input type="submit" value="Calculate" />
-    <br><br><br>
+    <br>
 
 </form>
 </body>

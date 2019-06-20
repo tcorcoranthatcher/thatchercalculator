@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cantilever Wall Calculator</title>
+    <title>Three-layer Braced Wall Calculator</title>
     <style>
     body{
             font-size: 100%;
-         }
+                }
     .grid-container-footings {
     display: inline-grid;
     grid-template-columns: 70px 70px 70px 70px auto;
@@ -43,14 +43,14 @@
     width: 40px;
     height: 11px;
     }
-    font-family: Arial;
     </style>
-
 </head>
 <body>
-<h1>Cantilever Calculator</h1>
 
-<form action="{% url 'cant_output' %}">
+<h1>Three-Level Braced Wall Calculator</h1>
+
+
+<form action="{% url 'three_output' %}">
     <h3>Input Footings and/or Rails</h3>
     <div class="grid-container-footings">
         <div class="grid-item-footings">
@@ -506,6 +506,92 @@
             Kp <br>
             ϕ(°) <br>
         </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 15: <br>
+            <input type="radio" name="15.type" value="0"><br>
+            <input type="radio" name="15.type" value="1"><br>
+            <input type="text" name="15.name" class="text_box_soils"><br>
+            <input type="text" name="15.gamma" class="text_box_soils"><br>
+            <input type="text" name="15.qu" class="text_box_soils"><br>
+            <input type="text" name="15.ka" class="text_box_soils"><br>
+            <input type="text" name="15.kp" class="text_box_soils"><br>
+            <input type="text" name="15.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 16: <br>
+            <input type="radio" name="16.type" value="0"><br>
+            <input type="radio" name="16.type" value="1"><br>
+            <input type="text" name="16.name" class="text_box_soils"><br>
+            <input type="text" name="16.gamma" class="text_box_soils"><br>
+            <input type="text" name="16.qu" class="text_box_soils"><br>
+            <input type="text" name="16.ka" class="text_box_soils"><br>
+            <input type="text" name="16.kp" class="text_box_soils"><br>
+            <input type="text" name="16.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 17: <br>
+            <input type="radio" name="17.type" value="0"><br>
+            <input type="radio" name="17.type" value="1"><br>
+            <input type="text" name="17.name" class="text_box_soils"><br>
+            <input type="text" name="17.gamma" class="text_box_soils"><br>
+            <input type="text" name="17.qu" class="text_box_soils"><br>
+            <input type="text" name="17.ka" class="text_box_soils"><br>
+            <input type="text" name="17.kp" class="text_box_soils"><br>
+            <input type="text" name="17.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 18: <br>
+            <input type="radio" name="18.type" value="0"><br>
+            <input type="radio" name="18.type" value="1"><br>
+            <input type="text" name="18.name" class="text_box_soils"><br>
+            <input type="text" name="18.gamma" class="text_box_soils"><br>
+            <input type="text" name="18.qu" class="text_box_soils"><br>
+            <input type="text" name="18.ka" class="text_box_soils"><br>
+            <input type="text" name="18.kp" class="text_box_soils"><br>
+            <input type="text" name="18.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 19: <br>
+            <input type="radio" name="19.type" value="0"><br>
+            <input type="radio" name="19.type" value="1"><br>
+            <input type="text" name="19.name" class="text_box_soils"><br>
+            <input type="text" name="19.gamma" class="text_box_soils"><br>
+            <input type="text" name="19.qu" class="text_box_soils"><br>
+            <input type="text" name="19.ka" class="text_box_soils"><br>
+            <input type="text" name="19.kp" class="text_box_soils"><br>
+            <input type="text" name="19.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 20: <br>
+            <input type="radio" name="20.type" value="0"><br>
+            <input type="radio" name="20.type" value="1"><br>
+            <input type="text" name="20.name" class="text_box_soils"><br>
+            <input type="text" name="20.gamma" class="text_box_soils"><br>
+            <input type="text" name="20.qu" class="text_box_soils"><br>
+            <input type="text" name="20.ka" class="text_box_soils"><br>
+            <input type="text" name="20.kp" class="text_box_soils"><br>
+            <input type="text" name="20.phi" class="text_box_soils"><br>
+        </div>
+        <div class="grid-item-soils">
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            <br>
+            Granular or<br>
+            Cohesive<br>
+            Name<br>
+            ɣ(pcf)<br>
+            qu(tsf) <br>
+            Ka <br>
+            Kp <br>
+            ϕ(°) <br>
+        </div>
     </div>
     <h3>Input Work Points and Misc. Data</h3>
     Put in work points in descending order.  First work point must be the surface.
@@ -716,6 +802,63 @@
             Elevation<br>
             Layer<br>
         </div>
+        <div class="grid-item-wp">
+            WP31: <input type="radio" name="total_weights" value="29" checked><br>
+            <input type="text" name="wp31" class="text_box_wp"><br>
+            <input type='text' name="wp31_layer" class="text_box_wp"><br>
+            <br>
+        </div>
+         <div class="grid-item-wp">
+            WP32: <input type="radio" name="total_weights" value="30" checked><br>
+            <input type="text" name="wp32" class="text_box_wp"><br>
+            <input type='text' name="wp32_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP33: <input type="radio" name="total_weights" value="31" checked><br>
+            <input type="text" name="wp33" class="text_box_wp"><br>
+            <input type='text' name="wp33_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+           WP34: <input type="radio" name="total_weights" value="32" checked><br>
+            <input type="text" name="wp34" class="text_box_wp"><br>
+            <input type='text' name="wp34_layer" class="text_box_wp"><br>
+        </div>
+       <div class="grid-item-wp">
+            WP35: <input type="radio" name="total_weights" value="33" checked><br>
+            <input type="text" name="wp35" class="text_box_wp"><br>
+            <input type='text' name="wp35_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+           WP36: <input type="radio" name="total_weights" value="34" checked><br>
+            <input type="text" name="wp36" class="text_box_wp"><br>
+            <input type='text' name="wp36_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP37: <input type="radio" name="total_weights" value="35" checked><br>
+            <input type="text" name="wp37" class="text_box_wp"><br>
+            <input type='text' name="wp37_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP38: <input type="radio" name="total_weights" value="36" checked><br>
+            <input type="text" name="wp38" class="text_box_wp"><br>
+            <input type='text' name="wp38_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP39: <input type="radio" name="total_weights" value="37" checked><br>
+            <input type="text" name="wp39" class="text_box_wp"><br>
+            <input type='text' name="wp39_layer" class="text_box_wp"><br>
+        </div>
+       <div class="grid-item-wp">
+            WP40: <input type="radio" name="total_weights" value="38" checked><br>
+            <input type="text" name="wp40" class="text_box_wp"><br>
+            <input type='text' name="wp40_layer" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            <br>
+            Total Weights?<br>
+            Elevation<br>
+            Layer<br>
+        </div>
 
     </div>
     <br>
@@ -726,7 +869,17 @@
     <input type="text" name="water_elev" class="text_box"> Water Elevation (leave blank if does not apply)<br>
     <input type="text" name="water_cut_elev" class="text_box"> If water elev on the passive side is not at the cut, enter it here<br>
     <input type="text" name="cut_elev" class="text_box"> Enter the elevation of the cut.<br>
-    <input type="text" name="surface_elev" class="text_box"> Surface elevation used for calculation of backside pressures<br>
+    <input type="text" name="top_brace_elev" class="text_box"> Elevation of T1 Brace<br>
+    <input type="text" name="mid_brace_elev" class="text_box"> Elevation of T2 Brace<br>
+    <input type="text" name="bot_brace_elev" class="text_box"> Elevation of T3 Brace<br>
+    <br>
+    Apparent Pressure Diagram Type<br>
+    <input type="radio" name="diagram_type" value="1">Soft Clay<br>
+    <input type="radio" name="diagram_type" value="2">Stiff Clay<br>
+    <input type="radio" name="diagram_type" value="3">Sand<br>
+    <br>
+    <input type="text" name="backside_x" class="text_box"> Back Side Shear Length (x-coordinate)<br>
+    <input type="text" name="backside_y" class="text_box"> Back Side Shear Height (y-coordinate)<br>
     <input type="text" name="top_sheet" class="text_box"> Enter in the top of sheet if it does not coincide with the top of surface (optional)<br>
     <input type="text" name="supplied_length" class="text_box"> Supplied Length (ft)<br>
     <input type="text" name="scale_factor" class="text_box"> Deflected Shape Scale Factor<br>
@@ -877,13 +1030,12 @@
     <option value="21">HP18x181</option>
     <option value="22">HP18x204</option>
     </select><br>
-     <input type="text" name="beam_size_override" class="text_box"> (Optional) Beam/hole size (in) <br>
+    <input type="text" name="beam_size_override" class="text_box"> (Optional) Beam/hole size (in) <br>
     <input type="text" name="beam_override" class="text_box"> (Optional) Beam name <br>
     <input type="text" name="beam_modulus_override" class="text_box"> (Optional) Beam section modulus (in^3) <br>
     <input type="text" name="beam_inertia_override" class="text_box"> (Optional) Beam moment of inertia (in^4)<br>
     <br>
     <input type="submit" value="Calculate" />
-
 </form>
 </body>
 </html>

@@ -75,7 +75,7 @@ def cant_pressure_plot(layers, net, min_length_cant_pressure, min_length_net_pre
                        deflection, scale_factor, cant, multi_x, multi_y, multiplier, zero_point):
     axis_size = max([max(net[0]), -1 * min(net[0]), max(cant[0]), -1*min(cant[0])])
     p = figure(
-        x_range=[-axis_size - 1000, axis_size*4.0],
+        x_range=[-axis_size - 1500, axis_size*4.0],
         y_range=[net[1][-1] - 1, net[1][0] + 4],
         title="Lateral Pressure Diagram",
         plot_width=900,
@@ -93,7 +93,7 @@ def cant_pressure_plot(layers, net, min_length_cant_pressure, min_length_net_pre
 
     p.line(net[0], net[1], line_width=2, color='black')
     p.line(cant[0], cant[1], line_width=1, color='gray')
-    p.line([0, 0], [layers[0][0], layers[-1][0]], color='black')
+    p.line([0, 0], [net[1][0], net[1][-1]], color='black')
     p.line([float(min_length_net_pressure), float(min_length_cant_pressure)],
            [float(min_length_elev+z), float(min_length_elev)], line_width=2, color="black")
     p.line([0, float(min_length_cant_pressure)], [float(min_length_elev), float(min_length_elev)],
@@ -133,14 +133,14 @@ def cant_pressure_plot(layers, net, min_length_cant_pressure, min_length_net_pre
         x, y = i, j
         p.add_layout(pressure_label)
 
-    for i in range(len(layers)):
-        p.line([-axis_size-1000, 4.0*axis_size], [layers[i][0], layers[i][0]],
+    for i in range(len(net[1])):
+        p.line([-axis_size-1000, 4.0*axis_size], [net[1][i], net[1][i]],
                color='dimgray', alpha=0.7)
-        work_point_label = Label(x=-axis_size-500, y=layers[i][0], text=str(layers[i][0]), text_font_size='12pt')
+        work_point_label = Label(x=-axis_size-1000, y=net[1][i], text=str(net[1][i]), text_font_size='12pt')
         p.add_layout(work_point_label)
         for j in range(len(deflection[0])):
-            if deflection[0][j][1] == layers[i][0] and deflection[0][j][1] != deflection[0][j-1][1]:
-                p.add_layout(Label(x=3.25*axis_size, y=layers[i][0], text=str(round(deflection[0][j][0], 3))+'"',
+            if deflection[0][j][1] == net[1][i] and deflection[0][j][1] != deflection[0][j-1][1]:
+                p.add_layout(Label(x=3.25*axis_size, y=net[1][i], text=str(round(deflection[0][j][0], 3))+'"',
                                    text_font_size='12pt'))
     if multi_x:
         p.line([round(float(multi_x[0]), 2), round(float(multi_x[1]), 2)],

@@ -3,31 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Cantilever Wall Design</title>
+    <style>
+        body{
+            font-size: 80%;
+                }
+    </style>
 </head>
 <body>
-<h3>Determine Footing/Rail Surcharges</h3>
-<td>{{ footing_output|join:"<br/>" }}</td>
-<h4>Summary of Total Footing Surcharges</h4>
-<td>{{ total_footing_surcharge|join:"<br/>" }}</td>
-<h4>Summary of Total Lateral Rail Surcharges</h4>
-<td>{{ train_output|join:"<br/>" }}</td>
-<h3>Determine Design Soil Surcharge Heights</h3>
-<td>{{ surcharge|join:"<br/>" }}</td>
-<br><br>
-<td>{{ berm_output|join:"<br/>" }}</td>
+{% if footing_output or train_output %}
+    <h3>Determine Footing/Rail Surcharges</h3>
+    <td>{{ footing_output|join:"<br/>" }}</td>
+{% endif %}
+{% if footing_output %}
+    <h4>Summary of Total Footing Surcharges</h4>
+    <td>{{ total_footing_surcharge|join:"<br/>" }}</td>
+{% endif %}
+{% if train_output %}
+    <h4>Summary of Total Lateral Rail Surcharges</h4>
+    <td>{{ train_output|join:"<br/>" }}</td>
+{% endif %}
+    <h3>Determine Design Soil Surcharge Heights</h3>
+    <td>{{ surcharge|join:"<br/>" }}</td>
+{% if berm_output %}
+    <br><br>
+    <td>{{ berm_output|join:"<br/>" }}</td>
+{% endif %}
 <h3>Determine Lateral Pressures</h3>
-<td>{{ wat_output|join:"<br/>" }}</td>
-<br>
-<br>
+{% if wat_output %}
+    <td>{{ wat_output|join:"<br/>" }}</td>
+    <br>
+    <br>
+{% endif %}
 <td>{{ active_pressures|join:"<br/>" }}</td>
 <br>
 <br>
 <td>{{ passive_pressures|join:"<br/>" }}</td>
 <br>
 <br>
-<td>{{ berm_reduction_output|join:"<br/>" }}</td>
-<br>
-<br>
+{% if berm_reduction_output %}
+    <td>{{ berm_reduction_output|join:"<br/>" }}</td>
+    <br>
+    <br>
+{% endif %}
 <td>{{ water_pressures|join:"<br/>" }}</td>
 <br>
 <br>
@@ -42,9 +59,11 @@
 <br>
 <td>{{ cant_output|join:"<br/>" }}</td>
 <br>
-<br>
-<td>{{ beam_output|join:"<br/>" }}</td>
-<br>
+{% if beam_output %}
+    <br>
+    <td>{{ beam_output|join:"<br/>" }}</td>
+    <br>
+{% endif %}
 <h3>Cantilever Wall Design</h3>
 Find point on diagram where both the sum of moments and sum of forces are 0 around that point.<br>
 Sum of Forces = 0<br>
@@ -57,7 +76,7 @@ Sum of Moments = 0<br>
 <br>
 <td>{{ design_text|join:"<br/>" }}</td>
 <br>
-<br>
+
 <br>Minimum Length: {{ min_length }}
 <br>Tip Elevation: {{ min_length_elev }}
 <br>
@@ -74,16 +93,16 @@ Sum of Moments = 0<br>
 <br> Sx = {{ Sx }} in^3 with {{ sheet_type }}
 <br>
 <br> Bending Stress = {{ bending_stress}} ksi with {{ sheet_type }}
-<br><br>
+<!--<br><br>
 {% load static %}
-<img src="{% static 'images/cantdef.jpg' %}" style="height: 80%; width: 80%; object-fit: contain"/>
-<br><br><br><br><br>
+<img src="{% static 'images/cantdef.jpg' %}" style="height: 80%; width: 80%; object-fit: contain"/>-->
+<br><br>
 <form action="{% url 'pressure_plot' %}">
     <input type="submit" value="Pressure Plot and Deflected Shape" />
 </form>
 <form action="{% url 'surface' %}">
     <input type="submit" value="Surface Plot" />
 </form>
-<br><br><br><br><br>
+<br><br>
 </body>
 </html>
