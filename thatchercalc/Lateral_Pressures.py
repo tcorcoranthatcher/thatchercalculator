@@ -836,59 +836,63 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
     if backside_y >= layers[0][0]:
         if layers[0][0] < water_elev:
             if total_weights != -1:
-                N = (backside_y - layers[0][0]) * layers[0][1].sub * layers[0][1].ka
+                weight = (backside_y - layers[0][0]) * layers[0][1].sub
             else:
-                N = (backside_y - layers[0][0]) * layers[0][1].gamma * layers[0][1].ka
+                weight = (backside_y - layers[0][0]) * layers[0][1].gamma
         else:
-            N = (backside_y - layers[0][0]) * layers[0][1].gamma * layers[0][1].ka
+            weight = (backside_y - layers[0][0]) * layers[0][1].gamma
         if layers[0][1].type == 0:
-            backside_friction = N * 0.5 * (backside_y - layers[0][0]) * math.tan(math.radians(layers[0][1].phi))
-            text_output.append(str(N) + "psf * 0.5 * (" + str(backside_y) + "' - " + str(layers[0][0]) + "') * tan(" +
+            backside_friction = weight * 0.5 * layers[0][1].ka * (backside_y - layers[0][0]) * math.tan(math.radians(layers[0][1].phi))
+            text_output.append(str(weight) + "psf * 0.5 * " + str(layers[0][1].ka) + " * (" + str(backside_y) + "' - " + str(layers[0][0]) + "') * tan(" +
                                str(layers[0][1].phi) + "°) = " + str(round(backside_friction, 2)) + "#/'")
         else:
             backside_friction = (backside_y - layers[0][0]) * layers[0][1].qu * 1000
             text_output.append("(" + str(backside_y) + "' - " + str(layers[0][0]) + "') * " +
                                str(layers[0][1].qu * 1000) + "psf = " + str(round(backside_friction, 2)) + "#/'")
-        old_N = N
+        old_active = weight * layers[0][1].ka
+        new_active = 0
         for i in range(len(layers) - 1):
             if layers[i + 1][0] >= cut_elev:
-                if layers[i][0] < water_elev:
+                if layers[i][0] <= water_elev:
                     if total_weights != -1:
-                        N = old_N + (layers[i][0] - layers[i + 1][0]) * layers[i][1].sub * layers[i][1].ka
+                        weight += (layers[i][0] - layers[i + 1][0]) * layers[i][1].sub
                     else:
-                        N = old_N + (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma * layers[i][1].ka
+                        weight += (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma
                 else:
-                    N = old_N + (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma * layers[i][1].ka
+                    weight += (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma
+                new_active = weight * layers[i+1][1].ka
+                print(weight, old_active, new_active, layers[i][0], layers[i+1][0])
                 if layers[i][1].type == 0:
-                    backside_friction += 0.5 * (N) * (layers[i][0] - layers[i + 1][0]) * math.tan(
-                        math.radians(layers[0][1].phi))
-                    text_output.append(str(N) + "psf * 0.5 * (" + str(layers[i][0]) + "' - " + str(layers[i+1][0]) + "') * tan(" +
-                               str(layers[0][1].phi) + "°) = " + str(round(0.5 * (N) * (layers[i][0] - layers[i + 1][0]) * math.tan(
-                        math.radians(layers[0][1].phi)), 2)) + "#/'")
+                    backside_friction += 0.5 * (new_active + old_active) * (layers[i][0] - layers[i + 1][0]) * math.tan(
+                        math.radians(layers[i][1].phi))
+                    text_output.append(str(new_active + old_active) + "psf * 0.5 * (" + str(layers[i][0]) + "' - " + str(layers[i+1][0]) + "') * tan(" +
+                               str(layers[i][1].phi) + "°) = " + str(round(0.5 * (new_active + old_active) * (layers[i][0] - layers[i + 1][0]) * math.tan(
+                        math.radians(layers[i][1].phi)), 2)) + "#/'")
                 else:
                     backside_friction += (layers[i][0] - layers[i + 1][0]) * layers[i][1].qu * 1000
                     text_output.append("(" + str(layers[i][0]) + "' - " + str(layers[i+1][0]) + "') * " +
                                str(layers[i][1].qu * 1000) + "psf = " + str(round(
                         (layers[i][0] - layers[i + 1][0]) * layers[i][1].qu * 1000, 2)) + "#/'")
-            old_N = N
+            old_active = new_active
     if backside_y < layers[0][0]:
-        old_N = 0
+        weight = 0
         for i in range(len(layers)-1):
             if layers[i][0] > backside_y > layers[i+1][0]:
-                if layers[i][0] < water_elev:
+                if layers[i][0] <= water_elev:
                     if total_weights != -1:
-                        N = old_N + (backside_y - layers[i + 1][0]) * layers[i][1].sub * layers[i][1].ka
+                        weight += (backside_y - layers[i + 1][0]) * layers[i][1].sub
                     else:
-                        N = old_N + (backside_y - layers[i + 1][0]) * layers[i][1].gamma * layers[i][1].ka
+                        weight += (backside_y - layers[i + 1][0]) * layers[i][1].gamma
                 else:
-                    N = old_N + (backside_y - layers[i + 1][0]) * layers[i][1].gamma * layers[i][1].ka
+                    weight += (backside_y - layers[i + 1][0]) * layers[i][1].gamma
+
                 if layers[i][1].type == 0:
-                    backside_friction += 0.5 * (N) * (backside_y - layers[i + 1][0]) * math.tan(
+                    backside_friction += 0.5 * weight * layers[i][1].ka * (backside_y - layers[i + 1][0]) * math.tan(
                         math.radians(layers[i][1].phi))
-                    text_output.append(str(N) + "psf * 0.5 * (" + str(backside_y) + "' - " + str(
+                    text_output.append(str(weight) + "psf * 0.5 *" + str(layers[i][1].ka) + " (" + str(backside_y) + "' - " + str(
                         layers[i + 1][0]) + "') * tan(" +
                                        str(layers[i][1].phi) + "°) = " + str(
-                        round(0.5 * (N) * (backside_y - layers[i + 1][0]) * math.tan(
+                        round(0.5 * weight * layers[i][1].ka * (backside_y - layers[i + 1][0]) * math.tan(
                             math.radians(layers[i][1].phi)), 2)) + "#/'")
                 else:
                     backside_friction += (backside_y - layers[i + 1][0]) * layers[i][1].qu * 1000
@@ -896,31 +900,32 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
                                        str(layers[i][1].qu * 1000) + "psf = " + str(round(
                         (backside_y - layers[i + 1][0]) * layers[i][1].qu * 1000, 2)) + "#/'")
                     break
-        old_N = N
+            old_active = weight * layers[0][1].ka
         for i in range(len(layers) - 1):
             if layers[i][0] <= backside_y:
                 if layers[i + 1][0] >= cut_elev:
                     if layers[i][0] < water_elev:
                         if total_weights != -1:
-                            N = old_N + (layers[i][0] - layers[i + 1][0]) * layers[i][1].sub * layers[i][1].ka
+                            weight += (layers[i][0] - layers[i + 1][0]) * layers[i][1].sub
                         else:
-                            N = old_N + (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma * layers[i][1].ka
+                            weight += (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma
                     else:
-                        N = old_N + (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma * layers[i][1].ka
+                        weight += (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma
+                    new_active = weight * layers[i + 1][1].ka
                     if layers[i][1].type == 0:
-                        backside_friction += 0.5 * (N) * (layers[i][0] - layers[i + 1][0]) * math.tan(
+                        backside_friction += 0.5 * (old_active + new_active) * (layers[i][0] - layers[i + 1][0]) * math.tan(
                             math.radians(layers[i][1].phi))
-                        text_output.append(str(N) + "psf * 0.5 * (" + str(layers[i][0]) + "' - " + str(
+                        text_output.append(str(old_active + new_active) + "psf * 0.5 * (" + str(layers[i][0]) + "' - " + str(
                             layers[i + 1][0]) + "') * tan(" +
                                            str(layers[i][1].phi) + "°) = " + str(
-                            round(0.5 * (N) * (layers[i][0] - layers[i + 1][0]) * math.tan(
+                            round(0.5 * (old_active + new_active) * (layers[i][0] - layers[i + 1][0]) * math.tan(
                                 math.radians(layers[i][1].phi)), 2)) + "#/'")
                     else:
                         backside_friction += (layers[i][0] - layers[i + 1][0]) * layers[i][1].qu * 1000
                         text_output.append("(" + str(layers[i][0]) + "' - " + str(layers[i + 1][0]) + "') * " +
                                            str(layers[i][1].qu * 1000) + "psf = " + str(round(
                             (layers[i][0] - layers[i + 1][0]) * layers[i][1].qu * 1000, 2)) + "#/'")
-            old_N = N
+
     text_output.append("Backside Shear = " + str(math.ceil(backside_friction)) + "#/'")
     text_output.append("")
     text_output.append("ƔH @ Elev. " + str(cut_elev) + "':")
@@ -941,7 +946,7 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
     for i in range(len(layers) - 1):
         if layers[i+1][0] >= cut_elev:
             if layers[i][0] <= water_elev:
-                if i <= total_weights and layers[count][0] != cut_elev:
+                if i <= total_weights and count != total_weights:
                     vert_pressure = vert_pressure + (layers[i][0] - layers[i + 1][0]) * layers[i][1].sub
                     text_output.append(
                         str("(" + str(layers[i][0]) + "' - " + str(layers[i+1][0]) + "')*" + str(

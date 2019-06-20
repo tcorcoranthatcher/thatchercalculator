@@ -2380,7 +2380,7 @@ def three_output(request):
     design_text = data[3]
     min_length_pressure = data[4]
     multi = three_layer_multiplier(apparent, brace_elevations[2], data, supplied_length)
-    moment = three_layer_maximum_moment(apparent, data[8], brace_elevations)
+    moment = three_layer_maximum_moment(apparent, data[8], brace_elevations[2])
     max_moment_elevation = round(moment[1], 2)
     moment = math.ceil(moment[0])
     deflection = three_layer_deflection_calc(apparent, brace_elevations[2], data, sheet_type)
