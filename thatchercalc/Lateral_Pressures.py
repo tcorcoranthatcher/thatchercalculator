@@ -202,10 +202,15 @@ def net_pressures(active_pressures, passive_pressures, water_pressures, cut_elev
                     net_pressures[i] = 0
             if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i + 1] != \
                     heights[i]:
-                net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
-
+                if net_pressures[i] >= 0:
+                    net_pressures[i] = round(net_pressures[i] * beam_spacing, 0)
+                else:
+                    net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
             if heights[i] < (cut_elev - zero_length - 0.01):
-                net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
+                if net_pressures[i] >= 0:
+                    net_pressures[i] = round(net_pressures[i] * beam_spacing, 0)
+                else:
+                    net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
 
     if ers_type == 1 and soldier_beam_method == 1:
         for i in range(len(heights)):
@@ -303,9 +308,15 @@ def cant_pressures(active_pressures, passive_pressures, water_pressures,
                     net_pressures[i] = 0
             if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i + 1] != \
                     heights[i]:
-                net_pressures[i] = 3 * beam_type[4] * net_pressures[i]
+                if net_pressures[i] >= 0:
+                    net_pressures[i] = round(net_pressures[i] * beam_spacing, 0)
+                else:
+                    net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
             if heights[i] < (cut_elev - zero_length - 0.01):
-                net_pressures[i] = 3 * beam_type[4] * net_pressures[i]
+                if net_pressures[i] >= 0:
+                    net_pressures[i] = round(net_pressures[i] * beam_spacing, 0)
+                else:
+                    net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
         for i in range(len(heights)):
             if heights[i] == cut_elev - zero_length:
                 heights.insert(i + 1, heights[i])
@@ -1156,9 +1167,14 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
 
     strut_pressures = []
     strut_heights = []
-    for i in range(len(apparent_strut_actives)):
-        strut_pressures.append(apparent_strut_actives[i][1]+water_pressures[i][1])
-        strut_heights.append(apparent_strut_actives[i][0])
+    if ers_type == 0:
+        for i in range(len(apparent_strut_actives)):
+            strut_pressures.append(apparent_strut_actives[i][1]+water_pressures[i][1])
+            strut_heights.append(apparent_strut_actives[i][0])
+    if ers_type == 1:
+        for i in range(len(apparent_strut_actives)):
+            strut_pressures.append((apparent_strut_actives[i][1]+water_pressures[i][1])*beam_spacing)
+            strut_heights.append(apparent_strut_actives[i][0])
 
     return net_pressures, heights, strut_pressures, strut_heights, text_output
 

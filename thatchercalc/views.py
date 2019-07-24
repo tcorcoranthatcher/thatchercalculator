@@ -231,6 +231,11 @@ def output(request):
                         float(request.GET['13.qu']),
                         float(request.GET['13.ka']), float(request.GET['13.kp']),
                         float(request.GET['13.phi']))
+    if request.GET['14.name'] != '':
+        layer_14 = Layer(request.GET['14.name'], float(request.GET['14.type']), float(request.GET['14.gamma']),
+                        float(request.GET['14.qu']),
+                        float(request.GET['14.ka']), float(request.GET['14.kp']),
+                        float(request.GET['14.phi']))
 
     # elevation, layer, soil surcharge placeholder, footing placeholder, train placeholder, passive height placeholder
     layers = [[request.GET['wp1'], request.GET['wp1_layer'], 0, 0, 0, 10000],
@@ -407,6 +412,8 @@ def output(request):
             layers[i][1] = layer_12
         if layers[i][1] == 13.0:
             layers[i][1] = layer_13
+        if layers[i][1] == 14.0:
+            layers[i][1] = layer_14
 
     for i in range(len(layers)-1):
         if layers[i][0] >= supplied_elev >= layers[i+1][0]:
@@ -414,24 +421,55 @@ def output(request):
             work_points.insert(i + 1, [0, round(supplied_elev, 2)])
             break
 
+    # zero_length = []
+    # if ers_type == 1.0:
+    #     for i in range(len(layers)-1):
+    #         if layers[i][0] >= cut_elev >= layers[i+1][0]:
+    #             if layers[i][1].type == 0:
+    #                 layers.insert(i+2, [round(cut_elev-beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 2, [0, round(cut_elev - beam_type[4], 2)])
+    #                 layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 3, [0, round(cut_elev - beam_type[4], 2)])
+    #                 zero_length = beam_type[4]
+    #                 break
+    #             if layers[i][1].type == 1:
+    #                 layers.insert(i+2, [round(cut_elev - 1.5*beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i+2, [0, round(cut_elev - 1.5*beam_type[4], 2)])
+    #                 layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 3, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
+    #                 zero_length = 1.5*beam_type[4]
+    #                 break
+
     zero_length = []
     if ers_type == 1.0:
-        for i in range(len(layers)-1):
-            if layers[i][0] >= cut_elev >= layers[i+1][0]:
+        for i in range(len(layers) - 1):
+            if layers[i][0] >= cut_elev >= layers[i + 1][0]:
                 if layers[i][1].type == 0:
-                    layers.insert(i+2, [round(cut_elev-beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 2, [0, round(cut_elev - beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 3, [0, round(cut_elev - beam_type[4], 2)])
-                    zero_length = beam_type[4]
-                    break
+                    new_elev = round(cut_elev-beam_type[4], 2)
+                    for j in range(len(layers) - 1):
+                        if layers[j][0] > new_elev > layers[j + 1][0]:
+                            layers.insert(j+1, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j+1, [0, new_elev])
+                            layers.insert(j+2, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j+2, [0, new_elev])
+                            zero_length = beam_type[4]
+                            break
+                    else:
+                        continue  # executed if the loop ended normally (no break)
+                    break  # executed if 'continue' was skipped (break)
                 if layers[i][1].type == 1:
-                    layers.insert(i+2, [round(cut_elev - 1.5*beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i+2, [0, round(cut_elev - 1.5*beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 3, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
-                    zero_length = 1.5*beam_type[4]
-                    break
+                    new_elev = round(cut_elev - 1.5*beam_type[4], 2)
+                    for j in range(len(layers) - 1):
+                        if layers[j][0] > new_elev > layers[j + 1][0]:
+                            layers.insert(j+1, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j+1, [0, new_elev])
+                            layers.insert(j+2, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j+2, [0, new_elev])
+                            zero_length = 1.5*beam_type[4]
+                            break
+                    else:
+                        continue  # executed if the loop ended normally (no break)
+                    break  # executed if 'continue' was skipped (break)
 
     if berm_array != []:
         layers, work_points = berm_workpoints(layers, work_points, berm_array, cut_elev)
@@ -965,24 +1003,55 @@ def cant_output(request):
             work_points.insert(i + 1, [0, round(supplied_elev, 2)])
             break
 
+    # zero_length = []
+    # if ers_type == 1.0:
+    #     for i in range(len(layers) - 1):
+    #         if layers[i][0] >= cut_elev >= layers[i + 1][0]:
+    #             if layers[i][1].type == 0:
+    #                 layers.insert(i + 2, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 2, [0, round(cut_elev - beam_type[4], 2)])
+    #                 layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 3, [0, round(cut_elev - beam_type[4], 2)])
+    #                 zero_length = beam_type[4]
+    #                 break
+    #             if layers[i][1].type == 1:
+    #                 layers.insert(i + 2, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 2, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
+    #                 layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 3, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
+    #                 zero_length = 1.5 * beam_type[4]
+    #                 break
+
     zero_length = []
     if ers_type == 1.0:
         for i in range(len(layers) - 1):
             if layers[i][0] >= cut_elev >= layers[i + 1][0]:
                 if layers[i][1].type == 0:
-                    layers.insert(i + 2, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 2, [0, round(cut_elev - beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 3, [0, round(cut_elev - beam_type[4], 2)])
-                    zero_length = beam_type[4]
-                    break
+                    new_elev = round(cut_elev - beam_type[4], 2)
+                    for j in range(len(layers) - 1):
+                        if layers[j][0] > new_elev > layers[j + 1][0]:
+                            layers.insert(j + 1, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 1, [0, new_elev])
+                            layers.insert(j + 2, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 2, [0, new_elev])
+                            zero_length = beam_type[4]
+                            break
+                    else:
+                        continue  # executed if the loop ended normally (no break)
+                    break  # executed if 'continue' was skipped (break)
                 if layers[i][1].type == 1:
-                    layers.insert(i + 2, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 2, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 3, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
-                    zero_length = 1.5 * beam_type[4]
-                    break
+                    new_elev = round(cut_elev - 1.5 * beam_type[4], 2)
+                    for j in range(len(layers) - 1):
+                        if layers[j][0] > new_elev > layers[j + 1][0]:
+                            layers.insert(j + 1, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 1, [0, new_elev])
+                            layers.insert(j + 2, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 2, [0, new_elev])
+                            zero_length = 1.5*beam_type[4]
+                            break
+                    else:
+                        continue  # executed if the loop ended normally (no break)
+                    break  # executed if 'continue' was skipped (break)
 
     if berm_array != []:
         layers, work_points = berm_workpoints(layers, work_points, berm_array, cut_elev)
@@ -1605,24 +1674,55 @@ def multi_output(request):
             work_points.insert(i + 1, [0, round(supplied_elev, 2)])
             break
 
+    # zero_length = []
+    # if ers_type == 1.0:
+    #     for i in range(len(layers) - 1):
+    #         if layers[i][0] >= cut_elev >= layers[i + 1][0]:
+    #             if layers[i][1].type == 0:
+    #                 layers.insert(i + 2, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 2, [0, round(cut_elev - beam_type[4], 2)])
+    #                 layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 3, [0, round(cut_elev - beam_type[4], 2)])
+    #                 zero_length = beam_type[4]
+    #                 break
+    #             if layers[i][1].type == 1:
+    #                 layers.insert(i + 2, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 2, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
+    #                 layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 3, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
+    #                 zero_length = 1.5 * beam_type[4]
+    #                 break
+
     zero_length = []
     if ers_type == 1.0:
         for i in range(len(layers) - 1):
             if layers[i][0] >= cut_elev >= layers[i + 1][0]:
                 if layers[i][1].type == 0:
-                    layers.insert(i + 2, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 2, [0, round(cut_elev - beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 3, [0, round(cut_elev - beam_type[4], 2)])
-                    zero_length = beam_type[4]
-                    break
+                    new_elev = round(cut_elev - beam_type[4], 2)
+                    for j in range(len(layers) - 1):
+                        if layers[j][0] > new_elev > layers[j + 1][0]:
+                            layers.insert(j + 1, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 1, [0, new_elev])
+                            layers.insert(j + 2, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 2, [0, new_elev])
+                            zero_length = beam_type[4]
+                            break
+                    else:
+                        continue  # executed if the loop ended normally (no break)
+                    break  # executed if 'continue' was skipped (break)
                 if layers[i][1].type == 1:
-                    layers.insert(i + 2, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 2, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 3, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
-                    zero_length = 1.5 * beam_type[4]
-                    break
+                    new_elev = round(cut_elev - 1.5 * beam_type[4], 2)
+                    for j in range(len(layers) - 1):
+                        if layers[j][0] > new_elev > layers[j + 1][0]:
+                            layers.insert(j + 1, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 1, [0, new_elev])
+                            layers.insert(j + 2, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 2, [0, new_elev])
+                            zero_length = 1.5*beam_type[4]
+                            break
+                    else:
+                        continue  # executed if the loop ended normally (no break)
+                    break  # executed if 'continue' was skipped (break)
 
     if berm_array != []:
         layers, work_points = berm_workpoints(layers, work_points, berm_array, cut_elev)
@@ -2247,24 +2347,55 @@ def three_output(request):
             work_points.insert(i + 1, [0, round(supplied_elev, 2)])
             break
 
+    # zero_length = []
+    # if ers_type == 1.0:
+    #     for i in range(len(layers) - 1):
+    #         if layers[i][0] >= cut_elev >= layers[i + 1][0]:
+    #             if layers[i][1].type == 0:
+    #                 layers.insert(i + 2, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 2, [0, round(cut_elev - beam_type[4], 2)])
+    #                 layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 3, [0, round(cut_elev - beam_type[4], 2)])
+    #                 zero_length = beam_type[4]
+    #                 break
+    #             if layers[i][1].type == 1:
+    #                 layers.insert(i + 2, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 2, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
+    #                 layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
+    #                 work_points.insert(i + 3, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
+    #                 zero_length = 1.5 * beam_type[4]
+    #                 break
+
     zero_length = []
     if ers_type == 1.0:
         for i in range(len(layers) - 1):
             if layers[i][0] >= cut_elev >= layers[i + 1][0]:
                 if layers[i][1].type == 0:
-                    layers.insert(i + 2, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 2, [0, round(cut_elev - beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 3, [0, round(cut_elev - beam_type[4], 2)])
-                    zero_length = beam_type[4]
-                    break
+                    new_elev = round(cut_elev - beam_type[4], 2)
+                    for j in range(len(layers) - 1):
+                        if layers[j][0] > new_elev > layers[j + 1][0]:
+                            layers.insert(j + 1, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 1, [0, new_elev])
+                            layers.insert(j + 2, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 2, [0, new_elev])
+                            zero_length = beam_type[4]
+                            break
+                    else:
+                        continue  # executed if the loop ended normally (no break)
+                    break  # executed if 'continue' was skipped (break)
                 if layers[i][1].type == 1:
-                    layers.insert(i + 2, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 2, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
-                    layers.insert(i + 3, [round(cut_elev - 1.5 * beam_type[4], 2), layers[i][1], 0, 0, 0, 10000])
-                    work_points.insert(i + 3, [0, round(cut_elev - 1.5 * beam_type[4], 2)])
-                    zero_length = 1.5 * beam_type[4]
-                    break
+                    new_elev = round(cut_elev - 1.5 * beam_type[4], 2)
+                    for j in range(len(layers) - 1):
+                        if layers[j][0] > new_elev > layers[j + 1][0]:
+                            layers.insert(j + 1, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 1, [0, new_elev])
+                            layers.insert(j + 2, [new_elev, layers[j][1], 0, 0, 0, 10000])
+                            work_points.insert(j + 2, [0, new_elev])
+                            zero_length = 1.5*beam_type[4]
+                            break
+                    else:
+                        continue  # executed if the loop ended normally (no break)
+                    break  # executed if 'continue' was skipped (break)
 
     if berm_array != []:
         layers, work_points = berm_workpoints(layers, work_points, berm_array, cut_elev)
