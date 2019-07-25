@@ -985,8 +985,8 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
     active_pressure_string = ""
     for i in range(len(layers)-1):
         if layers[i][0] == cut_elev and layers[i + 1][0] != cut_elev:
-            vert_pressure = q_equiv
-            active_pressure_string = "Pa @ " + str(cut_elev) + "' = (" + str(q_equiv) + "psf"
+            vert_pressure = q_equiv + layers[i][3]
+            active_pressure_string = "Pa @ " + str(cut_elev) + "' = (" + str(q_equiv + layers[i][3]) + "psf"
             if layers[i][1].type == 0:
                 cut_active = math.ceil(vert_pressure * layers[i][1].ka) + layers[i][4]
             if layers[i][1].type == 1:
@@ -1008,8 +1008,8 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
     # compute apparent pressures below cut
     for i in range(len(layers)):
         if layers[i][0] < cut_elev:
-            vert_pressure = q_equiv
-            active_pressure_string = "Pa @ " + str(layers[i][0]) + "' = (" + str(q_equiv) + "psf"
+            vert_pressure = q_equiv + layers[i][3]
+            active_pressure_string = "Pa @ " + str(layers[i][0]) + "' = (" + str(q_equiv + layers[i][3]) + "psf"
             for k in range(i + 1):
                 if k != 0:
                     if layers[k - 1][0] != layers[k][0]:
