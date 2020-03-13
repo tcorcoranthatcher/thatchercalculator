@@ -240,6 +240,11 @@ def multi_layer_pressure_plot(layers, net, brace_elev, min_length_pressure, min_
                        x_start=-0.75 * axis_size, y_start=zero_point, x_end=-0.75 * axis_size, y_end=zero_point-1))
     top_waler_label = Label(x=-0.4*axis_size, y=brace_elev[0]-0.5, text='T1')
     bot_waler_label = Label(x=-0.4*axis_size, y=brace_elev[1]-0.5, text='T2')
+    if len(brace_elev) == 3:
+        t3_waler_label = Label(x=-0.4*axis_size, y=brace_elev[2]-0.5, text='T3')
+        p.add_layout(t3_waler_label)
+        p.add_layout(Arrow(end=NormalHead(size=10),
+                           x_start=-0.25 * axis_size, y_start=brace_elev[2], x_end=00, y_end=brace_elev[2]))
     p.add_layout(Label(x=-0.80*axis_size, y=zero_point, text='x=0'))
     p.add_layout(top_waler_label)
     p.add_layout(bot_waler_label)
@@ -302,5 +307,9 @@ def strut_pressure_plot(layers, net, brace_elev):
     bot_waler_label = Label(x=-0.4*axis_size, y=brace_elev[1]-0.5, text='T2')
     p.add_layout(top_waler_label)
     p.add_layout(bot_waler_label)
-
+    if len(brace_elev) == 3:
+        t3_waler_label = Label(x=-0.4*axis_size, y=brace_elev[2]-0.5, text='T3')
+        p.add_layout(t3_waler_label)
+        p.add_layout(Arrow(end=NormalHead(size=10),
+                           x_start=-0.25 * axis_size, y_start=brace_elev[2], x_end=00, y_end=brace_elev[2]))
     return p

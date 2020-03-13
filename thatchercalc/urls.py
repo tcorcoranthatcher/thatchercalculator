@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^strut_diagram', views.strut_diagram, name='strut_diagram'),
     url(r'^three_layer', views.three_layer, name='three_layer'),
     url(r'^three_output', views.three_output, name='three_output'),
+    url(r'^micropile_joint_bending_capacity', views.micropile_joint_bending_capacity, name='micropile_joint_bending_capacity'),
+    url(r'^micropile_output', views.micropile_output, name='micropile_output'),
 ]

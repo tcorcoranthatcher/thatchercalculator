@@ -208,7 +208,7 @@ def three_layer_minimum_length(net_pressures, brace_elevations):
     waler_load_output.append("T3 = " + str(waler_loads[2][2]) + "#/'")
     waler_load_output.append("Max T1 Load = " + str(max(waler_loads[0])) + "#/'")
     waler_load_output.append("Max T2 Load = " + str(max(waler_loads[1])) + "#/'")
-    waler_load_output.append("Max T3 Load = " + str(max(waler_loads[1])) + "#/'")
+    waler_load_output.append("Max T3 Load = " + str(max(waler_loads[2])) + "#/'")
 
     return minimum_length, minimum_length_elev, waler_loads, output, minimum_length_pressure, \
            text_output_moments, reference_point, waler_load_output, t3_below

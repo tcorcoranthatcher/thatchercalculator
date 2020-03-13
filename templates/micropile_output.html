@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Micropile Joint Bending Capacity Output</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<h2><u>Micropile Joint Bending Capacity</u></h2>
+Micropile: {{ description }}<br>
+<br>
+Determine bending capacity based on "Bending Stress of Threaded Micropile Connections" paper<br>
+<br>
+From experimental tests by Clinedinst:<br>
+\(a = 2.39\)<br>
+\(b = 0.59\)<br>
+\(ψ = 14.35°\)<br>
+<br>
+with this particular casing<br>
+\(L = {{L}}"\)<br>
+\(h = {{h}}"\)<br>
+\(D_{male} = {{D}}"\)<br>
+\(D_{female} = {{D_female}}"\)<br>
+\(α = {{alpha}}°\)<br>
+\(ID = {{ID}}"\)<br>
+\(OD = {{OD}}"\)<br>
+\(OD_{no\space corrosion} = {{OD}}" + 2*{{corrosion_reduction}}" = {{OD_corrosion}}"\)<br>
+\(A_p = {{A1_correction}}{in}^2\)<br>
+\(A_b = {{A2_correction}}{in}^2\)<br>
+
+
+<br>
+Two joint failure mechanisms: jump out and fracture<br>
+<br>
+From the reference paper Δe = sum of minor correction factors.  Assume Δe = 0.
+<h4><u>Jump out</u></h4>
+$$P_{i,\space pin} = A_p*(\frac{a(\frac{2h}{D_{male}}-Δe)^bU_p}{\frac 12 + \frac{D_{male}}{2L}\tan{(α-ψ)}} + \frac{Y_p}{1+\frac{D_{male}}{2L}\tan{(α-ψ)}}) = {{A1_correction}}*(\frac{2.39(\frac{2*{{h}}}{ {{D}} }-0)^.59 {{Up}}}{\frac 12 + \frac{ {{D}} }{2*{{L}} }\tan{( {{alpha}} - 14.35)}} + \frac{ {{Yp}} }{1+\frac{ {{D}} }{2*{{L}} }\tan{( {{alpha}} - 14.35)}}) = {{Pi}} k$$
+$$P_{i,\space box} = A_b*(\frac{a(\frac{2h}{D_{female}}-Δe)^bU_p}{\frac 12 + \frac{D_{female}}{2L}\tan{(α-ψ)}} + \frac{Y_p}{1+\frac{D_{female}}{2L}\tan{(α-ψ)}}) = {{A2_correction}}*(\frac{2.39(\frac{2*{{h}}}{ {{D_female}} }-0)^.59 {{Up}}}{\frac 12 + \frac{ {{D_female}} }{2*{{L}} }\tan{( {{alpha}} - 14.35)}} + \frac{ {{Yp}} }{1+\frac{ {{D_female}} }{2*{{L}} }\tan{( {{alpha}} - 14.35)}}) = {{Pi_box}} k$$
+<h4><u>Fracture</u></h4>
+$$ P_{fr,\space pin} = \frac {U_p \pi [(D-2h)^2 - ID^2]}{4} = \frac { {{Up}} \pi [( {{D}} -2*{{h}})^2 - {{ID}}^2] }{4} = {{Pfr}} k$$
+$$ P_{fr,\space box} = \frac {U_p \pi [OD^2 - (D_{female} + 2*h)^2]}{4} = \frac { {{Up}} \pi [{{OD}}^2 - ({{D_female}} + 2*{{h}})^2] }{4} = {{Pfr_box}} k$$
+<br>
+{{ limit_load_description }}  Limiting load = {{ limit_load }} kips.<br>
+<br>
+Based on the recommendations of the reference paper, the bending capacity of the casing will be determined using the plastic tension-linear compression model.<br>
+<br>
+Before the bending capacity can be determined, the location of the neutral axis must be found.  This has been determined by trial and error from the shape below to be {{ x_prime }}" above the center line of pile.<br>
+<br>
+{% load static %}
+{% if image_check == 0 %}
+<img src="{% static 'images/micropile_parameters_png.png' %}" style="height: 55%; width: 55%;object-fit: scale-down"/>
+{% else %}
+<img src="{% static 'images/micropile_parameters_box_png.png' %}" style="height: 55%; width: 55%;object-fit: scale-down"/>
+{% endif %}
+<br>
+\(x' = {{x_prime}}"\)<br>
+\(ID = {{ID}}"\)<br>
+\(OD = {{OD}}"\)<br>
+\(OD_{no\space corrosion} = {{OD_corrosion}}"\)<br>
+\(OD_{joint} = {{OD_joint}}"\)<br>
+<br>
+The moment of inertia above and below the neutral axis must be equal.  With the neutral axis being {{ x_prime }}" above the center line of pile,
+
+<br>
+$$ C_c =  {{Cc}}" $$
+$$ C_t =  {{Ct}}" $$
+$$ A_{above} = {{area_compression}}in^2 $$
+$$ A_{below} = {{area_tension}}in^2 $$
+$$ I_{above} = {{I_above}}in^4 $$
+$$ I_{below} = {{I_below}}in^4 $$
+$$ \therefore I_{reduced} = {{I_above}}in^4(2) = {{I_reduced}}in^4 $$
+$$ I_{full} = (\pi /64)( {{OD}}^4 - {{ID}}^4) = {{I_full}}in^4   $$
+$$ I_{gross} = (\pi /64)( {{OD_corrosion}}^4 - {{ID}}^4) = {{I_gross}}in^4   $$
+$$ \text {Intact stiffness %} = \frac {I_{reduced}}{I_{full}} = \frac { {{I_reduced}} in^4}{ {{I_full}} in^4} = {{intact_stiffness_percentage}} \%   $$
+$$ \text {Gross stiffness %} = \frac {I_{reduced}}{I_{gross}} = \frac { {{I_reduced}} in^4}{ {{I_gross}} in^4} = {{gross_stiffness_percentage}} \%   $$
+<br>
+<br>
+<!--$$ \text {Pin Stress} = f_{lim} = \frac {4*\text{limit load}}{\pi * ((D-2h)^2 - {ID}^2} = \frac {4* {{limit_load}}k }{\pi * (( {{D}} in -2*{{h}}in)^2 - { {{ID}}in }^2} = {{pin_stress}} ksi$$-->
+
+$$ P_t = P_c = \text {limit load} = {{limit_load}}k$$
+$$ M_t =  P_tC_t = {{limit_load}}k * {{Ct}} " = {{Mt}} k" $$
+$$ M_c =  P_cC_c = {{limit_load}}k * {{Cc}} " = {{Mc}} k" $$
+$$ \therefore M_{total} = M_t + M_c =  {{Mt}}k" + {{Mc}}k" = {{Mtotal}} k"$$
+$$ M_{max} = \frac { {{Yp}} ksi * I_{full} }{\frac {OD}{2}} = \frac { {{Yp}} ksi * {{I_full}}in^4 }{\frac { {{OD}}" }{2}} = {{Mmax}} k"$$
+$$ M_{gross} = \frac { {{Yp}} ksi * I_{gross} }{\frac {OD_{no\space corrosion}}{2}} = \frac { {{Yp}} ksi * {{I_gross}}in^4 }{\frac { {{OD_corrosion}}" }{2}} = {{Mgross}} k"$$
+<br>
+<br>
+$$ \therefore \text {Intact moment %} = \frac {M_{total}}{M_{max}} = \frac { {{Mtotal}} k"}{ {{Mmax}} k"} = {{intact_moment_percentage}} \%   $$
+$$ \therefore \text {Gross moment %} = \frac {M_{total}}{M_{gross}} = \frac { {{Mtotal}} k"}{ {{Mgross}} k"} = {{gross_moment_percentage}} \%   $$
+$$ \therefore \frac {M_n}{Ω} = \frac { \frac { {{Mtotal}} k"}{12 \frac {"}{'}} }{1.67} = {{allowable_capacity}} k' $$
+<br>
+<br>
+</body>
+</html>

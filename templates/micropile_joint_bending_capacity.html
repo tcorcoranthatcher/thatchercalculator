@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Micropile Joint Bending Capacity</title>
+</head>
+<body>
+
+<form action="{% url 'micropile_output' %}">
+    <input type="text" name="description" class="text_box"> Enter description of micropile here.<br>
+    <input type="text" name="L" class="text_box"> L (in).    Length from first complete thread to last complete thread <br>
+    <input type="text" name="h" class="text_box"> h (in).    Height of the pin threads<br>
+    <input type="text" name="D" class="text_box"> D (male) (in).    Outside diameter of the pin measured from the top of the first thread from the shoulder<br>
+    <input type="text" name="D_female" class="text_box"> D (female) (in) <br>
+    <input type="text" name="alpha" class="text_box"> α (°).    Load bearing flank angle of the threads <br>
+    <input type="text" name="ID" class="text_box"> Inner Diameter (in) <br>
+    <input type="text" name="OD" class="text_box"> Outer Diameter with corrosion subtracted out if necessary (in) <br>
+    <input type="text" name="corrosion_reduction" class="text_box"> Corrosion reduction (in) <br>
+    <input type="text" name="Yp" class="text_box"> Yield Stress (ksi) <br>
+    <input type="text" name="Up" class="text_box"> Ultimate Stress (ksi) <br>
+    <br>
+    <input type="submit" value="Calculate" />
+</form>
+</body>
+</html>
