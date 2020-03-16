@@ -2,27 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="108ec191-e15a-4b9c-8198-9801377b90d5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/micropile_joint_bending_capacity.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/micropile_output.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/thatchercalc/micropile_joint_bending_capacity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/tcorcoran.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/tcorcoran.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/braced.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/braced.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/cantilever.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cantilever.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/multilayer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/multilayer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pressure_plot.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pressure_plot.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/surface.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/surface.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/three_layer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/three_layer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/Braced.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Braced.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/Pressure_Plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Pressure_Plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/multilayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/multilayer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/sheet_database.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/sheet_database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/three_layer.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/three_layer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564067564651</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="new micropile joint bending capacity page&#10;soldier beam width multiplier may need looking at">
+      <created>1584129005998</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1584129005998</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -280,9 +267,14 @@
     <MESSAGE value="fixed apparent pressure bug with weight of soils" />
     <MESSAGE value="working code w/soldier beam bug fixes" />
     <MESSAGE value="multi layer works properly with footings below cut" />
-    <option name="LAST_COMMIT_MESSAGE" value="multi layer works properly with footings below cut" />
+    <MESSAGE value="new micropile joint bending capacity page&#10;soldier beam width multiplier may need looking at" />
+    <option name="LAST_COMMIT_MESSAGE" value="new micropile joint bending capacity page&#10;soldier beam width multiplier may need looking at" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="600" y="114" key="CommitChangelistDialog2" timestamp="1584128989292">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="600" y="114" key="CommitChangelistDialog2/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584128989292" />
     <state x="740" y="262" key="FileChooserDialogImpl" timestamp="1581001583717">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
