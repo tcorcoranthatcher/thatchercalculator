@@ -3,6 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="108ec191-e15a-4b9c-8198-9801377b90d5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/braced.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/braced.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cantilever.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cantilever.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/multilayer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/multilayer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/pressure_plot.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pressure_plot.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/strut_diagram.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/strut_diagram.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/surface.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/surface.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/three_layer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/three_layer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/sheet_database.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/sheet_database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +58,7 @@
       <recent name="P:\thatchercalc\templates" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.micropile_joint_bending_capacity">
+  <component name="RunManager" selected="Python.cantilever_solver">
     <configuration name="Braced" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="thatchercalc" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -176,9 +187,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.cantilever_solver" />
         <item itemvalue="Python.micropile_joint_bending_capacity" />
         <item itemvalue="Python.Surcharge_Heights" />
-        <item itemvalue="Python.cantilever_solver" />
         <item itemvalue="Python.multilayer" />
         <item itemvalue="Python.Braced" />
       </list>
@@ -271,58 +282,27 @@
     <option name="LAST_COMMIT_MESSAGE" value="new micropile joint bending capacity page&#10;soldier beam width multiplier may need looking at" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="600" y="114" key="CommitChangelistDialog2" timestamp="1584128989292">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="281" key="GridCell.Tab.0.bottom" timestamp="1597866562281">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="600" y="114" key="CommitChangelistDialog2/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584128989292" />
-    <state x="740" y="262" key="FileChooserDialogImpl" timestamp="1581001583717">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597866562281" />
+    <state width="1899" height="281" key="GridCell.Tab.0.center" timestamp="1597866562281">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="262" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1581001583717" />
-    <state width="1899" height="281" key="GridCell.Tab.0.bottom" timestamp="1581350466322">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="281" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597866562281" />
+    <state width="1899" height="281" key="GridCell.Tab.0.left" timestamp="1597866562280">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1581350466322" />
-    <state width="1899" height="281" key="GridCell.Tab.0.center" timestamp="1581350466322">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="281" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597866562280" />
+    <state width="1899" height="281" key="GridCell.Tab.0.right" timestamp="1597866562281">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1581350466322" />
-    <state width="1899" height="281" key="GridCell.Tab.0.left" timestamp="1581350466322">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="281" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597866562281" />
+    <state x="2576" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1598279962968">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1581350466322" />
-    <state width="1899" height="281" key="GridCell.Tab.0.right" timestamp="1581350466322">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1581350466322" />
-    <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1580240458423">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="348" key="GridCell.Tab.1.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580240458423" />
-    <state width="1899" height="348" key="GridCell.Tab.1.center" timestamp="1580240458423">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="348" key="GridCell.Tab.1.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580240458423" />
-    <state width="1899" height="348" key="GridCell.Tab.1.left" timestamp="1580240458423">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="348" key="GridCell.Tab.1.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580240458423" />
-    <state width="1899" height="348" key="GridCell.Tab.1.right" timestamp="1580240458423">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="348" key="GridCell.Tab.1.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580240458423" />
-    <state x="461" y="163" key="SettingsEditor" timestamp="1581001896642">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="461" y="163" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1581001896642" />
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1584109069965">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="-1264" y="345" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1583530474314" />
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584109069965" />
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1581006282822">
-      <screen x="-1920" y="0" width="1920" height="1040" />
-    </state>
-    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1581006282822" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593198311058" />
+    <state x="2576" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598279962968" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592343920608" />
   </component>
 </project>

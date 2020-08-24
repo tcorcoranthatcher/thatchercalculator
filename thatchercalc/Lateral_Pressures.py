@@ -194,10 +194,12 @@ def net_pressures(active_pressures, passive_pressures, water_pressures, cut_elev
             if cut_elev > heights[i] > cut_elev - zero_length + 0.01:
                 if net_pressures[i] <= 0:
                     net_pressures[i] = 0
+                else:
+                    net_pressures[i] = round(net_pressures[i] * beam_type[4], 0)
             if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i + 1] == \
                     heights[i]:
                 if net_pressures[i] >= 0:
-                    pass
+                    net_pressures[i] = round(net_pressures[i] * beam_type[4], 0)
                 else:
                     net_pressures[i] = 0
             if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i + 1] != \
@@ -944,8 +946,8 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
     vert_pressure = 0
     for i in range(len(layers)):
         if layers[i][0] == cut_elev:
-            vert_pressure = layers[i][2] + layers[i][3]
-            text_output.append(str(layers[i][2] + layers[i][3]) + "psf")
+            vert_pressure = layers[i][2]
+            text_output.append(str(layers[i][2]) + "psf")
             break
     count = 0
     for i in range(len(layers)):

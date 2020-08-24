@@ -1,17 +1,17 @@
 import numpy
 import math
 
-force_constant = 4915.4
-moment_constant = 4907.24
-force_x_constant = -4307
-force_x2_constant = -69
-force_z_constant = 4307
-force_xz_constant = 138
-moment_x_constant = 4915.4
-moment_x2_constant = -2153.5
-moment_x3_constant = -23
-moment_z2_constant = 1402.67
-moment_xz2_constant = 46
+force_constant = 2934.71
+moment_constant = 11763.3
+force_x_constant = 0
+force_x2_constant = -106.79
+force_z_constant = 1690
+force_xz_constant = 303.54
+moment_x_constant = 2934.71
+moment_x2_constant = 0
+moment_x3_constant = -33.6
+moment_z2_constant = 563.33
+moment_xz2_constant = 101.18
 
 
 def cantilever_solver(force_constant, force_z_constant, force_xz_constant, force_x_constant, force_x2_constant,

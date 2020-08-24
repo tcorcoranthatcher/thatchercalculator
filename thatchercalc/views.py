@@ -523,6 +523,8 @@ def output(request):
     else:
         layers, wat_output = water_around_toe(layers, water_elev, cut_elev, supplied_elev)
 
+    layers.sort(key=lambda x: x[0], reverse=True)
+
     footing_output = []
     for i in range(len(footings)):
         footing_output.append(text_output(footings[i], i+1))
@@ -1104,6 +1106,8 @@ def cant_output(request):
             layers[i].append(0)
     else:
         layers, wat_output = water_around_toe(layers, water_elev, cut_elev, supplied_elev)
+
+    layers.sort(key=lambda x: x[0], reverse=True)
 
     footing_output = []
     for i in range(len(footings)):
@@ -1775,6 +1779,8 @@ def multi_output(request):
             layers[i].append(0)
     else:
         layers, wat_output = water_around_toe(layers, water_elev, cut_elev, supplied_elev)
+
+    layers.sort(key=lambda x: x[0], reverse=True)
 
     footing_output = []
     for i in range(len(footings)):
@@ -2448,6 +2454,8 @@ def three_output(request):
             layers[i].append(0)
     else:
         layers, wat_output = water_around_toe(layers, water_elev, cut_elev, supplied_elev)
+
+    layers.sort(key=lambda x: x[0], reverse=True)
 
     footing_output = []
     for i in range(len(footings)):
