@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cantilever Wall Calculator</title>
+    <title>One Layer Optimizer</title>
     <style>
     body{
             font-size: 100%;
-         }
+                }
     .grid-container-footings {
     display: inline-grid;
     grid-template-columns: 70px 70px 70px 70px auto;
@@ -43,14 +43,12 @@
     width: 40px;
     height: 11px;
     }
-    font-family: Arial;
     </style>
-
 </head>
 <body>
-<h1>Cantilever Calculator</h1>
-
-<form action="{% url 'cant_output' %}">
+<h1>One Layer Optimizer</h1>
+DOES NOT SUPPORT WATER AROUND TOE
+<form action="{% url 'optimizer_output' %}">
     <h3>Input Footings and/or Rails</h3>
     <div class="grid-container-footings">
         <div class="grid-item-footings">
@@ -236,7 +234,7 @@
             <input type="text" name="point13y" class="text_box_surface">13y<br>
         </div>
     </div>
-    <h3>Surcharge Parameters</h3>
+     <h3>Surcharge Parameters</h3>
     <input type="text" name="surcharge_unit_weight" class="text_box">
     Enter unit weight of surcharge soil to be considered in pcf.<br>
     <input type="text" name="min_surcharge_height" class="text_box">
@@ -251,7 +249,6 @@
     <input type="radio" name="angle_change_type" value="0" checked>Does not apply<br>
     <input type="radio" name="angle_change_type" value="1">Sand-over-clay (use 55 degree angle)<br>
     <input type="radio" name="angle_change_type" value="2">Clay-over-sand (use 45 degree angle)<br>
-    <br>
     <h3>Input berm (if applicable)</h3>
     Input coordinates starting from the ERS point and going sequentially along the berm.<br>
      <div class="grid-container-surface">
@@ -510,8 +507,7 @@
     <h3>Input Work Points and Misc. Data</h3>
     Put in work points in descending order.  First work point must be the surface.
     Changes in layer must be put in as two separate work points.<br>
-    If you need to switch to total weights at any point, check the box for the work point at which to
-    begin calculating by total weights.<br>
+    If you need to switch to total weights at any point, check the box for the work point at which to begin calculating by total weights. <br>
     <br>
     <input type="hidden" name="wp1_wat" value="0">
     <input type="hidden" name="wp2_wat" value="0">
@@ -562,13 +558,13 @@
             WP3: <input type="radio" name="total_weights" value="11" checked><br>
             <input type="text" name="wp3" class="text_box_wp"><br>
             <input type='text' name="wp3_layer" class="text_box_wp"><br>
-             <input type='text' name="wp3_layer_front" class="text_box_wp"><br>
+            <input type='text' name="wp3_layer_front" class="text_box_wp"><br>
         </div>
         <div class="grid-item-wp">
             WP4: <input type="radio" name="total_weights" value="2" checked><br>
             <input type="text" name="wp4" class="text_box_wp"><br>
             <input type='text' name="wp4_layer" class="text_box_wp"><br>
-             <input type='text' name="wp4_layer_front" class="text_box_wp"><br>
+            <input type='text' name="wp4_layer_front" class="text_box_wp"><br>
         </div>
        <div class="grid-item-wp">
             WP5: <input type="radio" name="total_weights" value="3" checked><br>
@@ -611,7 +607,7 @@
             &nbsp;Total Weights?<br>
             &nbsp;Elevation<br>
             &nbsp;Layer(backside)<br>
-             &nbsp;Layer(frontside)<br>
+            &nbsp;Layer(frontside)<br>
         </div>
         <div class="grid-item-wp">
             WP11: <input type="radio" name="total_weights" value="9" checked><br>
@@ -679,7 +675,7 @@
             &nbsp;Total Weights?<br>
             &nbsp;Elevation<br>
             &nbsp;Layer(backside)<br>
-             &nbsp;Layer(frontside)<br>
+            &nbsp;Layer(frontside)<br>
         </div>
         <div class="grid-item-wp">
             WP21: <input type="radio" name="total_weights" value="19" checked><br>
@@ -747,7 +743,75 @@
             &nbsp;Total Weights?<br>
             &nbsp;Elevation<br>
             &nbsp;Layer(backside)<br>
-             &nbsp;Layer(frontside)<br>
+            &nbsp;Layer(frontside)<br>
+        </div>
+        <div class="grid-item-wp">
+            WP21: <input type="radio" name="total_weights" value="29" checked><br>
+            <input type="text" name="wp31" class="text_box_wp"><br>
+            <input type='text' name="wp31_layer" class="text_box_wp"><br>
+            <input type='text' name="wp31_layer_front" class="text_box_wp"><br>
+            <br>
+        </div>
+         <div class="grid-item-wp">
+            WP22: <input type="radio" name="total_weights" value="30" checked><br>
+            <input type="text" name="wp32" class="text_box_wp"><br>
+            <input type='text' name="wp32_layer" class="text_box_wp"><br>
+             <input type='text' name="wp32_layer_front" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP23: <input type="radio" name="total_weights" value="31" checked><br>
+            <input type="text" name="wp33" class="text_box_wp"><br>
+            <input type='text' name="wp33_layer" class="text_box_wp"><br>
+            <input type='text' name="wp33_layer_front" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+           WP24: <input type="radio" name="total_weights" value="32" checked><br>
+            <input type="text" name="wp34" class="text_box_wp"><br>
+            <input type='text' name="wp34_layer" class="text_box_wp"><br>
+            <input type='text' name="wp34_layer_front" class="text_box_wp"><br>
+        </div>
+       <div class="grid-item-wp">
+            WP25: <input type="radio" name="total_weights" value="33" checked><br>
+            <input type="text" name="wp35" class="text_box_wp"><br>
+            <input type='text' name="wp35_layer" class="text_box_wp"><br>
+           <input type='text' name="wp35_layer_front" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+           WP26: <input type="radio" name="total_weights" value="34" checked><br>
+            <input type="text" name="wp36" class="text_box_wp"><br>
+            <input type='text' name="wp36_layer" class="text_box_wp"><br>
+            <input type='text' name="wp36_layer_front" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP27: <input type="radio" name="total_weights" value="35" checked><br>
+            <input type="text" name="wp37" class="text_box_wp"><br>
+            <input type='text' name="wp37_layer" class="text_box_wp"><br>
+            <input type='text' name="wp37_layer_front" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP28: <input type="radio" name="total_weights" value="36" checked><br>
+            <input type="text" name="wp38" class="text_box_wp"><br>
+            <input type='text' name="wp38_layer" class="text_box_wp"><br>
+            <input type='text' name="wp38_layer_front" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            WP29: <input type="radio" name="total_weights" value="37" checked><br>
+            <input type="text" name="wp39" class="text_box_wp"><br>
+            <input type='text' name="wp39_layer" class="text_box_wp"><br>
+            <input type='text' name="wp39_layer_front" class="text_box_wp"><br>
+        </div>
+       <div class="grid-item-wp">
+            WP30: <input type="radio" name="total_weights" value="38" checked><br>
+            <input type="text" name="wp40" class="text_box_wp"><br>
+            <input type='text' name="wp40_layer" class="text_box_wp"><br>
+           <input type='text' name="wp40_layer_front" class="text_box_wp"><br>
+        </div>
+        <div class="grid-item-wp">
+            <br>
+            &nbsp;Total Weights?<br>
+            &nbsp;Elevation<br>
+            &nbsp;Layer(backside)<br>
+            &nbsp;Layer(frontside)<br>
         </div>
 
     </div>
@@ -757,15 +821,10 @@
     Check for water around toe? <input type="checkbox" name="wat_check" value = '1'><br>
     <br>
     <input type="text" name="water_elev" class="text_box"> Water Elevation (leave blank if does not apply)<br>
-    <input type="text" name="water_cut_elev" class="text_box"> If water elev on the passive side is not at the cut, enter it here<br>
+    <input type="text" name="water_cut_elev" class="text_box">   DO NOT USE FOR NOW If water elev on the passive side is not at the cut, enter it here<br>
     <input type="text" name="cut_elev" class="text_box"> Enter the elevation of the cut.<br>
     <input type="text" name="surface_elev" class="text_box"> Surface elevation used for calculation of backside pressures<br>
     <input type="text" name="top_sheet" class="text_box"> Enter in the top of sheet if it does not coincide with the top of surface (optional)<br>
-    <input type="text" name="supplied_length" class="text_box"> Supplied Length (ft)<br>
-    <input type="text" name="scale_factor" class="text_box"> Deflected Shape Scale Factor<br>
-    <input type="hidden" name="multiplier_skip" value="0">
-    <input type="checkbox" name="multiplier_skip" value = '1'>Skip Multiplier?<br>
-    Larger the number, more pronounced deflected shape (try ~2000)<br>
     <br>
     Type of ERS:<br>
     <input type="radio" name="ers_type" value="0" checked>Sheet Piles<br>
@@ -873,7 +932,7 @@
     <option value="98">SZ-12</option>
     <option value="99">SZ-14</option>
     <option value="100">SZ-15</option>
-    <option value="101">SZ-222</option>
+    <option value="101">SZ-22</option>
     <option value="102">SZ-24</option>
     <option value="103">SZ-25</option>
     <option value="104">SZ-27</option>
@@ -881,7 +940,7 @@
     <option value="106">8-8</option>
     <option value="107">7-7</option>
     <option value="108">6-6</option>
-    <option value="109">5-5</option
+    <option value="109">5-5</option>
     <option value="110">AZ 12-770</option>
     <option value="111">AZ 13-770</option>
     <option value="112">AZ 14-770</option>
@@ -926,6 +985,7 @@
     <option value="151">XZ 95</option>
 
 
+
     </select>
     <br>
     <br>
@@ -963,12 +1023,13 @@
     <option value="21">HP18x181</option>
     <option value="22">HP18x204</option>
     </select><br>
-     <input type="text" name="beam_size_override" class="text_box"> (Optional) Beam/hole size (in) <br>
+    <input type="text" name="beam_size_override" class="text_box"> (Optional) Beam/hole size (in) <br>
     <input type="text" name="beam_override" class="text_box"> (Optional) Beam name <br>
     <input type="text" name="beam_modulus_override" class="text_box"> (Optional) Beam section modulus (in^3) <br>
     <input type="text" name="beam_inertia_override" class="text_box"> (Optional) Beam moment of inertia (in^4)<br>
     <br>
     <input type="submit" value="Calculate" />
+    <br>
 
 </form>
 </body>

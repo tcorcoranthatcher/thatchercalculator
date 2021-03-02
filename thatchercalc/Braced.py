@@ -356,6 +356,93 @@ def deflection_calc(net_pressures, brace_elev, minimum_length_data, sheet_type):
     max_def_list = sorted(def_list, key=lambda x: x[0], reverse=True)
     return def_list, round(max_def_list[0][0], 3), round(max_def_list[0][1], 2)
 
+def multiplier_optimizer(net_pressures, brace_elev, minimum_length_data):
+    supplied_length = 10
+    minimum_length = minimum_length_data[0]
+    minimum_length_elev = minimum_length_data[1]
+    distances = []
+    net_slopes = []
+    multiplier_length = math.ceil(minimum_length)
+    multiplier_elev = net_pressures[1][0] - multiplier_length
+    multiplier_length_list = [multiplier_length]
+    multiplier_elev_list = [multiplier_elev]
+    while multiplier_elev > net_pressures[1][-1]:
+        multiplier_elev += -1
+        multiplier_length += 1
+        multiplier_length_list.append(multiplier_length)
+        multiplier_elev_list.append(multiplier_elev)
+    multiplier_list = []
+    output = []
+    for i in range(len(net_pressures[1])-1):
+        distance = -1*(net_pressures[1][i+1]-net_pressures[1][i])
+        distances.append(distance)
+        if distance != 0:
+            slope = (net_pressures[0][i+1]-net_pressures[0][i])/distance
+        else:
+            slope = 0
+        net_slopes.append(slope)
+
+    net_pressures_sectioned_pressures = []
+    net_pressures_sectioned_elevations = []
+    slope_list = []
+    for i in range(len(net_pressures[0]) - 1):
+        p_0 = net_pressures[0][i]
+        e_0 = net_pressures[1][i]
+        net_pressures_sectioned_pressures.append(p_0)
+        net_pressures_sectioned_elevations.append(e_0)
+        for j in range(100):
+            p_1 = p_0+net_slopes[i]*distances[i]*(1/100)
+            e_1 = e_0 - distances[i]*(1/100)
+            net_pressures_sectioned_pressures.append(p_1)
+            net_pressures_sectioned_elevations.append(e_1)
+            slope_list.append(net_slopes[i])
+            e_0 = e_1
+            p_0 = p_1
+
+    net_pressures = [net_pressures_sectioned_pressures, net_pressures_sectioned_elevations, slope_list]
+
+    for i in range(len(multiplier_elev_list)):
+        negative_moments = 0
+        positive_moments = 0
+        multiplier_compute_list = []
+        for j in range(len(net_pressures[1])):
+            if net_pressures[1][j] >= multiplier_elev_list[i]:
+                multiplier_compute_list.append((net_pressures[0][j], net_pressures[1][j]))
+            if net_pressures[1][j] < multiplier_elev_list[i]:
+                y1 = net_pressures[1][j-1]
+                y2 = multiplier_elev_list[i]
+                d = y1-y2
+                slope = net_pressures[2][i]
+                mult_pressure = net_pressures[0][j-1] + d*slope
+                multiplier_compute_list.append((mult_pressure, multiplier_elev_list[i]))
+                break
+        for j in range(len(multiplier_compute_list)-1):
+            h = multiplier_compute_list[j][1]-multiplier_compute_list[j+1][1]
+            a = multiplier_compute_list[j][0]
+            b = multiplier_compute_list[j+1][0]
+            force_area = 0.5 * (a+b) * h
+            if 3*(a+b) != 0:
+                moment_arm = brace_elev - ((h*(2*a+b)/(3*(a+b))) + multiplier_compute_list[j+1][1])
+            else:
+                moment_arm = brace_elev - multiplier_compute_list[j+1][1]
+            moment = force_area*moment_arm
+            if moment >= 0:
+                positive_moments += moment
+            else:
+                negative_moments += moment
+        multiplier = -1 * negative_moments/positive_moments
+        multiplier_list.append((multiplier_length_list[i], multiplier_elev_list[i], multiplier,
+                                multiplier_compute_list[-1][0], negative_moments, positive_moments))
+        if multiplier >= 2.5:
+            output.append(multiplier)
+            output.append(multiplier_length_list[i])
+            return output[0], output[1]
+            break
+
+    if output == []:
+        output = [[],[]]
+    return output[0], output[1]
+
 
 # active = active_pressures(layers, water_elev, total_weights)
 # passive = passive_pressures(layers, water_elev, cut_elev, total_weights)

@@ -18,4 +18,6 @@ urlpatterns = [
     url(r'^three_output', views.three_output, name='three_output'),
     url(r'^micropile_joint_bending_capacity', views.micropile_joint_bending_capacity, name='micropile_joint_bending_capacity'),
     url(r'^micropile_output', views.micropile_output, name='micropile_output'),
+    url(r'^one_layer_optimizer', views.one_layer_optimizer, name='one_layer_optimizer'),
+    url(r'^optimizer_output', views.optimizer_output, name='optimizer_output')
 ]

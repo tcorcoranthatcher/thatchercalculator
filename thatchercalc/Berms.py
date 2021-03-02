@@ -52,7 +52,7 @@ def berm_workpoints(layers, work_points, berm_array, cut_elev):
                 break
         for i in range(len(layers)):
             if layers[i][0] > y > layers[i+1][0]:
-                new_layer = [y, layers[i][1], 0, 0, 0, 10000]
+                new_layer = [y, layers[i][1], 0, 0, 0, 10000, layers[i][6]]
                 layers.insert(i+1, new_layer)
                 break
 
@@ -71,11 +71,11 @@ def berm_reduction(layers, berm_array, cut_elev, passive_pressure, water_elev, t
     for i in range(len(layers)):
         if layers[i][0] < water_elev:
             if i <= total_weights:
-                unit_weight = layers[i][1].sub - layers[i][-1]
+                unit_weight = layers[i][6].sub - layers[i][-1]
             else:
-                unit_weight = layers[i][1].gamma - layers[i][-1]
+                unit_weight = layers[i][6].gamma - layers[i][-1]
         else:
-            unit_weight = layers[i][1].gamma - layers[i][-1]
+            unit_weight = layers[i][6].gamma - layers[i][-1]
         unit_weights.append([layers[i][0], unit_weight])
 
     berm_weights = []
@@ -115,10 +115,10 @@ def berm_reduction(layers, berm_array, cut_elev, passive_pressure, water_elev, t
     limiters = []
     for i in range(len(layers)):
         if layers[i][0] >= berm_bottom:
-            if layers[i][1].type == 0:
-                limiter = berm_weights[i][1]*math.tan(math.radians(layers[i][1].phi))
+            if layers[i][6].type == 0:
+                limiter = berm_weights[i][1]*math.tan(math.radians(layers[i][6].phi))
             else:
-                limiter = length_list[i][1]*layers[i][1].qu*1000
+                limiter = length_list[i][1]*layers[i][6].qu*1000
         else:
             limiter = 10000000000000000
         limiters.append([layers[i][0], math.ceil(limiter)])
@@ -218,7 +218,7 @@ def berm_reduction(layers, berm_array, cut_elev, passive_pressure, water_elev, t
             if layers[i][0] != layers[i - 1][0]:
                 if total_passives[i][1] > limiters[i][1]:
                     output_string += "At elev. " + str(layers[i][0]) + "', total passive of " + str(total_passives[i][1]) + " #/' is greater than the shear limiter of "
-                    if layers[i][1].type == 0:
+                    if layers[i][6].type == 0:
                         output_string += "σ'tan(ϕ) = " + str(limiters[i][1]) + " #/'"
                     else:
                         output_string += "c*l = " + str(limiters[i][1]) + " #/'"
@@ -234,7 +234,7 @@ def berm_reduction(layers, berm_array, cut_elev, passive_pressure, water_elev, t
                 if total_passives[i][1] > limiters[i][1]:
                     output_string += "At elev. " + str(layers[i][0]) + "', total passive of " + str(
                         total_passives[i][1]) + " #/' is greater than the shear limiter of "
-                    if layers[i][1].type == 0:
+                    if layers[i][6].type == 0:
                         output_string += "σ'tan(ϕ) = " + str(limiters[i][1]) + " #/'"
                     else:
                         output_string += "c*l = " + str(limiters[i][1]) + " #/'"

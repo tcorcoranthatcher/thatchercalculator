@@ -53,27 +53,27 @@ def passive_pressures(layers, water_elev, cut_elev, total_weights):
                             if i <= total_weights:
                                 if layers[k - 1][0] > layers[i][5] > layers[k][0]:
                                     vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (
-                                                layers[k][1].sub - layers[k][-1])
+                                                layers[k][6].sub - layers[k][-1])
                                 else:
                                     vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
-                                                layers[k][1].sub - layers[k][-1])
+                                                layers[k][6].sub - layers[k][-1])
                             else:
                                 if layers[k - 1][0] > layers[i][5] > layers[k][0]:
                                     vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (
-                                                layers[k][1].gamma - layers[k][-1])
+                                                layers[k][6].gamma - layers[k][-1])
                                 else:
                                     vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
-                                                layers[k][1].gamma - layers[k][-1])
+                                                layers[k][6].gamma - layers[k][-1])
                         else:
                             if layers[k - 1][0] > layers[i][5] > layers[k][0]:
                                 vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (
-                                            layers[k][1].gamma - layers[k][-1])
+                                            layers[k][6].gamma - layers[k][-1])
                             else:
                                 vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
-                                            layers[k][1].gamma - layers[k][-1])
+                                            layers[k][6].gamma - layers[k][-1])
         passive_pressure = 0
         if layers[i][0] <= cut_elev:
-            passive_pressure = math.floor(vert_pressure * layers[i][1].kp + layers[i][1].qu * 2000)
+            passive_pressure = math.floor(vert_pressure * layers[i][6].kp + layers[i][6].qu * 2000)
         passive_pressures.insert(i, (layers[i][0], passive_pressure))
     return passive_pressures
     # passive_pressures = []
@@ -108,21 +108,21 @@ def active_pressures_front(layers, water_elev, cut_elev, total_weights):
                 if layers[k - 1][0] != layers[k][0]:
                     if layers[k][0] < water_elev:
                         if i <= total_weights:
-                            vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][1].sub
+                            vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][6].sub
                         else:
-                            vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][1].gamma
+                            vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][6].gamma
                     else:
-                        vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][1].gamma
+                        vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][6].gamma
         active_pressure = 0
         ka_min = 0.25
-        if layers[i][1].type == 1 and layers[i][1].ka != 1:
-            ka_min = layers[i][1].ka
+        if layers[i][6].type == 1 and layers[i][6].ka != 1:
+            ka_min = layers[i][6].ka
         if layers[i][0] <= cut_elev:
-            if layers[i][1].type == 0:
-                active_pressure = math.ceil(vert_pressure * layers[i][1].ka)
-            if layers[i][1].type == 1:
-                active_pressure = math.ceil(vert_pressure - layers[i][1].qu * 2000)
-        if layers[i][1].type == 1 and active_pressure <= vert_pressure * ka_min:
+            if layers[i][6].type == 0:
+                active_pressure = math.ceil(vert_pressure * layers[i][6].ka)
+            if layers[i][6].type == 1:
+                active_pressure = math.ceil(vert_pressure - layers[i][6].qu * 2000)
+        if layers[i][6].type == 1 and active_pressure <= vert_pressure * ka_min:
             active_pressure = math.ceil(vert_pressure * ka_min)
         active_pressures_front.insert(i, (layers[i][0], active_pressure))
     return active_pressures_front
@@ -204,15 +204,9 @@ def net_pressures(active_pressures, passive_pressures, water_pressures, cut_elev
                     net_pressures[i] = 0
             if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i + 1] != \
                     heights[i]:
-                if net_pressures[i] >= 0:
-                    net_pressures[i] = round(net_pressures[i] * beam_spacing, 0)
-                else:
-                    net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
+                net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
             if heights[i] < (cut_elev - zero_length - 0.01):
-                if net_pressures[i] >= 0:
-                    net_pressures[i] = round(net_pressures[i] * beam_spacing, 0)
-                else:
-                    net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
+                net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
 
     if ers_type == 1 and soldier_beam_method == 1:
         for i in range(len(heights)):
@@ -310,15 +304,9 @@ def cant_pressures(active_pressures, passive_pressures, water_pressures,
                     net_pressures[i] = 0
             if cut_elev - zero_length + 0.01 >= heights[i] >= cut_elev - zero_length - 0.01 and heights[i + 1] != \
                     heights[i]:
-                if net_pressures[i] >= 0:
-                    net_pressures[i] = round(net_pressures[i] * beam_spacing, 0)
-                else:
-                    net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
+                net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
             if heights[i] < (cut_elev - zero_length - 0.01):
-                if net_pressures[i] >= 0:
-                    net_pressures[i] = round(net_pressures[i] * beam_spacing, 0)
-                else:
-                    net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
+                net_pressures[i] = round(3 * beam_type[4] * net_pressures[i], 0)
         for i in range(len(heights)):
             if heights[i] == cut_elev - zero_length:
                 heights.insert(i + 1, heights[i])
@@ -488,49 +476,49 @@ def passive_pressures_output(layers, water_elev, cut_elev, total_weights):
                             if i <= total_weights:
                                 if layers[k - 1][0] > layers[i][5] > layers[k][0]:
                                     vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (
-                                                layers[k][1].sub - layers[k][-1])
+                                                layers[k][6].sub - layers[k][-1])
                                     passive_pressure_string += " + " + str(
-                                        layers[k][1].sub - layers[k][-1]) + "pcf*" + str(
+                                        layers[k][6].sub - layers[k][-1]) + "pcf*" + str(
                                         round((layers[i][5] - layers[k][0]), 2)) + "'"
                                 else:
                                     vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
-                                                layers[k][1].sub - layers[k][-1])
+                                                layers[k][6].sub - layers[k][-1])
                                     passive_pressure_string += " + " + str(
-                                        layers[k][1].sub - layers[k][-1]) + "pcf*" + str(
+                                        layers[k][6].sub - layers[k][-1]) + "pcf*" + str(
                                         round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
                             else:
                                 if layers[k - 1][0] > layers[i][5] > layers[k][0]:
                                     vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (
-                                                layers[k][1].gamma - layers[k][-1])
+                                                layers[k][6].gamma - layers[k][-1])
                                     passive_pressure_string += " + " + str(
-                                        layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(
+                                        layers[k][6].gamma - layers[k][-1]) + "pcf*" + str(
                                         round((layers[i][5] - layers[k][0]), 2)) + "'"
                                 else:
                                     vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
-                                                layers[k][1].gamma - layers[k][-1])
+                                                layers[k][6].gamma - layers[k][-1])
                                     passive_pressure_string += " + " + str(
-                                        layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(
+                                        layers[k][6].gamma - layers[k][-1]) + "pcf*" + str(
                                         round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
                         else:
                             if layers[k - 1][0] > layers[i][5] > layers[k][0]:
                                 vert_pressure = vert_pressure + (layers[i][5] - layers[k][0]) * (
-                                            layers[k][1].gamma - layers[k][-1])
+                                            layers[k][6].gamma - layers[k][-1])
                                 passive_pressure_string += " + " + str(
-                                    layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(
+                                    layers[k][6].gamma - layers[k][-1]) + "pcf*" + str(
                                     round((layers[i][5] - layers[k][0]), 2)) + "'"
                             else:
                                 vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * (
-                                            layers[k][1].gamma - layers[k][-1])
+                                            layers[k][6].gamma - layers[k][-1])
                                 passive_pressure_string += " + " + str(
-                                    layers[k][1].gamma - layers[k][-1]) + "pcf*" + str(
+                                    layers[k][6].gamma - layers[k][-1]) + "pcf*" + str(
                                     round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
         passive_pressure = 0
         if layers[i][0] <= cut_elev:
-            passive_pressure = math.floor(vert_pressure * layers[i][1].kp + layers[i][1].qu * 2000)
-        if layers[i][1].type == 1:
-            passive_pressure_string += ")+2*" + str(layers[i][1].qu * 1000) + "psf"
+            passive_pressure = math.floor(vert_pressure * layers[i][6].kp + layers[i][6].qu * 2000)
+        if layers[i][6].type == 1:
+            passive_pressure_string += ")+2*" + str(layers[i][6].qu * 1000) + "psf"
         else:
-            passive_pressure_string += ")*" + str(layers[i][1].kp)
+            passive_pressure_string += ")*" + str(layers[i][6].kp)
         passive_pressures.insert(i, (layers[i][0], passive_pressure))
         passive_pressure_string += " = " + (str(passive_pressure)) + " psf"
         if layers[i][0] <= cut_elev:
@@ -617,36 +605,36 @@ def active_pressures_front_output(layers, water_elev, cut_elev, total_weights):
                 if layers[k - 1][0] != layers[k][0]:
                     if layers[k][0] < water_elev:
                         if i <= total_weights:
-                            vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][1].sub
-                            active_pressure_string += str(layers[k][1].sub) + "pcf*" + str(
+                            vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][6].sub
+                            active_pressure_string += str(layers[k][6].sub) + "pcf*" + str(
                                 round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
                         else:
-                            vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][1].gamma
-                            active_pressure_string += str(layers[k][1].gamma) + "pcf*" + str(
+                            vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][6].gamma
+                            active_pressure_string += str(layers[k][6].gamma) + "pcf*" + str(
                                 round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
                     else:
-                        vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][1].gamma
-                        active_pressure_string += str(layers[k][1].gamma) + "pcf*" + str(
+                        vert_pressure = vert_pressure + (layers[k - 1][0] - layers[k][0]) * layers[k][6].gamma
+                        active_pressure_string += str(layers[k][6].gamma) + "pcf*" + str(
                             round((layers[k - 1][0] - layers[k][0]), 2)) + "'"
                     active_pressure_string += " + "
         active_pressure = 0
         ka_min = 0.25
-        if layers[i][1].type == 1 and layers[i][1].ka != 1:
-            ka_min = layers[i][1].ka
+        if layers[i][6].type == 1 and layers[i][6].ka != 1:
+            ka_min = layers[i][6].ka
         active_pressure_string += " 0psf "
         if layers[i][0] <= cut_elev:
-            if layers[i][1].type == 0:
-                active_pressure = math.ceil(vert_pressure * layers[i][1].ka)
-            if layers[i][1].type == 1:
-                active_pressure = math.ceil(vert_pressure - layers[i][1].qu * 2000)
-        if layers[i][1].type == 1 and active_pressure <= vert_pressure * ka_min:
+            if layers[i][6].type == 0:
+                active_pressure = math.ceil(vert_pressure * layers[i][6].ka)
+            if layers[i][6].type == 1:
+                active_pressure = math.ceil(vert_pressure - layers[i][6].qu * 2000)
+        if layers[i][6].type == 1 and active_pressure <= vert_pressure * ka_min:
             active_pressure = math.ceil(vert_pressure * ka_min)
-            active_pressure_string += ")-2*" + str(layers[i][1].qu * 1000) + "psf = (-) => " + str(
+            active_pressure_string += ")-2*" + str(layers[i][6].qu * 1000) + "psf = (-) => " + str(
                 vert_pressure) + "psf*" + str(ka_min)
-        elif layers[i][1].type == 1 and not active_pressure <= vert_pressure * ka_min:
-            active_pressure_string += ")-2*" + str(layers[i][1].qu * 1000) + "psf"
+        elif layers[i][6].type == 1 and not active_pressure <= vert_pressure * ka_min:
+            active_pressure_string += ")-2*" + str(layers[i][6].qu * 1000) + "psf"
         else:
-            active_pressure_string += ")*" + str(layers[i][1].ka)
+            active_pressure_string += ")*" + str(layers[i][6].ka)
         active_pressures_front.insert(i, (layers[i][0], active_pressure))
         active_pressure_string += " = " + (str(active_pressure)) + " psf"
         if layers[i][0] <= cut_elev:
@@ -874,7 +862,6 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
                 else:
                     weight += (layers[i][0] - layers[i + 1][0]) * layers[i][1].gamma
                 new_active = weight * layers[i+1][1].ka
-                print(weight, old_active, new_active, layers[i][0], layers[i+1][0])
                 if layers[i][1].type == 0:
                     backside_friction += 0.5 * (new_active + old_active) * (layers[i][0] - layers[i + 1][0]) * math.tan(
                         math.radians(layers[i][1].phi))

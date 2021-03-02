@@ -397,8 +397,6 @@ def multiplier_cantilever(net_pressures, cant_pressures, minimum_length_data, cu
                                 multiplier = -1 * negative_moments / positive_moments
                                 multiplier_list.append((multiplier_length_list[k], multiplier_elev_list[k], multiplier,
                                                         x, z, iter_net_pressure, iter_cant_pressure, positive_moments, negative_moments, force_constant, force_z_constant, force_xz_constant, force_x_constant, force_x2_constant, net_pressures[0][i], cant_pressures[0][j]))
-                                print((multiplier_length_list[k], multiplier_elev_list[k], multiplier,
-                                       x, z, iter_net_pressure, iter_cant_pressure, positive_moments, negative_moments, force_constant, force_z_constant, force_xz_constant, force_x_constant, force_x2_constant, net_pressures[0][i],cant_pressures[0][j]))
 
     multiplier_list = sorted(multiplier_list, key=operator.itemgetter(0, 2))
     new_list = []
@@ -515,6 +513,153 @@ def deflection_calc_cantilever(net_pressures, minimum_length_data, sheet_type):
 
 
     return def_list, max_deflection, max_deflection_elev
+
+
+def multiplier_cantilever_optimizer(net_pressures, cant_pressures, minimum_length_data, cut_elev):
+    supplied_length = 10
+    minimum_length = minimum_length_data[0]
+    minimum_length_elev = minimum_length_data[1]
+    distances = []
+    net_slopes = []
+    cant_slopes = []
+    output = []
+    size_dif = len(net_pressures[0]) - len(cant_pressures[0])
+
+    for i in range(size_dif):
+        cant_pressures[0].insert(0, 0)
+        cant_pressures[1].insert(i, net_pressures[1][i])
+
+    multiplier_length = math.ceil(minimum_length)
+    limit = net_pressures[1][-1]
+    multiplier_elev = net_pressures[1][0] - multiplier_length
+    multiplier_length_list = [multiplier_length]
+    multiplier_elev_list = [multiplier_elev]
+    while multiplier_elev > limit:
+        multiplier_elev += -1
+        multiplier_length += 1
+        multiplier_length_list.append(multiplier_length)
+        multiplier_elev_list.append(multiplier_elev)
+    multiplier_list = []
+
+    for i in range(len(net_pressures[1]) - 1):
+        distance = -1 * (net_pressures[1][i + 1] - net_pressures[1][i])
+        distances.append(distance)
+        if distance != 0:
+            net_slope = (net_pressures[0][i + 1] - net_pressures[0][i]) / distance
+            cant_slope = (cant_pressures[0][i + 1] - cant_pressures[0][i]) / distance
+        else:
+            net_slope = 0
+            cant_slope = 0
+        net_slopes.append(net_slope)
+        cant_slopes.append(cant_slope)
+
+    for i in range(len(net_pressures[1]) - 1):
+        if net_pressures[1][i] <= cut_elev:
+            force_constant = 0
+            for j in range(i):
+                force_area = 0.5 * (net_pressures[0][j] + net_pressures[0][j + 1]) * distances[j]
+                force_constant += force_area
+            for j in range(i, len(net_pressures[1]) - 1):
+                force_x_constant = net_pressures[0][i]
+                force_x2_constant = net_slopes[i] / 2
+                force_xz_constant = (-1 * net_slopes[i] + cant_slopes[j]) / 2
+                force_z_constant = (-1 * net_pressures[0][i] + (
+                            cant_pressures[0][j] - (cant_pressures[1][i] - cant_pressures[1][j]) * cant_slopes[j])) / 2
+
+                for k in range(len(multiplier_length_list)):
+                    multiplier = 0
+                    x = net_pressures[1][i] - multiplier_elev_list[k]
+                    z = Symbol('z')
+                    if not force_x_constant == force_xz_constant == force_z_constant == force_x2_constant == 0:
+                        z = \
+                        solve(force_constant + force_z_constant * z + force_xz_constant * x * z + force_x_constant * x +
+                              force_x2_constant * x ** 2, z)[0]
+                    if net_pressures[1][i] - net_pressures[1][j] <= x <= net_pressures[1][i] - net_pressures[1][j + 1]:
+                        if 0 < x - z <= net_pressures[1][i] - net_pressures[1][i + 1]:
+                            iter_net_pressure = net_pressures[0][i] + net_slopes[i] * (x - z)
+                            iter_cant_elev = net_pressures[1][i] - x
+                            iter_cant_pressure = cant_pressures[0][j] + \
+                                                 cant_slopes[j] * (x - (net_pressures[1][i] - net_pressures[1][j]))
+                            iter_net_elev = iter_cant_elev + z
+                            net_pairs = []
+                            for h in range(len(net_pressures[1])):
+                                net_pairs.append((net_pressures[0][h], net_pressures[1][h]))
+                            net_linestring = LineString(net_pairs)
+                            cross_linestring = LineString([(iter_cant_pressure - 5, iter_cant_elev),
+                                                           (iter_net_pressure + 5, iter_net_elev)])
+                            if cross_linestring.crosses(net_linestring) != True:
+                                ## make new pressure diagram that is the current one
+                                pressure_diagram = [[], []]
+                                for h in range(len(net_pressures[1])):
+                                    if net_pressures[1][h] > iter_net_elev:
+                                        pressure_diagram[0].append(net_pressures[0][h])
+                                        pressure_diagram[1].append(net_pressures[1][h])
+                                pressure_diagram[0].append(iter_net_pressure)
+                                pressure_diagram[1].append(iter_net_elev)
+                                pressure_diagram[0].append(iter_cant_pressure)
+                                pressure_diagram[1].append(iter_cant_elev)
+                                pressure_slopes = []
+                                pressure_distances = []
+                                for m in range(len(pressure_diagram[1]) - 1):
+                                    distance = -1 * (pressure_diagram[1][m + 1] - pressure_diagram[1][m])
+                                    pressure_distances.append(distance)
+                                    if distance != 0:
+                                        slope = (pressure_diagram[0][m + 1] - pressure_diagram[0][m]) / distance
+                                    else:
+                                        slope = 0
+                                    pressure_slopes.append(slope)
+
+                                net_pressures_sectioned_pressures = []
+                                net_pressures_sectioned_elevations = []
+                                for m in range(len(pressure_diagram[0]) - 1):
+                                    p_0 = pressure_diagram[0][m]
+                                    e_0 = pressure_diagram[1][m]
+                                    net_pressures_sectioned_pressures.append(p_0)
+                                    net_pressures_sectioned_elevations.append(e_0)
+                                    for n in range(100):
+                                        p_1 = p_0 + pressure_slopes[m] * pressure_distances[m] * (1 / 100)
+                                        e_1 = e_0 - pressure_distances[m] * (1 / 100)
+                                        net_pressures_sectioned_pressures.append(p_1)
+                                        net_pressures_sectioned_elevations.append(e_1)
+                                        e_0 = e_1
+                                        p_0 = p_1
+                                pressure_diagram = [net_pressures_sectioned_pressures,
+                                                    net_pressures_sectioned_elevations]
+                                positive_moments = 0
+                                negative_moments = 0
+                                for m in range(len(pressure_diagram[0]) - 1):
+                                    h = pressure_diagram[1][m] - pressure_diagram[1][m + 1]
+                                    a = pressure_diagram[0][m]
+                                    b = pressure_diagram[0][m + 1]
+                                    force_area = 0.5 * (a + b) * h
+                                    if 3 * (a + b) != 0:
+                                        moment_arm = (h * (2 * a + b) / (3 * (a + b))) + pressure_diagram[1][m + 1] - \
+                                                     pressure_diagram[1][-1]
+                                    else:
+                                        moment_arm = pressure_diagram[1][m + 1] - pressure_diagram[1][-1]
+                                    moment = force_area * moment_arm
+                                    if moment >= 0:
+                                        positive_moments += moment
+                                    else:
+                                        negative_moments += moment
+                                multiplier = -1 * negative_moments / positive_moments
+                                multiplier_list.append((multiplier_length_list[k], multiplier_elev_list[k], multiplier,
+                                                        x, z, iter_net_pressure, iter_cant_pressure, positive_moments,
+                                                        negative_moments, force_constant, force_z_constant,
+                                                        force_xz_constant, force_x_constant, force_x2_constant,
+                                                        net_pressures[0][i], cant_pressures[0][j]))
+                    if multiplier >= 1.7:
+                        output.append(multiplier)
+                        output.append(multiplier_length_list[k])
+                        return output[0], output[1]
+                        break
+                else:
+                    continue  # only executed if the inner loop did NOT break
+                break  # only executed if the inner loop DID break
+
+    if output == []:
+        output = [[],[]]
+    return output[0], output[1]
 
 
 # net = [[520, 1254, 956, 2171, 411, 52, 155, -1258, -3746, -2888, -10760], [13, 10, 10, 4, 4, 2.7, 2.7, 1, -2, -2, -14]]

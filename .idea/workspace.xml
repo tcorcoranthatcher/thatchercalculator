@@ -2,17 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="108ec191-e15a-4b9c-8198-9801377b90d5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/one_layer_optimizer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/optimizer_output.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/braced.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/braced.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/cantilever.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cantilever.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/multilayer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/multilayer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/pressure_plot.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pressure_plot.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/strut_diagram.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/strut_diagram.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/surface.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/surface.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/three_layer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/three_layer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/Berms.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Berms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/Braced.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Braced.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/Cantilever.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Cantilever.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/Footings.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Footings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/multilayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/multilayer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/sheet_database.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/sheet_database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,16 +40,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>sheet_type</find>
-      <find>berm</find>
-      <find>old_n</find>
-      <find>print</find>
-      <find>beam_type</find>
-      <find>zero_length</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -50,7 +52,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="P:/thatchercalc" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -59,7 +61,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.cantilever_solver">
-    <configuration name="Braced" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Cantilever" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="thatchercalc" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -71,7 +73,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/thatchercalc/Braced.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/thatchercalc/Cantilever.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -88,11 +90,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/thatchercalc/thatchercalc" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/thatchercalc" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/thatchercalc/thatchercalc/Surcharge_Heights.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -188,10 +190,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.cantilever_solver" />
+        <item itemvalue="Python.Cantilever" />
         <item itemvalue="Python.micropile_joint_bending_capacity" />
         <item itemvalue="Python.Surcharge_Heights" />
         <item itemvalue="Python.multilayer" />
-        <item itemvalue="Python.Braced" />
       </list>
     </recent_temporary>
   </component>
@@ -260,7 +262,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584129005998</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="idk">
+      <created>1598284219725</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1598284219725</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -279,30 +288,46 @@
     <MESSAGE value="working code w/soldier beam bug fixes" />
     <MESSAGE value="multi layer works properly with footings below cut" />
     <MESSAGE value="new micropile joint bending capacity page&#10;soldier beam width multiplier may need looking at" />
-    <option name="LAST_COMMIT_MESSAGE" value="new micropile joint bending capacity page&#10;soldier beam width multiplier may need looking at" />
+    <MESSAGE value="idk" />
+    <option name="LAST_COMMIT_MESSAGE" value="idk" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1899" height="281" key="GridCell.Tab.0.bottom" timestamp="1597866562281">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1607628792975">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597866562281" />
-    <state width="1899" height="281" key="GridCell.Tab.0.center" timestamp="1597866562281">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1607628792975" />
+    <state width="1899" height="281" key="GridCell.Tab.0.bottom" timestamp="1614092957384">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597866562281" />
-    <state width="1899" height="281" key="GridCell.Tab.0.left" timestamp="1597866562280">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1899" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614092957384" />
+    <state width="1899" height="281" key="GridCell.Tab.0.center" timestamp="1614092957384">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597866562280" />
-    <state width="1899" height="281" key="GridCell.Tab.0.right" timestamp="1597866562281">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1899" height="281" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614092957384" />
+    <state width="1899" height="281" key="GridCell.Tab.0.left" timestamp="1614092957383">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597866562281" />
-    <state x="2576" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1598279962968">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1899" height="281" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614092957383" />
+    <state width="1899" height="281" key="GridCell.Tab.0.right" timestamp="1614092957384">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593198311058" />
-    <state x="2576" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598279962968" />
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592343920608" />
+    <state width="1899" height="281" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614092957384" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1607628102308">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1607628102308" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1614722897443">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614722897443" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608664806388" />
+    <state x="656" y="118" width="607" height="804" key="find.popup" timestamp="1614193256784">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="656" y="118" width="607" height="804" key="find.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614193256784" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1614625370144">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614625370144" />
   </component>
 </project>

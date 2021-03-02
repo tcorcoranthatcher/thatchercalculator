@@ -51,7 +51,7 @@ def surcharge_heights(surface_side, surface_array, work_points, angle, angle_cha
         y_coords.append(surface_array[i][1])
 
     search_heights = []
-    search_heights = list(numpy.linspace(min(y_coords), max(y_coords), num=(max(y_coords)-min(y_coords))*100+1))
+    search_heights = list(numpy.linspace(min(y_coords), max(y_coords), num=int((max(y_coords)-min(y_coords))*100+1)))
     for i in range(len(search_heights)):
         search_heights[i] = round(search_heights[i], 2)
 

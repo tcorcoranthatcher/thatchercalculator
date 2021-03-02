@@ -429,7 +429,6 @@ x = two_layer_minimum_length([wall_pressures, wall_elevations, strut_pressures, 
 y = two_layer_maximum_moment([wall_pressures, wall_elevations], x[2], brace_elevations)
 z = two_layer_multiplier([wall_pressures, wall_elevations], -0.5, x, 42)
 # aa = two_layer_deflection_calc([wall_pressures, wall_elevations], brace_elevations[1], x, [6, "MSZ14-312", 19.62, 120.97])
-print(x)
-print(y)
+
 
 
