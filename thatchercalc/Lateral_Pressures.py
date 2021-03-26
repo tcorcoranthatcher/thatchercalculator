@@ -902,6 +902,7 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
                     break
             old_active = weight * layers[0][1].ka
         for i in range(len(layers) - 1):
+            new_active = 0
             if layers[i][0] <= backside_y:
                 if layers[i + 1][0] >= cut_elev:
                     if layers[i][0] < water_elev:
@@ -925,6 +926,7 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
                         text_output.append("(" + str(layers[i][0]) + "' - " + str(layers[i + 1][0]) + "') * " +
                                            str(layers[i][1].qu * 1000) + "psf = " + str(round(
                             (layers[i][0] - layers[i + 1][0]) * layers[i][1].qu * 1000, 2)) + "#/'")
+            old_active = new_active
 
     text_output.append("Backside Shear = " + str(math.ceil(backside_friction)) + "#/'")
     text_output.append("")

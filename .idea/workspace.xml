@@ -2,26 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="108ec191-e15a-4b9c-8198-9801377b90d5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/one_layer_optimizer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/optimizer_output.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/active_passive_plot.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/cant_pp.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/water_pressure_plot.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/braced.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/braced.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cant_output.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cant_output.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/cantilever.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cantilever.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/multi_output.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/multi_output.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/multilayer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/multilayer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/one_layer_optimizer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/one_layer_optimizer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/output.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/output.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/pressure_plot.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pressure_plot.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/strut_diagram.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/strut_diagram.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/surface.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/surface.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/three_layer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/three_layer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/Berms.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Berms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/three_output.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/three_output.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/Braced.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Braced.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/Cantilever.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Cantilever.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/Footings.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Footings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Surcharge_Heights.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/Pressure_Plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Pressure_Plot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/multilayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/multilayer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thatchercalc/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/sheet_database.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/sheet_database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thatchercalc/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/urls.py" afterDir="false" />
@@ -269,7 +270,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598284219725</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="started optimizer for bracing, will be editing core functions so this commit is before that point">
+      <created>1614722971359</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1614722971359</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -289,45 +297,56 @@
     <MESSAGE value="multi layer works properly with footings below cut" />
     <MESSAGE value="new micropile joint bending capacity page&#10;soldier beam width multiplier may need looking at" />
     <MESSAGE value="idk" />
-    <option name="LAST_COMMIT_MESSAGE" value="idk" />
+    <MESSAGE value="started optimizer for bracing, will be editing core functions so this commit is before that point" />
+    <option name="LAST_COMMIT_MESSAGE" value="started optimizer for bracing, will be editing core functions so this commit is before that point" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1607628792975">
+    <state x="2610" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1616774159991">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2610" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1616774159991" />
+    <state x="614" y="114" key="CommitChangelistDialog2" timestamp="1614722968694">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1607628792975" />
-    <state width="1899" height="281" key="GridCell.Tab.0.bottom" timestamp="1614092957384">
+    <state x="614" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614722968694" />
+    <state width="1899" height="281" key="GridCell.Tab.0.bottom" timestamp="1616091009248">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614092957384" />
-    <state width="1899" height="281" key="GridCell.Tab.0.center" timestamp="1614092957384">
+    <state width="1899" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1616091009248" />
+    <state width="1899" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1615242769779" />
+    <state width="1899" height="281" key="GridCell.Tab.0.center" timestamp="1616091009248">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614092957384" />
-    <state width="1899" height="281" key="GridCell.Tab.0.left" timestamp="1614092957383">
+    <state width="1899" height="281" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1616091009248" />
+    <state width="1899" height="281" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1615242769779" />
+    <state width="1899" height="281" key="GridCell.Tab.0.left" timestamp="1616091009248">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614092957383" />
-    <state width="1899" height="281" key="GridCell.Tab.0.right" timestamp="1614092957384">
+    <state width="1899" height="281" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1616091009248" />
+    <state width="1899" height="281" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1615242769779" />
+    <state width="1899" height="281" key="GridCell.Tab.0.right" timestamp="1616091009248">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614092957384" />
-    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1607628102308">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="281" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1616091009248" />
+    <state width="1899" height="281" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1615242769779" />
+    <state x="2576" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1616705727652">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1607628102308" />
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1614722897443">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614722897443" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1616694147343" />
+    <state x="2576" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1616705727652" />
     <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608664806388" />
+    <state x="2495" y="188" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1616706959017">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2495" y="188" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1616706959017" />
     <state x="656" y="118" width="607" height="804" key="find.popup" timestamp="1614193256784">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="118" width="607" height="804" key="find.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614193256784" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1614625370144">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1616763081906">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1614625370144" />
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1616763081906" />
   </component>
 </project>

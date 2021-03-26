@@ -313,3 +313,118 @@ def strut_pressure_plot(layers, net, brace_elev):
         p.add_layout(Arrow(end=NormalHead(size=10),
                            x_start=-0.25 * axis_size, y_start=brace_elev[2], x_end=00, y_end=brace_elev[2]))
     return p
+
+
+def ap_plot(layers, active, passive, cut_elev, cant_check):
+    active_pressures = []
+    active_elevations = []
+    for i in range(len(active)):
+        active_pressures.append(active[i][1])
+        active_elevations.append(active[i][0])
+    active = [active_pressures, active_elevations]
+
+    passive_pressures = []
+    passive_elevations = []
+    for i in range(len(passive)):
+        passive_pressures.append(-1*passive[i][1])
+        passive_elevations.append(passive[i][0])
+    passive = [passive_pressures, passive_elevations]
+    for i in range(len(passive[0])):
+        if passive[1][i] == cut_elev:
+            passive[0].insert(i, 0)
+            passive[1].insert(i, cut_elev)
+            break
+
+    title = "Active and Passive Pressures"
+    label_1 = "Active Pressures"
+    label_2 = "Passive Pressures"
+    if cant_check == 1:
+        title = "Frontside Active and Backside Passive Pressures"
+        label_1 = "PaFS"
+        label_2 = "PpBS"
+
+    axis_size = max([max(active[0]), -1*min(active[0]), max(passive[0]), -1*min(passive[0])])
+    p = figure(
+        x_range=[-axis_size*2.5, axis_size*2.5],
+        y_range=[active[1][-1]-1, active[1][0]+3],
+        title=title,
+        plot_width=900,
+        plot_height=1200
+    )
+    p.xaxis.bounds = (0, 0)
+    p.yaxis.bounds = (0, 0)
+    p.line(active[0], active[1], line_width=2, color='black')
+    p.line(passive[0], passive[1], line_width=2, color='black')
+    p.line([0, 0], [layers[0][0], layers[-1][0]], color='black')
+    p.add_layout(Label(x=1.5*axis_size, y=active[1][0] + 2, text=label_1))
+    p.add_layout(Label(x=-1.5 * axis_size, y=passive[1][0] + 2, text=label_2))
+    for i in range(len(layers)):
+        p.line([-axis_size*2.5, axis_size*2.5], [layers[i][0], layers[i][0]],
+               color='dimgray', alpha=0.7)
+        work_point_label = Label(x=-axis_size*2.5, y=layers[i][0], text=str(layers[i][0]), text_font_size='12pt')
+        p.add_layout(work_point_label)
+
+    x, y = 0, 0
+    for k in range(len(active[0])):
+        i = active[0][k]
+        j = active[1][k]
+        if j == y and i != x:
+            pressure_label = Label(x=axis_size*1.5, y=j-0.5, text=str(i), text_font_size='12pt')
+        else:
+            pressure_label = Label(x=axis_size*1.5, y=j, text=str(i), text_font_size='12pt')
+        x, y = i, j
+        p.add_layout(pressure_label)
+    x, y = 0, 0
+    for k in range(len(passive[0])):
+        i = passive[0][k]
+        j = passive[1][k]
+        if j == y and i != x:
+            pressure_label = Label(x=axis_size*-1.5, y=j-0.5, text=str(i), text_font_size='12pt')
+        else:
+            pressure_label = Label(x=axis_size*-1.5, y=j, text=str(i), text_font_size='12pt')
+        x, y = i, j
+        p.add_layout(pressure_label)
+
+    return p
+
+
+def water_plot(layers, water_pressure):
+    water_pressures = []
+    water_elevations = []
+    for i in range(len(water_pressure)):
+        water_pressures.append(water_pressure[i][1])
+        water_elevations.append(water_pressure[i][0])
+    water = [water_pressures, water_elevations]
+    axis_size = max(max(water[0]), -1*min(water[0]))
+    p = figure(
+        x_range=[-axis_size*2.5, axis_size*2.5],
+        y_range=[water[1][-1]-1, water[1][0]+3],
+        title="Water Pressure Plot",
+        plot_width=900,
+        plot_height=1200
+    )
+    p.xaxis.bounds = (0, 0)
+    p.yaxis.bounds = (0, 0)
+    p.line(water[0], water[1], line_width=2, color='black')
+    p.line([0, 0], [layers[0][0], layers[-1][0]], color='black')
+    p.add_layout(Label(x=1.5*axis_size, y=water[1][0] + 2, text="Water Pressure"))
+    for i in range(len(layers)):
+        p.line([-axis_size*2.5, axis_size*2.5], [layers[i][0], layers[i][0]],
+               color='dimgray', alpha=0.7)
+        work_point_label = Label(x=-axis_size*2.5, y=layers[i][0], text=str(layers[i][0]), text_font_size='12pt')
+        p.add_layout(work_point_label)
+
+    x, y = 0, 0
+    for k in range(len(water[0])):
+        i = water[0][k]
+        j = water[1][k]
+        if j == y and i != x:
+            pressure_label = Label(x=axis_size*1.5, y=j-0.5, text=str(i), text_font_size='12pt')
+        else:
+            pressure_label = Label(x=axis_size*1.5, y=j, text=str(i), text_font_size='12pt')
+        x, y = i, j
+        p.add_layout(pressure_label)
+
+    return p
+
+

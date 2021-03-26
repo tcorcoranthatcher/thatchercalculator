@@ -824,7 +824,7 @@
     <input type="text" name="water_cut_elev" class="text_box"> If water elev on the passive side is not at the cut, enter it here<br>
     <input type="text" name="cut_elev" class="text_box"> Enter the elevation of the cut.<br>
     <input type="text" name="brace_elev" class="text_box"> Enter the elevation of the brace<br>
-     <input type="text" name="top_sheet" class="text_box"> Enter in the top of sheet if it does not coincide with the top of surface (optional)<br>
+    <input type="text" name="top_sheet" class="text_box"> Enter in the top of sheet if it does not coincide with the top of surface (optional)<br>
     <input type="text" name="supplied_length" class="text_box"> Supplied Length (ft)<br>
     <input type="text" name="scale_factor" class="text_box"> Deflected Shape Scale Factor<br>
     Larger the number, more pronounced deflected shape (try ~2000)<br>
@@ -986,6 +986,10 @@
     <option value="149">NZ 40</option>
     <option value="150">NZ 42</option>
     <option value="151">XZ 95</option>
+    <option value="152">ZZ14-770</option>
+    <option value="153">ZZ19-770</option>
+    <option value="154">ZZ26-770</option>
+    <option value="155">ZZ38-770</option>
 
 
 
@@ -1030,6 +1034,8 @@
     <input type="text" name="beam_override" class="text_box"> (Optional) Beam name <br>
     <input type="text" name="beam_modulus_override" class="text_box"> (Optional) Beam section modulus (in^3) <br>
     <input type="text" name="beam_inertia_override" class="text_box"> (Optional) Beam moment of inertia (in^4)<br>
+    <br>
+    <input type="text" name="save_calculation_name" class="text_box"> Save Calculation As (leave blank to not save)<br>
     <br>
     <input type="submit" value="Calculate" />
     <br>

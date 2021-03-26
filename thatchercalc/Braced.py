@@ -39,6 +39,8 @@ def minimum_length(net_pressures, brace_elev):
     minimum_length = ()
     minimum_length_pressure = ()
     minimum_length_elev = ()
+    output = ()
+    text_output_moments = ()
 
     for i in range(len(net_pressures[1])-1):
         distance = -1*(net_pressures[1][i+1]-net_pressures[1][i])
@@ -91,17 +93,17 @@ def minimum_length(net_pressures, brace_elev):
             else:
                 continue  # executed if the loop ended normally (no break)
             break  # executed if 'continue' was skipped (break)
+    if minimum_length != ():
+        for i in range(len(net_pressures[1])-1):
+            if net_pressures[1][i] >= minimum_length_elev >= net_pressures[1][i+1]:
+                waler_load = waler_load + 0.5*net_slopes[i]*x_distance*x_distance + net_pressures[0][i]*x_distance
+            elif net_pressures[1][i] >= minimum_length_elev:
+                waler_load = waler_load + 0.5*(net_pressures[0][i]+net_pressures[0][i+1])*distances[i]
 
-    for i in range(len(net_pressures[1])-1):
-        if net_pressures[1][i] >= minimum_length_elev >= net_pressures[1][i+1]:
-            waler_load = waler_load + 0.5*net_slopes[i]*x_distance*x_distance + net_pressures[0][i]*x_distance
-        elif net_pressures[1][i] >= minimum_length_elev:
-            waler_load = waler_load + 0.5*(net_pressures[0][i]+net_pressures[0][i+1])*distances[i]
-
-    output = "With x=0 @ elev. " + \
-             str(reference_point) + "': \n" + str(round(moment_constant, 2)) + " + " +\
-             str(round(moment_x_constant, 2)) + '*x + ' + str(round(moment_x2_constant, 2)) + "*x^2 + " + str(round(moment_x3_constant, 2)) + \
-             '*x^3 = 0.  x = ' + str(round(x_distance, 2)) + "."
+        output = "With x=0 @ elev. " + \
+                str(reference_point) + "': \n" + str(round(moment_constant, 2)) + " + " +\
+                str(round(moment_x_constant, 2)) + '*x + ' + str(round(moment_x2_constant, 2)) + "*x^2 + " + str(round(moment_x3_constant, 2)) + \
+                '*x^3 = 0.  x = ' + str(round(x_distance, 2)) + "."
 
     return minimum_length, minimum_length_elev, waler_load, output, minimum_length_pressure, \
            text_output_moments, reference_point
@@ -335,7 +337,7 @@ def deflection_calc(net_pressures, brace_elev, minimum_length_data, sheet_type):
             for j in range(len(def_list)):
                 a = p_elev - brace_elev
                 x = def_list[j][1] - net_pressures[1][-1]
-                deflect = p*a*x*(l*l-x*x)/(6*l)
+                deflect = -p*a*x*(l*l-x*x)/(6*l)
                 def_list[j][0] += deflect
 
         if p_elev < brace_elev:

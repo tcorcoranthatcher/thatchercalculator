@@ -6,7 +6,7 @@ from .Lateral_Pressures import Layer, active_pressures_output, passive_pressures
     passive_pressures_back, cant_pressures, active_pressures_front_output, passive_pressures_back_output, \
     water_around_toe, apparent_pressures, apparent_pressures_output
 from .Pressure_Plot import braced_pressure_plot, surface_plot, cant_pressure_plot, multi_layer_pressure_plot, \
-    strut_pressure_plot
+    strut_pressure_plot, ap_plot, water_plot
 from bokeh.io import save
 from .Braced import minimum_length, multiplier, maximum_moment, deflection_calc, multiplier_optimizer
 from .Footings import footing_surcharge, combine_footings, incorporate_footings, text_output
@@ -21,6 +21,7 @@ from .three_layer import three_layer_minimum_length, three_layer_maximum_moment,
     three_layer_deflection_calc
 from.micropile_joint_bending_capacity import micropile_joint_bending_capacity as joint_capacity_function
 from timeit import default_timer as timer
+from savedcalcs.models import SavedCalc
 import math
 import itertools
 
@@ -416,6 +417,8 @@ def output(request):
     supplied_length = float(request.GET['supplied_length'])
     supplied_elev = top_sheet[0] - supplied_length
 
+    save_calculation_name = request.GET['save_calculation_name']
+
     #  MANIPULATE USER DATA
     for i in range(len(layers)):  # Assign layer properties to work points
         if layers[i][1] == 1.0:
@@ -648,10 +651,19 @@ def output(request):
     zero_point = data[6]
     pressure_plot = braced_pressure_plot(layers, net, brace_elev, min_length_pressure, data[1], data[0], deflection,
                                          scale_factor, multi[1], multi[2], multi[3], zero_point)
+    active_passive_plot = ap_plot(layers, active, passive, cut_elev, 0)
+    water_pressure_plot = water_plot(layers, water)
     surface = surface_plot(surface_array, work_points)
     bending_stress = round(moment*12/1000/sheet_type[2], 2)
     save(pressure_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/pressure_plot.html')
+    save(active_passive_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/active_passive_plot.html')
+    save(water_pressure_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/water_pressure_plot.html')
     save(surface, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/surface.html')
+
+    if save_calculation_name != '':
+        url_output = request.build_absolute_uri
+        saved_calc = SavedCalc(name=save_calculation_name, data=url_output)
+        saved_calc.save()
 
     return render(request, "output.html", {"surcharge": surcharge_output,
                                            "layers": layers,
@@ -688,6 +700,18 @@ def output(request):
 
 def pressure_plot(request):
     return render(request, 'pressure_plot.html')
+
+
+def active_passive_plot(request):
+    return render(request, 'active_passive_plot.html')
+
+
+def water_pressure_plot(request):
+    return render(request, 'water_pressure_plot.html')
+
+
+def cant_pp(request):
+    return render(request, 'cant_pp.html')
 
 
 def surface(request):
@@ -1269,10 +1293,18 @@ def cant_output(request):
     zero_point = data[9]
     pressure_plot = cant_pressure_plot(layers, net, min_length_cant_pressure, min_length_net_pressure, data[1], data[0],
                                        data[5], deflection, scale_factor, cant, multi[1], multi[2], multi[3], zero_point)
+    active_passive_plot = ap_plot(layers, active, passive, cut_elev, 0)
+    cantilever_pressure_plot = ap_plot(layers, active_cant, passive_cant, cut_elev, 1)
+    water_pressure_plot = water_plot(layers, water)
     surface = surface_plot(surface_array, work_points)
     bending_stress = round(moment * 12 / 1000 / sheet_type[2], 2)
     save(pressure_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/pressure_plot.html')
+    save(active_passive_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/active_passive_plot.html')
+    save(cantilever_pressure_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/cant_pp.html')
+    save(water_pressure_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/water_pressure_plot.html')
     save(surface, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/surface.html')
+
+
 
     return render(request, "cant_output.html", {"surcharge": surcharge_output,
                                                 "layers": layers,
@@ -1989,10 +2021,14 @@ def multi_output(request):
     deflection = two_layer_deflection_calc(apparent, brace_elevations[1], data, sheet_type)
     zero_point = data[6]
     pressure_plot = multi_layer_pressure_plot(layers, apparent, brace_elevations, min_length_pressure, data[1], data[0], deflection, scale_factor, multi[1], multi[2], multi[3], zero_point)
+    active_passive_plot = ap_plot(layers, active, passive, cut_elev, 0)
+    water_pressure_plot = water_plot(layers, water)
     surface = surface_plot(surface_array, work_points)
     strut_diagram = strut_pressure_plot(layers, [apparent[2], apparent[3]], brace_elevations)
     bending_stress = round(moment * 12 / 1000 / sheet_type[2], 2)
     save(pressure_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/pressure_plot.html')
+    save(active_passive_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/active_passive_plot.html')
+    save(water_pressure_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/water_pressure_plot.html')
     save(surface, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/surface.html')
     save(strut_diagram, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/strut_diagram.html')
 
@@ -2707,10 +2743,14 @@ def three_output(request):
     zero_point = data[6]
     pressure_plot = multi_layer_pressure_plot(layers, apparent, brace_elevations, min_length_pressure, data[1], data[0],
                                               deflection, scale_factor, multi[1], multi[2], multi[3], zero_point)
+    active_passive_plot = ap_plot(layers, active, passive, cut_elev, 0)
+    water_pressure_plot = water_plot(layers, water)
     surface = surface_plot(surface_array, work_points)
     strut_diagram = strut_pressure_plot(layers, [apparent[2], apparent[3]], brace_elevations)
     bending_stress = round(moment * 12 / 1000 / sheet_type[2], 2)
     save(pressure_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/pressure_plot.html')
+    save(active_passive_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/active_passive_plot.html')
+    save(water_pressure_plot, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/water_pressure_plot.html')
     save(surface, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/surface.html')
     save(strut_diagram, 'C:/Users/tcorcoran/Desktop/thatchercalc/templates/strut_diagram.html')
 
@@ -2856,7 +2896,6 @@ def micropile_output(request):
 
 
 def optimizer_output(request):
-    start = timer()
     # TAKE INPUT DATA FROM USER
     footings = []
     trains = []
@@ -3200,14 +3239,6 @@ def optimizer_output(request):
 
     if request.GET['beam_spacing'] != '':
         beam_spacing = float(request.GET['beam_spacing'])
-    if request.GET['beam_size_override'] != '':
-        beam_type[4] = float(request.GET['beam_size_override']) / 12
-    if request.GET['beam_override'] != '':
-        beam_type[1] = request.GET['beam_override']
-    if request.GET['beam_modulus_override'] != '':
-        beam_type[2] = float(request.GET["beam_modulus_override"])
-    if request.GET['beam_inertia_override'] != '':
-        beam_type[3] = float(request.GET["beam_inertia_override"])
 
     ers_type = float(request.GET['ers_type'])
     if ers_type == 1:
@@ -3363,16 +3394,18 @@ def optimizer_output(request):
 
 
     ######## BEGIN OPTIMIZATION ITERATIONS HERE ############
+    start_iterations = int(request.GET['start_iterations'])
+    end_iterations = int(request.GET['end_iterations'])
     def_sheet_database = sorted(sheet_database, key = lambda x: int(x[3]))
     def_beam_database = sorted(beam_database, key = lambda x: int(x[3]))
     bending_sheet_database = sorted(sheet_database, key = lambda x: int(x[2]))
     bending_beam_database = sorted(beam_database, key = lambda x: int(x[2]))
 
     # iterate brace elevation to determine minimum length, minimum moment, minimum deflection
-    total_iterations = math.floor(int(layers[0][0] - cut_elev))-2
+    total_iterations = math.floor(start_iterations - end_iterations)
     iterations = []
-    for i in range(total_iterations):
-        iterations.append([layers[0][0]-i])
+    for i in range(start_iterations, end_iterations, -1):
+        iterations.append([i])
 
     for iteration in iterations:
         for i in range(1, len(layers)):
@@ -3386,6 +3419,7 @@ def optimizer_output(request):
     for i in range(len(surcharge)):
         layers[i][2] = surcharge_unit_weight * (surcharge[i][1] - layers[0][0])
     for iteration in iterations:
+        start = timer()
         brace_elev = iteration[0]
         cantilever_cut_elev = brace_elev - 2
         cant_water_cut_elev = -999999
@@ -3424,18 +3458,28 @@ def optimizer_output(request):
             braced_net[0].insert(0, 0)
             braced_net[1].insert(0, top_sheet[0])
         cant_data = minimum_length_cantilever(cant_net, cant, cantilever_cut_elev)
-        braced_data = minimum_length(braced_net, brace_elev)
         cant_moment = maximum_moment_cantilever(cant_net)
+        braced_moment = [0]
+        braced_data = minimum_length(braced_net, brace_elev)
+        if braced_data[0] == ():
+            print(str(iteration[0]) + " does not work because brace doesnt solve")
+            iteration = "does not work"
+            continue
         braced_moment = maximum_moment(braced_net, braced_data[2], brace_elev)
+        cant_moment = maximum_moment_cantilever(cant_net)
         max_moment = max(cant_moment[0], braced_moment[0])
         iteration.append(max_moment)
 
         cant_multi = multiplier_cantilever_optimizer(cant_net, cant, cant_data, cantilever_cut_elev)
         if cant_multi == ([],[]):
+            print(str(iteration[0]) + " does not work because not enough length to cantilever")
             iteration = "does not work"
+            break
         braced_multi = multiplier_optimizer(braced_net, brace_elev, braced_data)
         if braced_multi == ([],[]):
+            print(str(iteration[0]) + " does not work because not enough length for braced")
             iteration = "does not work"
+            continue
 
         if iteration != "does not work":
             optimized_length = max(cant_multi[1], braced_multi[1], layers[0][0]-cut_elev+5)
@@ -3444,12 +3488,25 @@ def optimizer_output(request):
             # need to compute deflection for both, combine, report the max
             cant_deflection = deflection_calc_cantilever(cant_net, cant_data, [0, 0, 0, 1])[0]
             braced_deflection = deflection_calc(braced_net, brace_elev, braced_data, [0, 0, 0, 1])[0]
-            total_deflection = cant_deflection
-            for i in range(len(braced_deflection)):
-                for j in range(len(total_deflection)):
-                    if braced_deflection[i][1] == total_deflection[j][1]:
-                        total_deflection[j][0] += braced_deflection[i][0]
+            total_deflection = []
+            for i in range(len(layers)):
+                total_deflection.append([0, layers[i][0]])
+            for i in range(len(total_deflection)):
+                for j in range(len(cant_deflection)):
+                    if total_deflection[i][1] == cant_deflection[j][1]:
+                        total_deflection[i][0] += cant_deflection[j][0]
                         break
+            for i in range(len(total_deflection)):
+                for j in range(len(braced_deflection)):
+                    if total_deflection[i][1] == braced_deflection[j][1]:
+                        total_deflection[i][0] += braced_deflection[j][0]
+                        break
+
+            # for i in range(len(braced_deflection)):
+            #     for j in range(len(total_deflection)):
+            #         if braced_deflection[i][1] == total_deflection[j][1]:
+            #             total_deflection[j][0] += braced_deflection[i][0]
+            #             break
             max_def_list = sorted(total_deflection, key=lambda x: x[0], reverse=True)
             max_deflection = round(max_def_list[0][0], 3)
             max_deflection_elev = round(max_def_list[0][1], 2)
@@ -3459,77 +3516,95 @@ def optimizer_output(request):
                 old_deflection = []
                 for i in range(len(def_sheet_database)):
                     deflection = max_deflection/def_sheet_database[i][3]
-                    if old_deflection == [] and deflection < 2:
+                    bending_stress = max_moment *0.012/def_sheet_database[i][2]
+                    if old_deflection == [] and deflection < 2 and bending_stress < 32:
                         iteration.append(def_sheet_database[i])
                         iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
                         break
-                    if old_deflection != [] and old_deflection>= 2 and deflection < 2:
+                    if old_deflection != [] and old_deflection>= 2 and deflection < 2 and bending_stress < 32:
                         iteration.append(def_sheet_database[i])
                         iteration.append(deflection)
-                        break
-                old_deflection = []
-                for i in range(len(def_sheet_database)):
-                    deflection = max_deflection / def_sheet_database[i][3]
-                    if old_deflection == [] and deflection < 1:
-                        iteration.append(def_sheet_database[i])
-                        iteration.append(deflection)
-                        break
-                    if old_deflection != [] and old_deflection >= 1 and deflection < 1:
-                        iteration.append(def_sheet_database[i])
-                        iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
                         break
                 old_deflection = []
                 for i in range(len(def_sheet_database)):
+                    bending_stress = max_moment * 0.012 / def_sheet_database[i][2]
                     deflection = max_deflection / def_sheet_database[i][3]
-                    if old_deflection == [] and deflection < 0.25:
+                    if old_deflection == [] and deflection < 1 and bending_stress < 32:
                         iteration.append(def_sheet_database[i])
                         iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
                         break
-                    if old_deflection != [] and old_deflection >= 0.25 and deflection < 0.25:
+                    if old_deflection != [] and old_deflection >= 1 and deflection < 1 and bending_stress < 32:
                         iteration.append(def_sheet_database[i])
                         iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
+                        break
+                old_deflection = []
+                for i in range(len(def_sheet_database)):
+                    bending_stress = max_moment * 0.012 / def_sheet_database[i][2]
+                    deflection = max_deflection / def_sheet_database[i][3]
+                    if old_deflection == [] and deflection < 0.25 and bending_stress < 32:
+                        iteration.append(def_sheet_database[i])
+                        iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
+                        break
+                    if old_deflection != [] and old_deflection >= 0.25 and deflection < 0.25 and bending_stress < 32:
+                        iteration.append(def_sheet_database[i])
+                        iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
                         break
             if ers_type == 1:
                 old_deflection = []
                 for i in range(len(def_beam_database)):
                     deflection = max_deflection/def_beam_database[i][3]
-                    if old_deflection == [] and deflection < 2:
+                    bending_stress = max_moment * 0.012 / def_beam_database[i][2]
+                    if old_deflection == [] and deflection < 2 and bending_stress < 32:
                         iteration.append(def_beam_database[i])
                         iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
                         break
-                    if old_deflection != [] and old_deflection>= 2 and deflection < 2:
+                    if old_deflection != [] and old_deflection>= 2 and deflection < 2 and bending_stress < 32:
                         iteration.append(def_beam_database[i])
                         iteration.append(deflection)
-                        break
-                old_deflection = []
-                for i in range(len(def_sheet_database)):
-                    deflection = max_deflection / def_beam_database[i][3]
-                    if old_deflection == [] and deflection < 1:
-                        iteration.append(def_beam_database[i])
-                        iteration.append(deflection)
-                        break
-                    if old_deflection != [] and old_deflection >= 1 and deflection < 1:
-                        iteration.append(def_beam_database[i])
-                        iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
                         break
                 old_deflection = []
                 for i in range(len(def_sheet_database)):
                     deflection = max_deflection / def_beam_database[i][3]
-                    if old_deflection == [] and deflection < 0.25:
+                    bending_stress = max_moment * 0.012 / def_beam_database[i][2]
+                    if old_deflection == [] and deflection < 1 and bending_stress < 32:
                         iteration.append(def_beam_database[i])
                         iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
                         break
-                    if old_deflection != [] and old_deflection >= 0.25 and deflection < 0.25:
+                    if old_deflection != [] and old_deflection >= 1 and deflection < 1 and bending_stress < 32:
                         iteration.append(def_beam_database[i])
                         iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
+                        break
+                old_deflection = []
+                for i in range(len(def_sheet_database)):
+                    deflection = max_deflection / def_beam_database[i][3]
+                    bending_stress = max_moment * 0.012 / def_beam_database[i][2]
+                    if old_deflection == [] and deflection < 0.25 and bending_stress < 32:
+                        iteration.append(def_beam_database[i])
+                        iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
+                        break
+                    if old_deflection != [] and old_deflection >= 0.25 and deflection < 0.25 and bending_stress < 32:
+                        iteration.append(def_beam_database[i])
+                        iteration.append(deflection)
+                        iteration.append(round(bending_stress, 2))
                         break
 
         end = timer()
-        print("iteration complete", iteration, str(end)+" seconds")
+        print("iteration complete", iteration, str(round(end-start,1))+" seconds")
 
     new_iterations = []
     for iteration in iterations:
-        if len(iteration) == 11:
+        if len(iteration) == 14:
             new_iterations.append(iteration)
     iterations = new_iterations
     # for iteration in iterations:
@@ -3550,8 +3625,6 @@ def optimizer_output(request):
     min_deflection_output = "Minimum deflection of " + str(
         min_moment[0][3]) + "/I occurs at installing the brace at elevation " + str(min_deflection[0][0]) + "'"
 
-
-
     output = []
     for iteration in iterations:
         output.append("")
@@ -3561,25 +3634,25 @@ def optimizer_output(request):
         output.append(output_string)
         output_string = "Length =  " + str(iteration[2]) + "'"
         output.append(output_string)
-        output_string = "Deflection/Min Deflection =  " + str(iteration[11])
+        output_string = "Deflection/Min Deflection =  " + str(iteration[14])
         output.append(output_string)
         output_string = 'To achieve a deflection under 2", use ' + str(
             iteration[5][1]) + " or greater which results in deflection of " + str(
-            round(iteration[6], 2)) + '" at elevation ' + str(iteration[4]) + "'"
+            round(iteration[6], 2)) + '" at elevation ' + str(iteration[4]) + "' and a bending stress of " + str(iteration[7]) + " ksi"
         output.append(output_string)
         output_string = 'To achieve a deflection under 1", use ' + str(
-            iteration[7][1]) + " or greater which results in deflection of " + str(
-            round(iteration[8], 2)) + '" at elevation ' + str(iteration[4]) + "'"
+            iteration[8][1]) + " or greater which results in deflection of " + str(
+            round(iteration[9], 2)) + '" at elevation ' + str(iteration[4]) + "' and a bending stress of " + str(iteration[10]) + " ksi"
         output.append(output_string)
         output_string = 'To achieve a deflection under 0.25", use ' + str(
-            iteration[9][1]) + " or greater which results in deflection of " + str(
-            round(iteration[10], 2)) + '" at elevation ' + str(iteration[4]) + "'"
+            iteration[11][1]) + " or greater which results in deflection of " + str(
+            round(iteration[12], 2)) + '" at elevation ' + str(iteration[4]) + "' and a bending stress of " + str(iteration[13]) + " ksi"
         output.append(output_string)
         output.append("")
 
-
+    end = timer()
     print(iterations)
-
+    print(request.build_absolute_uri)
     return render(request, 'optimizer_output.html', {"iterations": iterations,
                                                      "output": output,
                                                      "min_moment":min_moment_output,
