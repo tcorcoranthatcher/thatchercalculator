@@ -49,7 +49,1441 @@
 
 <h1>Three-Level Braced Wall Calculator</h1>
 
+{% if cut_elev %}
+<form action="{% url 'three_output' %}">
+    <h3>Input Footings and/or Rails</h3>
+    <div class="grid-container-footings">
+        <div class="grid-item-footings">
+        Footing 1
+            <br>
+            <input type="text" name="footing_1_type" class="text_box" value={{footing_1_type}}><br>
+            <input type="text" name="footing_1_width" class="text_box" value={{footing_1_width}}><br>
+            <input type="text" name="footing_1_distance" class="text_box" value={{footing_1_distance}}><br>
+            <input type="text" name="footing_1_elevation" class="text_box" value={{footing_1_elevation}}><br>
+            <input type="text" name="footing_1_load" class="text_box" value={{footing_1_load}}><br>
+            <input type="text" name="footing_1_spacing_1" class="text_box" value={{footing_1_spacing_1}}><br>
+            <input type="text" name="footing_1_spacing_2" class="text_box" value={{footing_1_spacing_2}}><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Footing 2
+            <br>
+            <input type="text" name="footing_2_type" class="text_box" value={{footing_2_type}}><br>
+            <input type="text" name="footing_2_width" class="text_box" value={{footing_2_width}}><br>
+            <input type="text" name="footing_2_distance" class="text_box" value={{footing_2_distance}}><br>
+            <input type="text" name="footing_2_elevation" class="text_box" value={{footing_2_elevation}}><br>
+            <input type="text" name="footing_2_load" class="text_box" value={{footing_2_load}}><br>
+            <input type="text" name="footing_2_spacing_1" class="text_box" value={{footing_2_spacing_1}}><br>
+            <input type="text" name="footing_2_spacing_2" class="text_box" value={{footing_2_spacing_2}}><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Footing 3
+            <br>
+            <input type="text" name="footing_3_type" class="text_box" value={{footing_3_type}}><br>
+            <input type="text" name="footing_3_width" class="text_box" value={{footing_3_width}}><br>
+            <input type="text" name="footing_3_distance" class="text_box" value={{footing_3_distance}}><br>
+            <input type="text" name="footing_3_elevation" class="text_box" value={{footing_3_elevation}}><br>
+            <input type="text" name="footing_3_load" class="text_box" value={{footing_3_load}}><br>
+            <input type="text" name="footing_3_spacing_1" class="text_box" value={{footing_3_spacing_1}}><br>
+            <input type="text" name="footing_3_spacing_2" class="text_box" value={{footing_3_spacing_2}}><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Footing 4
+            <br>
+            <input type="text" name="footing_4_type" class="text_box" value={{footing_4_type}}><br>
+            <input type="text" name="footing_4_width" class="text_box" value={{footing_4_width}}><br>
+            <input type="text" name="footing_4_distance" class="text_box" value={{footing_4_distance}}><br>
+            <input type="text" name="footing_4_elevation" class="text_box" value={{footing_4_elevation}}><br>
+            <input type="text" name="footing_4_load" class="text_box" value={{footing_4_load}}><br>
+            <input type="text" name="footing_4_spacing_1" class="text_box" value={{footing_4_spacing_1}}><br>
+            <input type="text" name="footing_4_spacing_2" class="text_box" value={{footing_4_spacing_2}}><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            <br>
+            0 is continuous, 1 is spread<br>
+            Width<br>
+            Distance from center line of footing to wall<br>
+            Elevation of bottom of footing<br>
+            Load in plf for continuous, lbs for spread<br>
+            Spacing to closest footing (0 if continuous)<br>
+            Spacing to next closest footing (0 if continuous)<br>
+        </div>
+    </div>
+    <br>
+    <div class="grid-container-footings">
+        <div class="grid-item-footings">
+            Train 1
+            <br>
+            <input type="text" name="train_1_distance" class="text_box" value={{train_1_distance}}><br>
+            <input type="text" name="train_1_load" class="text_box" value={{train_1_load}}><br>
+            <input type="text" name="train_1_tie_size" class="text_box" value={{train_1_tie_size}}><br>
+            <input type="text" name="train_1_elevation" class="text_box" value={{train_1_elevation}}><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Train 2
+            <br>
+            <input type="text" name="train_2_distance" class="text_box" value={{train_2_distance}}><br>
+            <input type="text" name="train_2_load" class="text_box" value={{train_2_load}}><br>
+            <input type="text" name="train_2_tie_size" class="text_box" value={{train_2_tie_size}}><br>
+            <input type="text" name="train_2_elevation" class="text_box" value={{train_2_elevation}}><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Train 3
+            <br>
+            <input type="text" name="train_3_distance" class="text_box" value={{train_3_distance}}><br>
+            <input type="text" name="train_3_load" class="text_box" value={{train_3_load}}><br>
+            <input type="text" name="train_3_tie_size" class="text_box" value={{train_3_tie_size}}><br>
+            <input type="text" name="train_3_elevation" class="text_box" value={{train_3_elevation}}><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            Train 4
+            <br>
+            <input type="text" name="train_4_distance" class="text_box" value={{train_4_distance}}><br>
+            <input type="text" name="train_4_load" class="text_box" value={{train_4_load}}><br>
+            <input type="text" name="train_4_tie_size" class="text_box" value={{train_4_tie_size}}><br>
+            <input type="text" name="train_4_elevation" class="text_box" value={{train_4_elevation}}><br>
+            <br>
+        </div>
+        <div class="grid-item-footings">
+            <br>
+             Distance from edge of tie to sheeting<br>
+             Q, Strip Load Surcharge<br>
+             Tie Size<br>
+             Elevation of train track<br>
+            <br>
+        </div>
+    </div>
+    <h3>What side is the surface on?</h3>
+     {% if surface_side == -1 %}
+    <input type="radio" name="surface_side" value="-1" checked>Left of ERS<br>
+    <input type="radio" name="surface_side" value="1">Right of ERS<br>
+    {% else %}
+    <input type="radio" name="surface_side" value="-1">Left of ERS<br>
+    <input type="radio" name="surface_side" value="1" checked>Right of ERS<br>
+    {% endif %}
+    <h3>Input surface points</h3>
+    Input coordinates starting from the ERS point and going sequentially along the surface.<br>
+    <br>
+    <div class="grid-container-surface">
+        <div class="grid-item-surface">
+            <input type="text" name="point0x" class="text_box_surface" value={{point0x}}>0x<br>
+            <input type="text" name="point0y" class="text_box_surface" value={{point0y}}>0y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point1x" class="text_box_surface" value={{point1x}}>1x<br>
+            <input type="text" name="point1y" class="text_box_surface" value={{point1y}}>1y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point2x" class="text_box_surface" value={{point2x}}>2x<br>
+            <input type="text" name="point2y" class="text_box_surface" value={{point2y}}>2y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point3x" class="text_box_surface" value={{point3x}}>3x<br>
+            <input type="text" name="point3y" class="text_box_surface" value={{point3y}}>3y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point4x" class="text_box_surface" value={{point4x}}>4x<br>
+            <input type="text" name="point4y" class="text_box_surface" value={{point4y}}>4y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point5x" class="text_box_surface" value={{point5x}}>5x<br>
+            <input type="text" name="point5y" class="text_box_surface" value={{point5y}}>5y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point6x" class="text_box_surface" value={{point6x}}>6x<br>
+            <input type="text" name="point6y" class="text_box_surface" value={{point6y}}>6y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point7x" class="text_box_surface" value={{point7x}}>7x<br>
+            <input type="text" name="point7y" class="text_box_surface" value={{point7y}}>7y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point8x" class="text_box_surface" value={{point8x}}>8x<br>
+            <input type="text" name="point8y" class="text_box_surface" value={{point8y}}>8y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point9x" class="text_box_surface" value={{point9x}}>9x<br>
+            <input type="text" name="point9y" class="text_box_surface" value={{point9y}}>9y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point10x" class="text_box_surface" value={{point10x}}>10x<br>
+            <input type="text" name="point10y" class="text_box_surface" value={{point10y}}>10y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point11x" class="text_box_surface" value={{point11x}}>11x<br>
+            <input type="text" name="point11y" class="text_box_surface" value={{point11y}}>11y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point12x" class="text_box_surface" value={{point12x}}>12x<br>
+            <input type="text" name="point12y" class="text_box_surface" value={{point12y}}>12y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="point13x" class="text_box_surface" value={{point13x}}>13x<br>
+            <input type="text" name="point13y" class="text_box_surface" value={{point13y}}>13y<br>
+        </div>
+    </div>
+    <h3>Surcharge Parameters</h3>
+    <input type="text" name="surcharge_unit_weight" class="text_box" value={{surcharge_unit_weight}}>
+    Enter unit weight of surcharge soil to be considered in pcf.<br>
+    <input type="text" name="min_surcharge_height" class="text_box" value={{min_surcharge_height}}>
+    Enter minimum surcharge height for all layers (leave blank if does not apply)<br>
+    <h3>Failure Angle</h3>
+     {% if angle == 45 %}
+    <input type="radio" name="angle" value="45" checked>45 deg<br>
+    <input type="radio" name="angle" value="55">55 deg<br>
+    {% else %}
+    <input type="radio" name="angle" value="45">45 deg<br>
+    <input type="radio" name="angle" value="55" checked>55 deg<br>
+    {% endif %}
+    <br>
+    <input type="text" name="angle_change_elev" class="text_box" value={{angle_change_elev}}>
+    At what elevation does the angle change? (leave blank if does not apply)<br>
+    <br>
+     {% if angle_change_type == 0 %}
+    <input type="radio" name="angle_change_type" value="0" checked>Does not apply<br>
+    {% else %}
+    <input type="radio" name="angle_change_type" value="0">Does not apply<br>
+    {% endif %}
+    {% if angle_change_type == 1 %}
+    <input type="radio" name="angle_change_type" value="1" checked>Sand-over-clay (use 55 degree angle)<br>
+    {% else %}
+    <input type="radio" name="angle_change_type" value="1">Sand-over-clay (use 55 degree angle)<br>
+    {% endif %}
+    {% if angle_change_type == 2 %}
+    <input type="radio" name="angle_change_type" value="2" checked>Clay-over-sand (use 45 degree angle)<br>
+    {% else %}
+    <input type="radio" name="angle_change_type" value="2">Clay-over-sand (use 45 degree angle)<br>
+    {% endif %}
+    <br>
+    <h3>Input berm (if applicable)</h3>
+    Input coordinates starting from the ERS point and going sequentially along the berm.<br>
+     <div class="grid-container-surface">
+        <div class="grid-item-surface">
+            <input type="text" name="berm0x" class="text_box_surface" value={{berm0x}}>0x<br>
+            <input type="text" name="berm0y" class="text_box_surface" value={{berm0y}}>0y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm1x" class="text_box_surface" value={{berm1x}}>1x<br>
+            <input type="text" name="berm1y" class="text_box_surface" value={{berm1y}}>1y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm2x" class="text_box_surface" value={{berm2x}}>2x<br>
+            <input type="text" name="berm2y" class="text_box_surface" value={{berm2y}}>2y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm3x" class="text_box_surface" value={{berm3x}}>3x<br>
+            <input type="text" name="berm3y" class="text_box_surface" value={{berm3y}}>3y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm4x" class="text_box_surface" value={{berm4x}}>4x<br>
+            <input type="text" name="berm4y" class="text_box_surface" value={{berm4y}}>4y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm5x" class="text_box_surface" value={{berm5x}}>5x<br>
+            <input type="text" name="berm5y" class="text_box_surface" value={{berm5y}}>5y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm6x" class="text_box_surface" value={{berm6x}}>6x<br>
+            <input type="text" name="berm6y" class="text_box_surface" value={{berm6y}}>6y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm7x" class="text_box_surface" value={{berm7x}}>7x<br>
+            <input type="text" name="berm7y" class="text_box_surface" value={{berm7y}}>7y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm8x" class="text_box_surface" value={{berm8x}}>8x<br>
+            <input type="text" name="berm8y" class="text_box_surface" value={{berm8y}}>8y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm9x" class="text_box_surface" value={{berm9x}}>9x<br>
+            <input type="text" name="berm9y" class="text_box_surface" value={{berm9y}}>9y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm10x" class="text_box_surface" value={{berm10x}}>10x<br>
+            <input type="text" name="berm10y" class="text_box_surface" value={{berm10y}}>10y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm11x" class="text_box_surface" value={{berm11x}}>11x<br>
+            <input type="text" name="berm11y" class="text_box_surface" value={{berm11y}}>11y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm12x" class="text_box_surface" value={{berm12x}}>12x<br>
+            <input type="text" name="berm12y" class="text_box_surface" value={{berm12y}}>12y<br>
+            <br>
+        </div>
+        <div class="grid-item-surface">
+            <input type="text" name="berm13x" class="text_box_surface" value={{berm13x}}>13x<br>
+            <input type="text" name="berm13y" class="text_box_surface" value={{berm13y}}>13y<br>
+        </div>
+    </div>
+    <h3>Input Soil Properties</h3>
+    *To use Ka(min) other than 0.25, enter a cohesive soil with a Ka not equal to one<br>
+    <br>
+    <div class="grid-container-soils">
+        <div class="grid-item-soils">
+            Layer 1: <br>
+            <input type="hidden" name="1.type" value="0">
+            {% if onetype == 0 %}
+            <input type="radio" name="1.type" value="0" checked><br>
+            <input type="radio" name="1.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="1.type" value="0"><br>
+            <input type="radio" name="1.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="1.name" class="text_box_soils" value={{onename}}><br>
+            <input type="text" name="1.gamma" class="text_box_soils" value={{onegamma}}><br>
+            <input type="text" name="1.qu" class="text_box_soils" value={{onequ}}><br>
+            <input type="text" name="1.ka" class="text_box_soils" value={{oneka}}><br>
+            <input type="text" name="1.kp" class="text_box_soils" value={{onekp}}><br>
+            <input type="text" name="1.phi" class="text_box_soils" value={{onephi}}><br>
+            <br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 2: <br>
+            <input type="hidden" name="2.type" value="0">
+            {% if twotype == 0 %}
+            <input type="radio" name="2.type" value="0" checked><br>
+            <input type="radio" name="2.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="2.type" value="0"><br>
+            <input type="radio" name="2.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="2.name" class="text_box_soils" value={{twoname}}><br>
+            <input type="text" name="2.gamma" class="text_box_soils" value={{twogamma}}><br>
+            <input type="text" name="2.qu" class="text_box_soils" value={{twoqu}}><br>
+            <input type="text" name="2.ka" class="text_box_soils" value={{twoka}}><br>
+            <input type="text" name="2.kp" class="text_box_soils" value={{twokp}}><br>
+            <input type="text" name="2.phi" class="text_box_soils" value={{twophi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 3: <br>
+            <input type="hidden" name="3.type" value="0">
+            {% if threetype == 0 %}
+            <input type="radio" name="3.type" value="0" checked><br>
+            <input type="radio" name="3.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="3.type" value="0"><br>
+            <input type="radio" name="3.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="3.name" class="text_box_soils" value={{threename}}><br>
+            <input type="text" name="3.gamma" class="text_box_soils" value={{threegamma}}><br>
+            <input type="text" name="3.qu" class="text_box_soils" value={{threequ}}><br>
+            <input type="text" name="3.ka" class="text_box_soils" value={{threeka}}><br>
+            <input type="text" name="3.kp" class="text_box_soils" value={{threekp}}><br>
+            <input type="text" name="3.phi" class="text_box_soils" value={{threephi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 4: <br>
+            <input type="hidden" name="4.type" value="0">
+            {% if fourtype == 0 %}
+            <input type="radio" name="4.type" value="0" checked><br>
+            <input type="radio" name="4.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="4.type" value="0"><br>
+            <input type="radio" name="4.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="4.name" class="text_box_soils" value={{fourname}}><br>
+            <input type="text" name="4.gamma" class="text_box_soils" value={{fourgamma}}><br>
+            <input type="text" name="4.qu" class="text_box_soils" value={{fourqu}}><br>
+            <input type="text" name="4.ka" class="text_box_soils" value={{fourka}}><br>
+            <input type="text" name="4.kp" class="text_box_soils" value={{fourkp}}><br>
+            <input type="text" name="4.phi" class="text_box_soils" value={{fourphi}}><br>
+        </div>
+        <div class=grid-item-soils">
+            Layer 5: <br>
+            <input type="hidden" name="5.type" value="0">
+            {% if fivetype == 0 %}
+            <input type="radio" name="5.type" value="0" checked><br>
+            <input type="radio" name="5.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="5.type" value="0"><br>
+            <input type="radio" name="5.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="5.name" class="text_box_soils" value={{fivename}}><br>
+            <input type="text" name="5.gamma" class="text_box_soils" value={{fivegamma}}><br>
+            <input type="text" name="5.qu" class="text_box_soils" value={{fivequ}}><br>
+            <input type="text" name="5.ka" class="text_box_soils" value={{fiveka}}><br>
+            <input type="text" name="5.kp" class="text_box_soils" value={{fivekp}}><br>
+            <input type="text" name="5.phi" class="text_box_soils" value={{fivephi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 6: <br>
+            <input type="hidden" name="6.type" value="0">
+           {% if sixtype == 0 %}
+            <input type="radio" name="6.type" value="0" checked><br>
+            <input type="radio" name="6.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="6.type" value="0"><br>
+            <input type="radio" name="6.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="6.name" class="text_box_soils" value={{sixname}}><br>
+            <input type="text" name="6.gamma" class="text_box_soils" value={{sixgamma}}><br>
+            <input type="text" name="6.qu" class="text_box_soils" value={{sixqu}}><br>
+            <input type="text" name="6.ka" class="text_box_soils" value={{sixka}}><br>
+            <input type="text" name="6.kp" class="text_box_soils" value={{sixkp}}><br>
+            <input type="text" name="6.phi" class="text_box_soils" value={{sixphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 7: <br>
+            <input type="hidden" name="7.type" value="0">
+            {% if seventype == 0 %}
+            <input type="radio" name="7.type" value="0" checked><br>
+            <input type="radio" name="7.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="7.type" value="0"><br>
+            <input type="radio" name="7.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="7.name" class="text_box_soils" value={{sevenname}}><br>
+            <input type="text" name="7.gamma" class="text_box_soils" value={{sevengamma}}><br>
+            <input type="text" name="7.qu" class="text_box_soils" value={{sevenqu}}><br>
+            <input type="text" name="7.ka" class="text_box_soils" value={{sevenka}}><br>
+            <input type="text" name="7.kp" class="text_box_soils" value={{sevenkp}}><br>
+            <input type="text" name="7.phi" class="text_box_soils" value={{sevenphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+             <br>
+            Granular or<br>
+            Cohesive<br>
+            Name<br>
+            ɣ(pcf)<br>
+            qu(tsf) <br>
+            Ka <br>
+            Kp <br>
+            ϕ(°) <br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 8: <br>
+            <input type="hidden" name="8.type" value="0">
+            {% if eighttype == 0 %}
+            <input type="radio" name="8.type" value="0" checked><br>
+            <input type="radio" name="8.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="8.type" value="0"><br>
+            <input type="radio" name="8.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="8.name" class="text_box_soils" value={{eightname}}><br>
+            <input type="text" name="8.gamma" class="text_box_soils" value={{eightgamma}}><br>
+            <input type="text" name="8.qu" class="text_box_soils" value={{eightqu}}><br>
+            <input type="text" name="8.ka" class="text_box_soils" value={{eightka}}><br>
+            <input type="text" name="8.kp" class="text_box_soils" value={{eightkp}}><br>
+            <input type="text" name="8.phi" class="text_box_soils" value={{eightphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 9: <br>
+            <input type="hidden" name="9.type" value="0">
+            {% if ninetype == 0 %}
+            <input type="radio" name="9.type" value="0" checked><br>
+            <input type="radio" name="9.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="9.type" value="0"><br>
+            <input type="radio" name="9.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="9.name" class="text_box_soils" value={{ninename}}><br>
+            <input type="text" name="9.gamma" class="text_box_soils" value={{ninegamma}}><br>
+            <input type="text" name="9.qu" class="text_box_soils" value={{ninequ}}><br>
+            <input type="text" name="9.ka" class="text_box_soils" value={{nineka}}><br>
+            <input type="text" name="9.kp" class="text_box_soils" value={{ninekp}}><br>
+            <input type="text" name="9.phi" class="text_box_soils" value={{ninephi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 10: <br>
+            <input type="hidden" name="10.type" value="0">
+            {% if tentype == 0 %}
+            <input type="radio" name="10.type" value="0" checked><br>
+            <input type="radio" name="10.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="10.type" value="0"><br>
+            <input type="radio" name="10.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="10.name" class="text_box_soils" value={{tenname}}><br>
+            <input type="text" name="10.gamma" class="text_box_soils" value={{tengamma}}><br>
+            <input type="text" name="10.qu" class="text_box_soils" value={{tenqu}}><br>
+            <input type="text" name="10.ka" class="text_box_soils" value={{tenka}}><br>
+            <input type="text" name="10.kp" class="text_box_soils" value={{tenkp}}><br>
+            <input type="text" name="10.phi" class="text_box_soils" value={{tenphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 11: <br>
+            <input type="hidden" name="11.type" value="0">
+            {% if eleventype == 0 %}
+            <input type="radio" name="11.type" value="0" checked><br>
+            <input type="radio" name="11.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="11.type" value="0"><br>
+            <input type="radio" name="11.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="11.name" class="text_box_soils" value={{elevenname}}><br>
+            <input type="text" name="11.gamma" class="text_box_soils" value={{elevengamma}}><br>
+            <input type="text" name="11.qu" class="text_box_soils" value={{elevenqu}}><br>
+            <input type="text" name="11.ka" class="text_box_soils" value={{elevenka}}><br>
+            <input type="text" name="11.kp" class="text_box_soils" value={{elevenkp}}><br>
+            <input type="text" name="11.phi" class="text_box_soils" value={{elevenphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 12: <br>
+            <input type="hidden" name="12.type" value="0">
+            {% if twelvetype == 0 %}
+            <input type="radio" name="12.type" value="0" checked><br>
+            <input type="radio" name="12.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="12.type" value="0"><br>
+            <input type="radio" name="12.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="12.name" class="text_box_soils" value={{twelvename}}><br>
+            <input type="text" name="12.gamma" class="text_box_soils" value={{twelvegamma}}><br>
+            <input type="text" name="12.qu" class="text_box_soils" value={{twelvequ}}><br>
+            <input type="text" name="12.ka" class="text_box_soils" value={{twelveka}}><br>
+            <input type="text" name="12.kp" class="text_box_soils" value={{twelvekp}}><br>
+            <input type="text" name="12.phi" class="text_box_soils" value={{twelvephi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 13: <br>
+            <input type="hidden" name="13.type" value="0">
+            {% if thirteentype == 0 %}
+            <input type="radio" name="13.type" value="0" checked><br>
+            <input type="radio" name="13.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="13.type" value="0"><br>
+            <input type="radio" name="13.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="13.name" class="text_box_soils" value={{thirteenname}}><br>
+            <input type="text" name="13.gamma" class="text_box_soils" value={{thirteengamma}}><br>
+            <input type="text" name="13.qu" class="text_box_soils" value={{thirteenqu}}><br>
+            <input type="text" name="13.ka" class="text_box_soils" value={{thirteenka}}><br>
+            <input type="text" name="13.kp" class="text_box_soils" value={{thirteenkp}}><br>
+            <input type="text" name="13.phi" class="text_box_soils" value={{thirteenphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            Layer 14: <br>
+            <input type="hidden" name="14.type" value="0">
+            {% if fourteentype == 0 %}
+            <input type="radio" name="14.type" value="0" checked><br>
+            <input type="radio" name="14.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="14.type" value="0"><br>
+            <input type="radio" name="14.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="14.name" class="text_box_soils" value={{fourteenname}}><br>
+            <input type="text" name="14.gamma" class="text_box_soils" value={{fourteengamma}}><br>
+            <input type="text" name="14.qu" class="text_box_soils" value={{fourteenqu}}><br>
+            <input type="text" name="14.ka" class="text_box_soils" value={{fourteenka}}><br>
+            <input type="text" name="14.kp" class="text_box_soils" value={{fourteenkp}}><br>
+            <input type="text" name="14.phi" class="text_box_soils" value={{fourteenphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Granular or<br>
+            Cohesive<br>
+            Name<br>
+            ɣ(pcf)<br>
+            qu(tsf) <br>
+            Ka <br>
+            Kp <br>
+            ϕ(°) <br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 15: <br>
+            <input type="hidden" name="15.type" value="0">
+            {% if fifteentype == 0 %}
+            <input type="radio" name="15.type" value="0" checked><br>
+            <input type="radio" name="15.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="15.type" value="0"><br>
+            <input type="radio" name="15.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="15.name" class="text_box_soils" value={{fifteenname}}><br>
+            <input type="text" name="15.gamma" class="text_box_soils" value={{fifteengamma}}><br>
+            <input type="text" name="15.qu" class="text_box_soils" value={{fifteenqu}}><br>
+            <input type="text" name="15.ka" class="text_box_soils" value={{fifteenka}}><br>
+            <input type="text" name="15.kp" class="text_box_soils" value={{fifteenkp}}><br>
+            <input type="text" name="15.phi" class="text_box_soils" value={{fifteenphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 16: <br>
+            <input type="hidden" name="16.type" value="0">
+            {% if sixteentype == 0 %}
+            <input type="radio" name="16.type" value="0" checked><br>
+            <input type="radio" name="16.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="16.type" value="0"><br>
+            <input type="radio" name="16.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="16.name" class="text_box_soils" value={{sixteenname}}><br>
+            <input type="text" name="16.gamma" class="text_box_soils" value={{sixteengamma}}><br>
+            <input type="text" name="16.qu" class="text_box_soils" value={{sixteenqu}}><br>
+            <input type="text" name="16.ka" class="text_box_soils" value={{sixteenka}}><br>
+            <input type="text" name="16.kp" class="text_box_soils" value={{sixteenkp}}><br>
+            <input type="text" name="16.phi" class="text_box_soils" value={{sixteenphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 17: <br>
+            <input type="hidden" name="17.type" value="0">
+            {% if seventeentype == 0 %}
+            <input type="radio" name="17.type" value="0" checked><br>
+            <input type="radio" name="17.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="17.type" value="0"><br>
+            <input type="radio" name="17.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="17.name" class="text_box_soils" value={{seventeenname}}><br>
+            <input type="text" name="17.gamma" class="text_box_soils" value={{seventeengamma}}><br>
+            <input type="text" name="17.qu" class="text_box_soils" value={{seventeenqu}}><br>
+            <input type="text" name="17.ka" class="text_box_soils" value={{seventeenka}}><br>
+            <input type="text" name="17.kp" class="text_box_soils" value={{seventeenkp}}><br>
+            <input type="text" name="17.phi" class="text_box_soils" value={{seventeenphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 18: <br>
+            <input type="hidden" name="18.type" value="0">
+            {% if eighteentype == 0 %}
+            <input type="radio" name="18.type" value="0" checked><br>
+            <input type="radio" name="18.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="18.type" value="0"><br>
+            <input type="radio" name="18.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="18.name" class="text_box_soils" value={{eighteenname}}><br>
+            <input type="text" name="18.gamma" class="text_box_soils" value={{eighteengamma}}><br>
+            <input type="text" name="18.qu" class="text_box_soils" value={{eighteenqu}}><br>
+            <input type="text" name="18.ka" class="text_box_soils" value={{eighteenka}}><br>
+            <input type="text" name="18.kp" class="text_box_soils" value={{eighteenkp}}><br>
+            <input type="text" name="18.phi" class="text_box_soils" value={{eighteenphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 19: <br>
+            <input type="hidden" name="19.type" value="0">
+            {% if nineteentype == 0 %}
+            <input type="radio" name="19.type" value="0" checked><br>
+            <input type="radio" name="19.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="19.type" value="0"><br>
+            <input type="radio" name="19.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="19.name" class="text_box_soils" value={{nineteenname}}><br>
+            <input type="text" name="19.gamma" class="text_box_soils" value={{nineteengamma}}><br>
+            <input type="text" name="19.qu" class="text_box_soils" value={{nineteenqu}}><br>
+            <input type="text" name="19.ka" class="text_box_soils" value={{nineteenka}}><br>
+            <input type="text" name="19.kp" class="text_box_soils" value={{nineteenkp}}><br>
+            <input type="text" name="19.phi" class="text_box_soils" value={{nineteenphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            Layer 20: <br>
+            <input type="hidden" name="20.type" value="0">
+            {% if twentytype == 0 %}
+            <input type="radio" name="20.type" value="0" checked><br>
+            <input type="radio" name="20.type" value="1"><br>
+            {% else %}
+            <input type="radio" name="20.type" value="0"><br>
+            <input type="radio" name="20.type" value="1" checked><br>
+            {% endif %}
+            <input type="text" name="20.name" class="text_box_soils" value={{twentyname}}><br>
+            <input type="text" name="20.gamma" class="text_box_soils" value={{twentygamma}}><br>
+            <input type="text" name="20.qu" class="text_box_soils" value={{twentyqu}}><br>
+            <input type="text" name="20.ka" class="text_box_soils" value={{twentyka}}><br>
+            <input type="text" name="20.kp" class="text_box_soils" value={{twentykp}}><br>
+            <input type="text" name="20.phi" class="text_box_soils" value={{twentyphi}}><br>
+        </div>
+        <div class="grid-item-soils">
+            <br>
+            <br>
+            Granular or<br>
+            Cohesive<br>
+            Name<br>
+            ɣ(pcf)<br>
+            qu(tsf) <br>
+            Ka <br>
+            Kp <br>
+            ϕ(°) <br>
+        </div>
+    </div>
+    <h3>Input Work Points and Misc. Data</h3>
+    Put in work points in descending order.  First work point must be the surface.
+    Changes in layer must be put in as two separate work points.<br>
+    If you need to switch to total weights at any point, check the box for the work point at which to
+    begin calculating by total weights.<br>
+    <br>
+    <input type="hidden" name="wp1_wat" value="0">
+    <input type="hidden" name="wp2_wat" value="0">
+    <input type="hidden" name="wp3_wat" value="0">
+    <input type="hidden" name="wp4_wat" value="0">
+    <input type="hidden" name="wp5_wat" value="0">
+    <input type="hidden" name="wp6_wat" value="0">
+    <input type="hidden" name="wp7_wat" value="0">
+    <input type="hidden" name="wp8_wat" value="0">
+    <input type="hidden" name="wp9_wat" value="0">
+    <input type="hidden" name="wp10_wat" value="0">
+    <input type="hidden" name="wp11_wat" value="0">
+    <input type="hidden" name="wp12_wat" value="0">
+    <input type="hidden" name="wp13_wat" value="0">
+    <input type="hidden" name="wp14_wat" value="0">
+    <input type="hidden" name="wp15_wat" value="0">
+    <input type="hidden" name="wp16_wat" value="0">
+    <input type="hidden" name="wp17_wat" value="0">
+    <input type="hidden" name="wp18_wat" value="0">
+    <input type="hidden" name="wp19_wat" value="0">
+    <input type="hidden" name="wp20_wat" value="0">
+    <input type="hidden" name="wp21_wat" value="0">
+    <input type="hidden" name="wp22_wat" value="0">
+    <input type="hidden" name="wp23_wat" value="0">
+    <input type="hidden" name="wp24_wat" value="0">
+    <input type="hidden" name="wp25_wat" value="0">
+    <input type="hidden" name="wp26_wat" value="0">
+    <input type="hidden" name="wp27_wat" value="0">
+    <input type="hidden" name="wp28_wat" value="0">
+    <input type="hidden" name="wp29_wat" value="0">
+    <input type="hidden" name="wp30_wat" value="0">
+    <input type="hidden" name="wp31_wat" value="0">
+    <input type="hidden" name="wp32_wat" value="0">
+    <input type="hidden" name="wp33_wat" value="0">
+    <input type="hidden" name="wp34_wat" value="0">
+    <input type="hidden" name="wp35_wat" value="0">
+    <input type="hidden" name="wp36_wat" value="0">
+    <input type="hidden" name="wp37_wat" value="0">
+    <input type="hidden" name="wp38_wat" value="0">
+    <input type="hidden" name="wp39_wat" value="0">
+    <input type="hidden" name="wp40_wat" value="0">
 
+     <div class="grid-container-wp">
+        <div class="grid-item-wp">
+            {% if total_weights == -1 %}
+            WP1: <input type="radio" name="total_weights" value="-1" checked><br>
+            {% else %}
+            WP1: <input type="radio" name="total_weights" value="-1"><br>
+            {% endif %}
+            <input type="text" name="wp1" class="text_box_wp" value={{wp1}}><br>
+            <input type='text' name="wp1_layer" class="text_box_wp" value={{wp1_layer}}><br>
+            <input type='text' name="wp1_layer_front" class="text_box_wp" value={{wp1_layer_front}}><br>
+            <br>
+        </div>
+         <div class="grid-item-wp">
+            {% if total_weights == 0 %}
+            WP2: <input type="radio" name="total_weights" value="0" checked><br>
+            {% else %}
+            WP2: <input type="radio" name="total_weights" value="0"><br>
+            {% endif %}
+            <input type="text" name="wp2" class="text_box_wp" value={{wp2}}><br>
+            <input type='text' name="wp2_layer" class="text_box_wp" value={{wp2_layer}}><br>
+             <input type='text' name="wp2_layer_front" class="text_box_wp" value={{wp2_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 1 %}
+            WP3: <input type="radio" name="total_weights" value="1" checked><br>
+            {% else %}
+            WP3: <input type="radio" name="total_weights" value="1"><br>
+            {% endif %}
+            <input type="text" name="wp3" class="text_box_wp" value={{wp3}}><br>
+            <input type='text' name="wp3_layer" class="text_box_wp" value={{wp3_layer}}><br>
+            <input type='text' name="wp3_layer_front" class="text_box_wp" value={{wp3_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+           {% if total_weights == 2 %}
+            WP4: <input type="radio" name="total_weights" value="2" checked><br>
+            {% else %}
+            WP4: <input type="radio" name="total_weights" value="2"><br>
+            {% endif %}
+            <input type="text" name="wp4" class="text_box_wp" value={{wp4}}><br>
+            <input type='text' name="wp4_layer" class="text_box_wp" value={{wp4_layer}}><br>
+            <input type='text' name="wp4_layer_front" class="text_box_wp" value={{wp4_layer_front}}><br>
+        </div>
+       <div class="grid-item-wp">
+            {% if total_weights == 3 %}
+            WP5: <input type="radio" name="total_weights" value="3" checked><br>
+            {% else %}
+            WP5: <input type="radio" name="total_weights" value="3"><br>
+            {% endif %}
+            <input type="text" name="wp5" class="text_box_wp" value={{wp5}}><br>
+            <input type='text' name="wp5_layer" class="text_box_wp" value={{wp5_layer}}><br>
+           <input type='text' name="wp5_layer_front" class="text_box_wp" value={{wp5_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 4 %}
+            WP6: <input type="radio" name="total_weights" value="4" checked><br>
+            {% else %}
+            WP6: <input type="radio" name="total_weights" value="4"><br>
+            {% endif %}
+            <input type="text" name="wp6" class="text_box_wp" value={{wp6}}><br>
+            <input type='text' name="wp6_layer" class="text_box_wp" value={{wp6_layer}}><br>
+            <input type='text' name="wp6_layer_front" class="text_box_wp" value={{wp6_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 5 %}
+            WP7: <input type="radio" name="total_weights" value="5" checked><br>
+            {% else %}
+            WP7: <input type="radio" name="total_weights" value="5"><br>
+            {% endif %}
+            <input type="text" name="wp7" class="text_box_wp" value={{wp7}}><br>
+            <input type='text' name="wp7_layer" class="text_box_wp" value={{wp7_layer}}><br>
+            <input type='text' name="wp7_layer_front" class="text_box_wp" value={{wp7_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 6 %}
+            WP8: <input type="radio" name="total_weights" value="6" checked><br>
+            {% else %}
+            WP8: <input type="radio" name="total_weights" value="6"><br>
+            {% endif %}
+            <input type="text" name="wp8" class="text_box_wp" value={{wp8}}><br>
+            <input type='text' name="wp8_layer" class="text_box_wp" value={{wp8_layer}}><br>
+            <input type='text' name="wp8_layer_front" class="text_box_wp" value={{wp8_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 7 %}
+            WP9: <input type="radio" name="total_weights" value="7" checked><br>
+            {% else %}
+            WP9: <input type="radio" name="total_weights" value="7"><br>
+            {% endif %}
+            <input type="text" name="wp9" class="text_box_wp" value={{wp9}}><br>
+            <input type='text' name="wp9_layer" class="text_box_wp" value={{wp9_layer}}><br>
+            <input type='text' name="wp9_layer_front" class="text_box_wp" value={{wp9_layer_front}}><br>
+        </div>
+       <div class="grid-item-wp">
+            {% if total_weights == 8 %}
+            WP10: <input type="radio" name="total_weights" value="8" checked><br>
+            {% else %}
+            WP10: <input type="radio" name="total_weights" value="8"><br>
+            {% endif %}
+            <input type="text" name="wp10" class="text_box_wp" value={{wp10}}><br>
+            <input type='text' name="wp10_layer" class="text_box_wp" value={{wp10_layer}}><br>
+           <input type='text' name="wp10_layer_front" class="text_box_wp" value={{wp10_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            <br>
+            &nbsp;Total Weights?<br>
+            &nbsp;Elevation<br>
+            &nbsp;Layer(backside)<br>
+            &nbsp;Layer(frontside)<br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 9 %}
+            WP11: <input type="radio" name="total_weights" value="9" checked><br>
+            {% else %}
+            WP11: <input type="radio" name="total_weights" value="9"><br>
+            {% endif %}
+            <input type="text" name="wp11" class="text_box_wp" value={{wp11}}><br>
+            <input type='text' name="wp11_layer" class="text_box_wp" value={{wp11_layer}}><br>
+            <input type='text' name="wp11_layer_front" class="text_box_wp" value={{wp11_layer_front}}><br>
+            <br>
+        </div>
+         <div class="grid-item-wp">
+           {% if total_weights == 10 %}
+            WP12: <input type="radio" name="total_weights" value="10" checked><br>
+            {% else %}
+            WP12: <input type="radio" name="total_weights" value="10"><br>
+            {% endif %}
+            <input type="text" name="wp12" class="text_box_wp" value={{wp12}}><br>
+            <input type='text' name="wp12_layer" class="text_box_wp" value={{wp12_layer}}><br>
+             <input type='text' name="wp12_layer_front" class="text_box_wp" value={{wp12_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 11 %}
+            WP13: <input type="radio" name="total_weights" value="11" checked><br>
+            {% else %}
+            WP13: <input type="radio" name="total_weights" value="11"><br>
+            {% endif %}
+            <input type="text" name="wp13" class="text_box_wp" value={{wp13}}><br>
+            <input type='text' name="wp13_layer" class="text_box_wp" value={{wp13_layer}}><br>
+            <input type='text' name="wp13_layer_front" class="text_box_wp" value={{wp13_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+           {% if total_weights == 12 %}
+            WP14: <input type="radio" name="total_weights" value="12" checked><br>
+            {% else %}
+            WP14: <input type="radio" name="total_weights" value="12"><br>
+            {% endif %}
+            <input type="text" name="wp14" class="text_box_wp" value={{wp14}}><br>
+            <input type='text' name="wp14_layer" class="text_box_wp" value={{wp14_layer}}><br>
+            <input type='text' name="wp14_layer_front" class="text_box_wp" value={{wp14_layer_front}}><br>
+        </div>
+       <div class="grid-item-wp">
+            {% if total_weights == 13 %}
+            WP15: <input type="radio" name="total_weights" value="13" checked><br>
+            {% else %}
+            WP15: <input type="radio" name="total_weights" value="13"><br>
+            {% endif %}
+            <input type="text" name="wp15" class="text_box_wp" value={{wp15}}><br>
+            <input type='text' name="wp15_layer" class="text_box_wp" value={{wp15_layer}}><br>
+           <input type='text' name="wp15_layer_front" class="text_box_wp" value={{wp15_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+           {% if total_weights == 14 %}
+            WP16: <input type="radio" name="total_weights" value="14" checked><br>
+            {% else %}
+            WP16: <input type="radio" name="total_weights" value="14"><br>
+            {% endif %}
+            <input type="text" name="wp16" class="text_box_wp" value={{wp16}}><br>
+            <input type='text' name="wp16_layer" class="text_box_wp" value={{wp16_layer}}><br>
+            <input type='text' name="wp16_layer_front" class="text_box_wp" value={{wp16_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 15 %}
+            WP17: <input type="radio" name="total_weights" value="15" checked><br>
+            {% else %}
+            WP17: <input type="radio" name="total_weights" value="15"><br>
+            {% endif %}
+            <input type="text" name="wp17" class="text_box_wp" value={{wp17}}><br>
+            <input type='text' name="wp17_layer" class="text_box_wp" value={{wp17_layer}}><br>
+            <input type='text' name="wp17_layer_front" class="text_box_wp" value={{wp17_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 16 %}
+            WP18: <input type="radio" name="total_weights" value="16" checked><br>
+            {% else %}
+            WP18: <input type="radio" name="total_weights" value="16"><br>
+            {% endif %}
+            <input type="text" name="wp18" class="text_box_wp" value={{wp18}}><br>
+            <input type='text' name="wp18_layer" class="text_box_wp" value={{wp18_layer}}><br>
+            <input type='text' name="wp18_layer_front" class="text_box_wp" value={{wp18_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 17 %}
+            WP19: <input type="radio" name="total_weights" value="17" checked><br>
+            {% else %}
+            WP19: <input type="radio" name="total_weights" value="17"><br>
+            {% endif %}
+            <input type="text" name="wp19" class="text_box_wp" value={{wp19}}><br>
+            <input type='text' name="wp19_layer" class="text_box_wp" value={{wp19_layer}}><br>
+            <input type='text' name="wp19_layer_front" class="text_box_wp" value={{wp19_layer_front}}><br>
+        </div>
+       <div class="grid-item-wp">
+            {% if total_weights == 18 %}
+            WP20: <input type="radio" name="total_weights" value="18" checked><br>
+            {% else %}
+            WP20: <input type="radio" name="total_weights" value="18"><br>
+            {% endif %}
+            <input type="text" name="wp20" class="text_box_wp" value={{wp20}}><br>
+            <input type='text' name="wp20_layer" class="text_box_wp" value={{wp20_layer}}><br>
+           <input type='text' name="wp20_layer_front" class="text_box_wp" value={{wp20_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            <br>
+            &nbsp;Total Weights?<br>
+            &nbsp;Elevation<br>
+            &nbsp;Layer(backside)<br>
+            &nbsp;Layer(frontside)<br>
+        </div>
+        <div class="grid-item-wp">
+           {% if total_weights == 19 %}
+            WP21: <input type="radio" name="total_weights" value="19" checked><br>
+            {% else %}
+            WP21: <input type="radio" name="total_weights" value="19"><br>
+            {% endif %}
+            <input type="text" name="wp21" class="text_box_wp" value={{wp21}}><br>
+            <input type='text' name="wp21_layer" class="text_box_wp" value={{wp21_layer}}><br>
+            <input type='text' name="wp21_layer_front" class="text_box_wp" value={{wp21_layer_front}}><br>
+            <br>
+        </div>
+         <div class="grid-item-wp">
+            {% if total_weights == 20 %}
+            WP22: <input type="radio" name="total_weights" value="20" checked><br>
+            {% else %}
+            WP22: <input type="radio" name="total_weights" value="20"><br>
+            {% endif %}
+            <input type="text" name="wp22" class="text_box_wp" value={{wp22}}><br>
+            <input type='text' name="wp22_layer" class="text_box_wp" value={{wp22_layer}}><br>
+             <input type='text' name="wp22_layer_front" class="text_box_wp" value={{wp22_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 21 %}
+            WP23: <input type="radio" name="total_weights" value="21" checked><br>
+            {% else %}
+            WP23: <input type="radio" name="total_weights" value="21"><br>
+            {% endif %}
+            <input type="text" name="wp23" class="text_box_wp" value={{wp23}}><br>
+            <input type='text' name="wp23_layer" class="text_box_wp" value={{wp23_layer}}><br>
+            <input type='text' name="wp23_layer_front" class="text_box_wp" value={{wp23_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+           {% if total_weights == 22 %}
+            WP24: <input type="radio" name="total_weights" value="22" checked><br>
+            {% else %}
+            WP24: <input type="radio" name="total_weights" value="22"><br>
+            {% endif %}
+            <input type="text" name="wp24" class="text_box_wp" value={{wp24}}><br>
+            <input type='text' name="wp24_layer" class="text_box_wp" value={{wp24_layer}}><br>
+            <input type='text' name="wp24_layer_front" class="text_box_wp" value={{wp24_layer_front}}><br>
+        </div>
+       <div class="grid-item-wp">
+            {% if total_weights == 23 %}
+            WP25: <input type="radio" name="total_weights" value="23" checked><br>
+            {% else %}
+            WP25: <input type="radio" name="total_weights" value="23"><br>
+            {% endif %}
+            <input type="text" name="wp25" class="text_box_wp" value={{wp25}}><br>
+            <input type='text' name="wp25_layer" class="text_box_wp" value={{wp25_layer}}><br>
+           <input type='text' name="wp25_layer_front" class="text_box_wp" value={{wp25_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+           {% if total_weights == 24 %}
+            WP26: <input type="radio" name="total_weights" value="24" checked><br>
+            {% else %}
+            WP26: <input type="radio" name="total_weights" value="24"><br>
+            {% endif %}
+            <input type="text" name="wp26" class="text_box_wp" value={{wp26}}><br>
+            <input type='text' name="wp26_layer" class="text_box_wp" value={{wp26_layer}}><br>
+            <input type='text' name="wp26_layer_front" class="text_box_wp" value={{wp26_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 25 %}
+            WP27: <input type="radio" name="total_weights" value="25" checked><br>
+            {% else %}
+            WP27: <input type="radio" name="total_weights" value="25"><br>
+            {% endif %}
+            <input type="text" name="wp27" class="text_box_wp" value={{wp27}}><br>
+            <input type='text' name="wp27_layer" class="text_box_wp" value={{wp27_layer}}><br>
+            <input type='text' name="wp27_layer_front" class="text_box_wp" value={{wp27_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 26 %}
+            WP28: <input type="radio" name="total_weights" value="26" checked><br>
+            {% else %}
+            WP28: <input type="radio" name="total_weights" value="26"><br>
+            {% endif %}
+            <input type="text" name="wp28" class="text_box_wp" value={{wp28}}><br>
+            <input type='text' name="wp28_layer" class="text_box_wp" value={{wp28_layer}}><br>
+            <input type='text' name="wp28_layer_front" class="text_box_wp" value={{wp28_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 27 %}
+            WP29: <input type="radio" name="total_weights" value="27" checked><br>
+            {% else %}
+            WP29: <input type="radio" name="total_weights" value="27"><br>
+            {% endif %}
+            <input type="text" name="wp29" class="text_box_wp" value={{wp29}}><br>
+            <input type='text' name="wp29_layer" class="text_box_wp" value={{wp29_layer}}><br>
+            <input type='text' name="wp29_layer_front" class="text_box_wp" value={{wp29_layer_front}}><br>
+        </div>
+       <div class="grid-item-wp">
+            {% if total_weights == 28 %}
+            WP30: <input type="radio" name="total_weights" value="28" checked><br>
+            {% else %}
+            WP30: <input type="radio" name="total_weights" value="28"><br>
+            {% endif %}
+            <input type="text" name="wp30" class="text_box_wp" value={{wp30}}><br>
+            <input type='text' name="wp30_layer" class="text_box_wp" value={{wp30_layer}}><br>
+           <input type='text' name="wp30_layer_front" class="text_box_wp" value={{wp30_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            <br>
+            &nbsp;Total Weights?<br>
+            &nbsp;Elevation<br>
+            &nbsp;Layer(backside)<br>
+            &nbsp;Layer(frontside)<br>
+        </div>
+        <div class="grid-item-wp">
+           {% if total_weights == 29 %}
+            WP31: <input type="radio" name="total_weights" value="29" checked><br>
+            {% else %}
+            WP31: <input type="radio" name="total_weights" value="29"><br>
+            {% endif %}
+            <input type="text" name="wp31" class="text_box_wp" value={{wp31}}><br>
+            <input type='text' name="wp31_layer" class="text_box_wp" value={{wp31_layer}}><br>
+            <input type='text' name="wp31_layer_front" class="text_box_wp" value={{wp31_layer_front}}><br>
+            <br>
+        </div>
+         <div class="grid-item-wp">
+            {% if total_weights == 30 %}
+            WP32: <input type="radio" name="total_weights" value="30" checked><br>
+            {% else %}
+            WP32: <input type="radio" name="total_weights" value="30"><br>
+            {% endif %}
+            <input type="text" name="wp32" class="text_box_wp" value={{wp32}}><br>
+            <input type='text' name="wp32_layer" class="text_box_wp" value={{wp32_layer}}><br>
+             <input type='text' name="wp32_layer_front" class="text_box_wp" value={{wp32_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 31 %}
+            WP33: <input type="radio" name="total_weights" value="31" checked><br>
+            {% else %}
+            WP33: <input type="radio" name="total_weights" value="31"><br>
+            {% endif %}
+            <input type="text" name="wp33" class="text_box_wp" value={{wp33}}><br>
+            <input type='text' name="wp33_layer" class="text_box_wp" value={{wp33_layer}}><br>
+            <input type='text' name="wp33_layer_front" class="text_box_wp" value={{wp33_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+           {% if total_weights == 32 %}
+            WP34: <input type="radio" name="total_weights" value="32" checked><br>
+            {% else %}
+            WP34: <input type="radio" name="total_weights" value="32"><br>
+            {% endif %}
+            <input type="text" name="wp34" class="text_box_wp" value={{wp34}}><br>
+            <input type='text' name="wp34_layer" class="text_box_wp" value={{wp34_layer}}><br>
+            <input type='text' name="wp34_layer_front" class="text_box_wp" value={{wp34_layer_front}}><br>
+        </div>
+       <div class="grid-item-wp">
+            {% if total_weights == 33 %}
+            WP35: <input type="radio" name="total_weights" value="33" checked><br>
+            {% else %}
+            WP35: <input type="radio" name="total_weights" value="33"><br>
+            {% endif %}
+            <input type="text" name="wp35" class="text_box_wp" value={{wp35}}><br>
+            <input type='text' name="wp35_layer" class="text_box_wp" value={{wp35_layer}}><br>
+           <input type='text' name="wp35_layer_front" class="text_box_wp" value={{wp35_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+           {% if total_weights == 34 %}
+            WP36: <input type="radio" name="total_weights" value="34" checked><br>
+            {% else %}
+            WP36: <input type="radio" name="total_weights" value="34"><br>
+            {% endif %}
+            <input type="text" name="wp36" class="text_box_wp" value={{wp36}}><br>
+            <input type='text' name="wp36_layer" class="text_box_wp" value={{wp36_layer}}><br>
+            <input type='text' name="wp36_layer_front" class="text_box_wp" value={{wp36_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 35 %}
+            WP37: <input type="radio" name="total_weights" value="35" checked><br>
+            {% else %}
+            WP37: <input type="radio" name="total_weights" value="35"><br>
+            {% endif %}
+            <input type="text" name="wp37" class="text_box_wp" value={{wp37}}><br>
+            <input type='text' name="wp37_layer" class="text_box_wp" value={{wp37_layer}}><br>
+            <input type='text' name="wp37_layer_front" class="text_box_wp" value={{wp37_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 36 %}
+            WP38: <input type="radio" name="total_weights" value="36" checked><br>
+            {% else %}
+            WP38: <input type="radio" name="total_weights" value="36"><br>
+            {% endif %}
+            <input type="text" name="wp38" class="text_box_wp" value={{wp38}}><br>
+            <input type='text' name="wp38_layer" class="text_box_wp" value={{wp38_layer}}><br>
+            <input type='text' name="wp38_layer_front" class="text_box_wp" value={{wp38_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            {% if total_weights == 37 %}
+            WP39: <input type="radio" name="total_weights" value="37" checked><br>
+            {% else %}
+            WP39: <input type="radio" name="total_weights" value="37"><br>
+            {% endif %}
+            <input type="text" name="wp39" class="text_box_wp" value={{wp39}}><br>
+            <input type='text' name="wp39_layer" class="text_box_wp" value={{wp39_layer}}><br>
+            <input type='text' name="wp39_layer_front" class="text_box_wp" value={{wp39_layer_front}}><br>
+        </div>
+       <div class="grid-item-wp">
+            {% if total_weights == 38 %}
+            WP40: <input type="radio" name="total_weights" value="38" checked><br>
+            {% else %}
+            WP40: <input type="radio" name="total_weights" value="38"><br>
+            {% endif %}
+            <input type="text" name="wp40" class="text_box_wp" value={{wp40}}><br>
+            <input type='text' name="wp40_layer" class="text_box_wp" value={{wp40_layer}}><br>
+           <input type='text' name="wp40_layer_front" class="text_box_wp" value={{wp40_layer_front}}><br>
+        </div>
+        <div class="grid-item-wp">
+            <br>
+            &nbsp;Total Weights?<br>
+            &nbsp;Elevation<br>
+            &nbsp;Layer(backside)<br>
+            &nbsp;Layer(frontside)<br>
+        </div>
+
+    </div>
+    <br>
+   {% if total_weights == 200 %}
+    Do not switch to total weights at any point <input type="radio" name="total_weights" value="200" checked><br>
+    {% else %}
+    Do not switch to total weights at any point <input type="radio" name="total_weights" value="200"><br>
+    {% endif %}
+    <input type="hidden" name="wat_check" value="0">
+    {% if wat_check == 1 %}
+    Check for water around toe? <input type="checkbox" name="wat_check" value='1' checked><br>
+    {% else %}
+    Check for water around toe? <input type="checkbox" name="wat_check" value='1'><br>
+    {% endif %}
+    <br>
+    <input type="text" name="water_elev" class="text_box" value={{water_elev}}> Water Elevation (leave blank if does not apply)<br>
+    <input type="text" name="water_cut_elev" class="text_box" value={{water_cut_elev}}> If water elev on the passive side is not at the cut, enter it here<br>
+    <input type="text" name="cut_elev" class="text_box" value={{cut_elev}}> Enter the elevation of the cut.<br>
+    <input type="text" name="top_brace_elev" class="text_box" value={{top_brace_elev}}> Elevation of T1 Brace<br>
+    <input type="text" name="mid_brace_elev" class="text_box" value={{mid_brace_elev}}> Elevation of T2 Brace<br>
+    <input type="text" name="bot_brace_elev" class="text_box" value={{bot_brace_elev}}> Elevation of T3 Brace<br>
+    <br>
+    Apparent Pressure Diagram Type<br>
+    {% if diagram_type == 1 %}
+    <input type="radio" name="diagram_type" value="1" checked>Soft Clay<br>
+    <input type="radio" name="diagram_type" value="2">Stiff Clay<br>
+    <input type="radio" name="diagram_type" value="3">Sand<br>
+    {% endif %}
+    {% if diagram_type == 2 %}
+    <input type="radio" name="diagram_type" value="1">Soft Clay<br>
+    <input type="radio" name="diagram_type" value="2" checked>Stiff Clay<br>
+    <input type="radio" name="diagram_type" value="3">Sand<br>
+    {% endif %}
+    {% if diagram_type == 3 %}
+    <input type="radio" name="diagram_type" value="1">Soft Clay<br>
+    <input type="radio" name="diagram_type" value="2">Stiff Clay<br>
+    <input type="radio" name="diagram_type" value="3" checked>Sand<br>
+    {% endif %}
+    <br>
+    <input type="text" name="backside_x" class="text_box" value={{backside_x}}> Back Side Shear Length (x-coordinate)<br>
+    <input type="text" name="backside_y" class="text_box" value={{backside_y}}> Back Side Shear Height (y-coordinate)<br>
+    <input type="text" name="top_sheet" class="text_box" value={{top_sheet}}> Enter in the top of sheet if it does not coincide with the top of surface (optional)<br>
+    <input type="text" name="supplied_length" class="text_box" value={{supplied_length}}> Supplied Length (ft)<br>
+    <input type="text" name="scale_factor" class="text_box" value={{scale_factor}}> Deflected Shape Scale Factor<br>
+    Larger the number, more pronounced deflected shape (try ~2000)<br>
+    <br>
+    Type of ERS:<br>
+   {% if ers_type == 0 %}
+    <input type="radio" name="ers_type" value="0" checked>Sheet Piles<br>
+    <input type="radio" name="ers_type" value="1">Soldier Piles<br>
+    {% else %}
+    <input type="radio" name="ers_type" value="0">Sheet Piles<br>
+    <input type="radio" name="ers_type" value="1" checked>Soldier Piles<br>
+    {% endif %}
+    <br>
+    If sheet pile analysis:<br>
+    Choose sheeting type: <select name="sheet_type">
+     <option value={{sheet_type}}>{{saved_sheet_pile}}</option>
+    <option value="1">MSZ13-312</option>
+    <option value="2">MSZ13-340</option>
+    <option value="3">MSZ13-350</option>
+    <option value="4">MSZ13-375</option>
+    <option value="5">MSZ13-406</option>
+    <option value="6">MSZ14-312</option>
+    <option value="7">MSZ14-340</option>
+    <option value="8">MSZ14-350</option>
+    <option value="9">MSZ14-375</option>
+    <option value="10">MSZ14-406</option>
+    <option value="11">MSZ15-312</option>
+    <option value="12">MSZ15-340</option>
+    <option value="13">MSZ15-350</option>
+    <option value="14">MSZ15-375</option>
+    <option value="15">MSZ15-406</option>
+    <option value="16">MSZ16-312</option>
+    <option value="17">MSZ16-340</option>
+    <option value="18">MSZ16-350</option>
+    <option value="19">MSZ16-375</option>
+    <option value="20">MSZ16-406</option>
+    <option value="21">MSZ17-312</option>
+    <option value="22">MSZ17-340</option>
+    <option value="23">MSZ17-350</option>
+    <option value="24">MSZ17-375</option>
+    <option value="25">MSZ17-406</option>
+    <option value="26">MSZ18-312</option>
+    <option value="27">MSZ18-340</option>
+    <option value="28">MSZ18-350</option>
+    <option value="29">MSZ18-375</option>
+    <option value="30">MSZ18-406</option>
+    <option value="31">MSZ19-340</option>
+    <option value="32">MSZ19-350</option>
+    <option value="33">MSZ19-375</option>
+    <option value="34">MSZ19-406</option>
+    <option value="35">SZ-14.5</option>
+    <option value="36">SZ-14.5RU</option>
+    <option value="37">SZ-18</option>
+    <option value="38">SZ-20</option>
+    <option value="39">SZ-21</option>
+    <option value="40">SZ-22</option>
+    <option value="41">SZ-250</option>
+    <option value="42">SZ-313</option>
+    <option value="43">SZ-340</option>
+    <option value="44">SZ-350</option>
+    <option value="45">SZ-375</option>
+    <option value="46">PZ 22</option>
+    <option value="47">PZ 27</option>
+    <option value="48">PZ 35</option>
+    <option value="49">PZ 40</option>
+    <option value="50">SCZ 14</option>
+    <option value="51">SCZ 16</option>
+    <option value="52">SCZ 17N</option>
+    <option value="53">SCZ 18N</option>
+    <option value="54">SCZ 21N</option>
+    <option value="55">SKZ 20</option>
+    <option value="56">SKZ 22</option>
+    <option value="57">SKZ 23</option>
+    <option value="58">SKZ 24</option>
+    <option value="59">SKZ 25</option>
+    <option value="60">SKZ 31</option>
+    <option value="61">SKZ 33</option>
+    <option value="62">SKZ 34</option>
+    <option value="63">SKZ 36</option>
+    <option value="64">SKZ 38</option>
+    <option value="65">PZC 13</option>
+    <option value="66">PZC 14</option>
+    <option value="67">PZC 18</option>
+    <option value="68">PZC 19</option>
+    <option value="69">PZC 25</option>
+    <option value="70">PZC 26</option>
+    <option value="71">PZC 28</option>
+    <option value="72">PZC 37</option>
+    <option value="73">PZC 39</option>
+    <option value="74">PZC 41</option>
+    <option value="75">AZ 39-700</option>
+    <option value="76">MSZ10-312</option>
+    <option value="77">MSZ10-340</option>
+    <option value="78">MSZ10-350</option>
+    <option value="79">MSZ10-375</option>
+    <option value="80">MSZ10-406</option>
+    <option value="81">MSZ11-312</option>
+    <option value="82">MSZ11-340</option>
+    <option value="83">MSZ11-350</option>
+    <option value="84">MSZ11-375</option>
+    <option value="85">MSZ11-406</option>
+    <option value="86">MSZ12-312</option>
+    <option value="87">MSZ12-340</option>
+    <option value="88">MSZ12-350</option>
+    <option value="89">MSZ12-375</option>
+    <option value="90">MSZ12-406</option>
+    <option value="91">LZ-8</option>
+    <option value="92">LZ-7</option>
+    <option value="93">LZ-5</option>
+    <option value="94">LZ-3</option>
+    <option value="95">LZ-250</option>
+    <option value="96">SZ-10</option>
+    <option value="97">SZ-11</option>
+    <option value="98">SZ-12</option>
+    <option value="99">SZ-14</option>
+    <option value="100">SZ-15</option>
+    <option value="101">SZ-222</option>
+    <option value="102">SZ-24</option>
+    <option value="103">SZ-25</option>
+    <option value="104">SZ-27</option>
+    <option value="105">10-10</option>
+    <option value="106">8-8</option>
+    <option value="107">7-7</option>
+    <option value="108">6-6</option>
+    <option value="109">5-5</option>
+    <option value="110">AZ 12-770</option>
+    <option value="111">AZ 13-770</option>
+    <option value="112">AZ 14-770</option>
+    <option value="113">AZ 17-700</option>
+    <option value="114">AZ 18-700</option>
+    <option value="115">AZ 19-700</option>
+    <option value="116">AZ 20-700</option>
+    <option value="117">AZ 18-800</option>
+    <option value="118">AZ 20-800</option>
+    <option value="119">AZ 22-800</option>
+    <option value="120">AZ 23-800</option>
+    <option value="121">AZ 25-800</option>
+    <option value="122">AZ 27-800</option>
+    <option value="123">AZ 24-700</option>
+    <option value="124">AZ 26-700</option>
+    <option value="125">AZ 28-700</option>
+    <option value="126">AZ 28-750</option>
+    <option value="127">AZ 30-750</option>
+    <option value="128">AZ 32-750</option>
+    <option value="129">AZ 36-700N</option>
+    <option value="130">AZ 38-700N</option>
+    <option value="131">AZ 40-700N</option>
+    <option value="132">AZ 42-700N</option>
+    <option value="133">AZ 44-700N</option>
+    <option value="134">AZ 46-700N</option>
+    <option value="135">AZ 46</option>
+    <option value="136">AZ 48</option>
+    <option value="137">AZ 50</option>
+    <option value="138">AZ 48-700</option>
+    <option value="139">AZ 50-700</option>
+    <option value="140">AZ 52-700</option>
+    <option value="141">NZ 14</option>
+    <option value="142">NZ 19</option>
+    <option value="143">NZ 20</option>
+    <option value="144">NZ 21</option>
+    <option value="145">NZ 22</option>
+    <option value="146">NZ 26</option>
+    <option value="147">NZ 28</option>
+    <option value="148">NZ 38</option>
+    <option value="149">NZ 40</option>
+    <option value="150">NZ 42</option>
+    <option value="151">XZ 95</option>
+    <option value="152">ZZ14-770</option>
+    <option value="153">ZZ19-770</option>
+    <option value="154">ZZ26-770</option>
+    <option value="155">ZZ38-770</option>
+
+
+
+
+
+    </select>
+    <br>
+    <br>
+    If soldier pile analysis:
+    <br>
+    <br>
+    Soldier Beam Analysis Method:<br>
+    {% if soldier_beam_method == 0 %}
+     <input type="radio" name="soldier_beam_method" value="0" checked>Method 1: (3*width)(Pp-Pa)<br>
+    <input type="radio" name="soldier_beam_method" value="1">Method 2: (3*width*Pp-1*width*Pa)<=(Pp-Pa)*spacing<br>
+    {% else %}
+    <input type="radio" name="soldier_beam_method" value="0">Method 1: (3*width)(Pp-Pa)<br>
+    <input type="radio" name="soldier_beam_method" value="1" checked>Method 2: (3*width*Pp-1*width*Pa)<=(Pp-Pa)*spacing<br>
+    {% endif %}
+    <br>
+    Soldier pile spacing:<br>
+    <input type="text" name="beam_spacing" class="text_box"><br>
+    Choose soldier pile:<select name="beam_type"><br>
+    <option value={{beam_type}}>{{saved_soldier_pile}}</option>
+    <option value="0">Custom</option>
+    <option value="1">HP8x36</option>
+    <option value="2">HP10x42</option>
+    <option value="3">HP10x57</option>
+    <option value="4">HP12x53</option>
+    <option value="5">HP12x63</option>
+    <option value="6">HP12x74</option>
+    <option value="7">HP12x84</option>
+    <option value="8">HP12x89</option>
+    <option value="9">HP14x73</option>
+    <option value="10">HP14x89</option>
+    <option value="11">HP14x102</option>
+    <option value="12">HP14x117</option>
+    <option value="13">HP16x88</option>
+    <option value="14">HP16x101</option>
+    <option value="15">HP16x121</option>
+    <option value="16">HP16x141</option>
+    <option value="17">HP16x162</option>
+    <option value="18">HP16x183</option>
+    <option value="19">HP18x135</option>
+    <option value="20">HP18x157</option>
+    <option value="21">HP18x181</option>
+    <option value="22">HP18x204</option>
+    </select><br>
+    <input type="text" name="beam_size_override" class="text_box" value={{beam_size_override}}> (Optional) Beam/hole size (in) <br>
+    <input type="text" name="beam_override" class="text_box" value={{beam_override}}> (Optional) Beam name <br>
+    <input type="text" name="beam_modulus_override" class="text_box" value={{beam_modulus_override}}> (Optional) Beam section modulus (in^3) <br>
+    <input type="text" name="beam_inertia_override" class="text_box" value={{beam_inertia_override}}> (Optional) Beam moment of inertia (in^4)<br>
+    <br>
+    <input type="text" name="save_calculation_name" class="text_box"> Save Calculation As (leave blank to not save)<br>
+    <br>
+    <input type="submit" value="Calculate" />
+</form>
+{% else %}
 <form action="{% url 'three_output' %}">
     <h3>Input Footings and/or Rails</h3>
     <div class="grid-container-footings">
@@ -331,6 +1765,7 @@
     <div class="grid-container-soils">
         <div class="grid-item-soils">
             Layer 1: <br>
+            <input type="hidden" name="1.type" value="0">
             <input type="radio" name="1.type" value="0"><br>
             <input type="radio" name="1.type" value="1"><br>
             <input type="text" name="1.name" class="text_box_soils"><br>
@@ -343,6 +1778,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 2: <br>
+            <input type="hidden" name="2.type" value="0">
             <input type="radio" name="2.type" value="0"><br>
             <input type="radio" name="2.type" value="1"><br>
             <input type="text" name="2.name" class="text_box_soils"><br>
@@ -354,6 +1790,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 3: <br>
+            <input type="hidden" name="3.type" value="0">
             <input type="radio" name="3.type" value="0"><br>
             <input type="radio" name="3.type" value="1"><br>
             <input type="text" name="3.name" class="text_box_soils"><br>
@@ -365,6 +1802,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 4: <br>
+            <input type="hidden" name="4.type" value="0">
             <input type="radio" name="4.type" value="0"><br>
             <input type="radio" name="4.type" value="1"><br>
             <input type="text" name="4.name" class="text_box_soils"><br>
@@ -376,6 +1814,7 @@
         </div>
         <div class=grid-item-soils">
             Layer 5: <br>
+            <input type="hidden" name="5.type" value="0">
             <input type="radio" name="5.type" value="0"><br>
             <input type="radio" name="5.type" value="1"><br>
             <input type="text" name="5.name" class="text_box_soils"><br>
@@ -387,6 +1826,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 6: <br>
+            <input type="hidden" name="6.type" value="0">
             <input type="radio" name="6.type" value="0"><br>
             <input type="radio" name="6.type" value="1"><br>
             <input type="text" name="6.name" class="text_box_soils"><br>
@@ -398,6 +1838,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 7: <br>
+            <input type="hidden" name="7.type" value="0">
             <input type="radio" name="7.type" value="0"><br>
             <input type="radio" name="7.type" value="1"><br>
             <input type="text" name="7.name" class="text_box_soils"><br>
@@ -420,6 +1861,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 8: <br>
+            <input type="hidden" name="8.type" value="0">
             <input type="radio" name="8.type" value="0"><br>
             <input type="radio" name="8.type" value="1"><br>
             <input type="text" name="8.name" class="text_box_soils"><br>
@@ -431,6 +1873,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 9: <br>
+            <input type="hidden" name="9.type" value="0">
             <input type="radio" name="9.type" value="0"><br>
             <input type="radio" name="9.type" value="1"><br>
             <input type="text" name="9.name" class="text_box_soils"><br>
@@ -442,6 +1885,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 10: <br>
+            <input type="hidden" name="10.type" value="0">
             <input type="radio" name="10.type" value="0"><br>
             <input type="radio" name="10.type" value="1"><br>
             <input type="text" name="10.name" class="text_box_soils"><br>
@@ -453,6 +1897,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 11: <br>
+            <input type="hidden" name="11.type" value="0">
             <input type="radio" name="11.type" value="0"><br>
             <input type="radio" name="11.type" value="1"><br>
             <input type="text" name="11.name" class="text_box_soils"><br>
@@ -464,6 +1909,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 12: <br>
+            <input type="hidden" name="12.type" value="0">
             <input type="radio" name="12.type" value="0"><br>
             <input type="radio" name="12.type" value="1"><br>
             <input type="text" name="12.name" class="text_box_soils"><br>
@@ -475,6 +1921,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 13: <br>
+            <input type="hidden" name="13.type" value="0">
             <input type="radio" name="13.type" value="0"><br>
             <input type="radio" name="13.type" value="1"><br>
             <input type="text" name="13.name" class="text_box_soils"><br>
@@ -486,6 +1933,7 @@
         </div>
         <div class="grid-item-soils">
             Layer 14: <br>
+            <input type="hidden" name="14.type" value="0">
             <input type="radio" name="14.type" value="0"><br>
             <input type="radio" name="14.type" value="1"><br>
             <input type="text" name="14.name" class="text_box_soils"><br>
@@ -509,6 +1957,7 @@
         <div class="grid-item-soils">
             <br>
             Layer 15: <br>
+            <input type="hidden" name="15.type" value="0">
             <input type="radio" name="15.type" value="0"><br>
             <input type="radio" name="15.type" value="1"><br>
             <input type="text" name="15.name" class="text_box_soils"><br>
@@ -521,6 +1970,7 @@
         <div class="grid-item-soils">
             <br>
             Layer 16: <br>
+            <input type="hidden" name="16.type" value="0">
             <input type="radio" name="16.type" value="0"><br>
             <input type="radio" name="16.type" value="1"><br>
             <input type="text" name="16.name" class="text_box_soils"><br>
@@ -533,6 +1983,7 @@
         <div class="grid-item-soils">
             <br>
             Layer 17: <br>
+            <input type="hidden" name="17.type" value="0">
             <input type="radio" name="17.type" value="0"><br>
             <input type="radio" name="17.type" value="1"><br>
             <input type="text" name="17.name" class="text_box_soils"><br>
@@ -545,6 +1996,7 @@
         <div class="grid-item-soils">
             <br>
             Layer 18: <br>
+            <input type="hidden" name="18.type" value="0">
             <input type="radio" name="18.type" value="0"><br>
             <input type="radio" name="18.type" value="1"><br>
             <input type="text" name="18.name" class="text_box_soils"><br>
@@ -557,6 +2009,7 @@
         <div class="grid-item-soils">
             <br>
             Layer 19: <br>
+            <input type="hidden" name="19.type" value="0">
             <input type="radio" name="19.type" value="0"><br>
             <input type="radio" name="19.type" value="1"><br>
             <input type="text" name="19.name" class="text_box_soils"><br>
@@ -569,6 +2022,7 @@
         <div class="grid-item-soils">
             <br>
             Layer 20: <br>
+            <input type="hidden" name="20.type" value="0">
             <input type="radio" name="20.type" value="0"><br>
             <input type="radio" name="20.type" value="1"><br>
             <input type="text" name="20.name" class="text_box_soils"><br>
@@ -577,8 +2031,7 @@
             <input type="text" name="20.ka" class="text_box_soils"><br>
             <input type="text" name="20.kp" class="text_box_soils"><br>
             <input type="text" name="20.phi" class="text_box_soils"><br>
-        </div>
-        <div class="grid-item-soils">
+
         </div>
         <div class="grid-item-soils">
             <br>
@@ -629,6 +2082,16 @@
     <input type="hidden" name="wp28_wat" value="0">
     <input type="hidden" name="wp29_wat" value="0">
     <input type="hidden" name="wp30_wat" value="0">
+    <input type="hidden" name="wp31_wat" value="0">
+    <input type="hidden" name="wp32_wat" value="0">
+    <input type="hidden" name="wp33_wat" value="0">
+    <input type="hidden" name="wp34_wat" value="0">
+    <input type="hidden" name="wp35_wat" value="0">
+    <input type="hidden" name="wp36_wat" value="0">
+    <input type="hidden" name="wp37_wat" value="0">
+    <input type="hidden" name="wp38_wat" value="0">
+    <input type="hidden" name="wp39_wat" value="0">
+    <input type="hidden" name="wp40_wat" value="0">
 
     <div class="grid-container-wp">
         <div class="grid-item-wp">
@@ -1141,5 +2604,7 @@
     <br>
     <input type="submit" value="Calculate" />
 </form>
+
+{% endif %}
 </body>
 </html>

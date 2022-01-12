@@ -11,7 +11,8 @@ from .Lateral_Pressures import Layer, active_pressures, passive_pressures, water
 # surface_elev = 670  # Used for computing backside passive pressures
 # cut_elev = 658  # Elevation at bottom of excavation
 # water_elev = 666  # Elevation of water
-# brace_elev = 666  # Elevation of single level brace
+# brace_elev = 666  # Elevation
+# of single level brace
 # total_weights = 200  # INDEX in the layers list below in which total weight analysis is switched to if necessary
 #
 # # (height of layer, layer, total surcharge(convert soil surcharge height to psf))
@@ -455,7 +456,11 @@ def multiplier_optimizer(net_pressures, brace_elev, minimum_length_data):
 # moment = maximum_moment(net, min_length[2], brace_elev)
 # deflection = deflection_calc(net, brace_elev, min_length)
 #
-# net = [[0, 1670, 2226, 1686, 1726, 2080, 3339, 3867, 4418, 5289, -1124, -1051, -561, -411, -193, -208, -259, -399, -644, -769, -1014, -1043, -1288, -1347],
-#        [12.5, 6, 4, 4, 3.8, 2, 0, -1, -1, -2, -2, -3, -3, -5, -8, -12, -15, -17, -17, -20, -20, -21.5, -21.5, -23.5]]
-# #
-# print(minimum_length(net, 3.8))
+# net = [[0, 82, 890, 852, 2273, 1212, 1212, 1212, 1212, 831, 1051, 907, -559, -6879, -7097, -7097],
+#        [637, 636, 626, 626, 623.72, 621.5, 621.5, 621.5, 621.5, 620, 620, 619.5, 613, 613, 608, 608]]
+# # # #
+# data = minimum_length(net, 636)
+# print(data)
+# print(maximum_moment(net, data[2], 636))
+# print(deflection_calc(net, 636, data, [14, "MSZ15-375", 28.91, 207.03]))
+# print(multiplier(net, 636, data, 29))

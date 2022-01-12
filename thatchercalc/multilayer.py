@@ -419,16 +419,22 @@ def two_layer_deflection_calc(net_pressures, brace_elev, minimum_length_data, sh
     return def_list, round(max_def_list[0][0], 3), round(max_def_list[0][1], 2)
 
 
-wall_pressures = [0, 3951, 3951, 3951, 4828, 7458, 1760, 1018, 96, -232, -634, -837, -1102, -1925, -1925, -3640, -3640, -5110, -5110]
-wall_elevations = [12.5, 7.38, 3.8, 2, -0.5, -8, -8, -12, -15, -17, -20, -21.5, -23.5, -23.5, -27.5, -27.5, -29.5, -29.5, -35]
-strut_pressures = [0, 4609, 4609, 4609, 5486, 8093]
-strut_elevations = [12.5, 7.38, 3.8, 2, -0.5, -8]
-brace_elevations = [3.8, -0.5]
+wall_pressures = [0, 0, 432, 603, 603, 9603, 5103, 1361, 572, 1454, 1201, 97, -385, -674, -867, -927, -1004]
+wall_elevations = [3, 2.5, 1.5, 1.1, 1.01, 1, -3, -3, -4.2, -4.2, -5, -10, -15, -20, -25, -27, -30]
+strut_pressures = [0, 0, 504, 704, 704, 9704, 8504, 1388]
+strut_elevations = [3, 2.5, 1.5, 1.1, 1.01, 1, -3, -3]
+brace_elevations = [3, 1.5]
 #
-x = two_layer_minimum_length([wall_pressures, wall_elevations, strut_pressures, strut_elevations], brace_elevations)
-y = two_layer_maximum_moment([wall_pressures, wall_elevations], x[2], brace_elevations)
-z = two_layer_multiplier([wall_pressures, wall_elevations], -0.5, x, 42)
-# aa = two_layer_deflection_calc([wall_pressures, wall_elevations], brace_elevations[1], x, [6, "MSZ14-312", 19.62, 120.97])
+
+# x = two_layer_minimum_length([wall_pressures, wall_elevations, strut_pressures, strut_elevations], brace_elevations)
+# print(x)
+# y = two_layer_maximum_moment([wall_pressures, wall_elevations], x[2], brace_elevations)
+# print(y)
+# z = two_layer_multiplier([wall_pressures, wall_elevations], -0.5, x, 30)
+# print(z)
+#
+# aa = two_layer_deflection_calc([wall_pressures, wall_elevations], brace_elevations[1], x, [6, "MSZ14-312", 16.7, 160.8])
+# print(aa)
 
 
 

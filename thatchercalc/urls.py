@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^active_passive_plot', views.active_passive_plot, name='active_passive_plot'),
     url(r'^water_pressure_plot', views.water_pressure_plot, name='water_pressure_plot'),
     url(r'^cant_pp', views.cant_pp, name='cant_pp'),
+    url(r'^loader', views.loader, name='loader')
 ]

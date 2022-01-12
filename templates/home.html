@@ -8,27 +8,38 @@
 <h1>Thatcher Wall Calculators</h1>
 <br>
 <form action="{% url 'cantilever' %}">
+    <input type="hidden" name="saved_calc_load_check" value="0">
     <input type="submit" value="Cantilever Wall Calculator" />
 </form>
 <br>
 <form action="{% url 'braced' %}">
+    <input type="hidden" name="saved_calc_load_check" value="0">
     <input type="submit" value="Braced Wall Calculator" />
 </form>
 <br>
 <form action="{% url 'multilayer' %}">
+    <input type="hidden" name="saved_calc_load_check" value="0">
     <input type="submit" value="Multi-layer Braced Wall Calculator" />
 </form>
 <br>
 <form action="{% url 'three_layer' %}">
+    <input type="hidden" name="saved_calc_load_check" value="0">
     <input type="submit" value="Three-layer Braced Wall Calculator" />
 </form>
 <br>
 <form action="{% url 'micropile_joint_bending_capacity' %}">
+    <input type="hidden" name="saved_calc_load_check" value="0">
     <input type="submit" value="Micropile Joint Bending Capacity" />
 </form>
 <br>
 <form action="{% url 'one_layer_optimizer' %}">
+    <input type="hidden" name="saved_calc_load_check" value="0">
     <input type="submit" value="One Layer Optimizer" />
+</form>
+<br>
+<form action="{% url 'loader' %}">
+    <input type="hidden" name="saved_calc_load_check" value="0">
+    <input type="submit" value="Loader" />
 </form>
 <br>
 </body>

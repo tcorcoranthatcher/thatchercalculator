@@ -991,7 +991,6 @@ def apparent_pressures(active_pressures, passive_pressures, water_pressures, cut
                     vert_pressure) + "psf*" + str(ka_min)
             elif layers[i][1].type == 1 and not cut_active <= vert_pressure * ka_min:
                 active_pressure_string += ")-2*" + str(layers[i][1].qu * 1000) + "psf"
-            else:
                 active_pressure_string += ")*" + str(layers[i][1].ka)
     active_pressure_string += " = " + (str(cut_active)) + " psf"
     text_output.append(active_pressure_string)
