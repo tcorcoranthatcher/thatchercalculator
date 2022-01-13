@@ -3,25 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="108ec191-e15a-4b9c-8198-9801377b90d5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/active_passive_plot.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/active_passive_plot.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/braced.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/braced.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/cant_pp.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cant_pp.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/cantilever.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cantilever.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/multilayer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/multilayer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pressure_plot.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pressure_plot.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/strut_diagram.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/strut_diagram.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/surface.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/surface.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/three_layer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/three_layer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/water_pressure_plot.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/water_pressure_plot.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/Braced.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Braced.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/Lateral_Pressures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/cantilever_solver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/multilayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/multilayer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thatchercalc/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/thatchercalc/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,7 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616786862901</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="SAVE FUNCTION DONE">
+      <created>1642027286350</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1642027286350</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -302,13 +294,18 @@
     <MESSAGE value="idk" />
     <MESSAGE value="started optimizer for bracing, will be editing core functions so this commit is before that point" />
     <MESSAGE value="optimizer complete pending bug fixes&#10;started saving function (NOT FINISHED)&#10;added ZZ sheeting options&#10;fixed bug with braced deflection calculation&#10;added plotting for active/passive/hydrostatic" />
-    <option name="LAST_COMMIT_MESSAGE" value="optimizer complete pending bug fixes&#10;started saving function (NOT FINISHED)&#10;added ZZ sheeting options&#10;fixed bug with braced deflection calculation&#10;added plotting for active/passive/hydrostatic" />
+    <MESSAGE value="SAVE FUNCTION DONE" />
+    <option name="LAST_COMMIT_MESSAGE" value="SAVE FUNCTION DONE" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2627" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1637273294986">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2627" y="376" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1637273294986" />
+    <state x="2534" y="72" key="CommitChangelistDialog2" timestamp="1642027284654">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2534" y="72" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1642027284654" />
     <state width="1899" height="216" key="GridCell.Tab.0.bottom" timestamp="1638827827669">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
